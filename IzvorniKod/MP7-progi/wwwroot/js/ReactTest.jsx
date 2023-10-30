@@ -6,4 +6,4 @@
     }
 }
 
-ReactDOM.render(<ReactTest />, document.getElementById('root'));
+export default ReactTest;
