@@ -416,7 +416,37 @@
 	\end{packed_item}
 \end{packed_item}
 
-
+\noindent \underbar{\textbf{UC11 - Uklanjanje oglasa}}
+\begin{packed_item}
+	
+	\item \textbf{Glavni sudionik: }Registrirani korisnik
+	\item  \textbf{Cilj:} Ukloniti oglas
+	\item  \textbf{Sudionici:} Baza podataka
+	\item  \textbf{Preduvjet:} Korisnik je prijavljen
+	\item  \textbf{Opis osnovnog tijeka:}
+	
+	\item[] \begin{packed_enum}
+		
+		\item Korisnik odabire opciju "Moji oglasi"
+		\item Odabire oglas kojeg želi izbrisati
+		\item Korisnik odabire opciju "Izbriši"
+	\end{packed_enum}
+	
+	\item  \textbf{Opis mogućih odstupanja:}
+	
+	\item[] \begin{packed_item}
+		
+		\item[3.a] korisnik odustaje od brisnja oglasa
+		\item[] \begin{packed_enum}
+			
+			\item Korisnik odabire opciju "Odustani"
+			\item Aplikacija prikazuje listu korisnikovih oglasa
+			
+		\end{packed_enum}
+		
+		
+	\end{packed_item}
+\end{packed_item}
 
 \subsubsection{Dijagrami obrazaca uporabe}
 
@@ -432,9 +462,16 @@
 
 \section{Ostali zahtjevi}
 
-\textbf{\textit{dio 1. revizije}}\\
+%\textbf{\textit{dio 1. revizije}}\\
 
-\textit{Nefunkcionalni zahtjevi i zahtjevi domene primjene dopunjuju funkcionalne zahtjeve. Oni opisuju \textbf{kako se sustav treba ponašati} i koja \textbf{ograničenja} treba poštivati (performanse, korisničko iskustvo, pouzdanost, standardi kvalitete, sigurnost...). Primjeri takvih zahtjeva u Vašem projektu mogu biti: podržani jezici korisničkog sučelja, vrijeme odziva, najveći mogući podržani broj korisnika, podržane web/mobilne platforme, razina zaštite (protokoli komunikacije, kriptiranje...)... Svaki takav zahtjev potrebno je navesti u jednoj ili dvije rečenice.}
+%\textit{Nefunkcionalni zahtjevi i zahtjevi domene primjene dopunjuju funkcionalne zahtjeve. Oni opisuju \textbf{kako se sustav treba ponašati} i koja \textbf{ograničenja} treba poštivati (performanse, korisničko iskustvo, pouzdanost, standardi kvalitete, sigurnost...). Primjeri takvih zahtjeva u Vašem projektu mogu biti: podržani jezici korisničkog sučelja, vrijeme odziva, najveći mogući podržani broj korisnika, podržane web/mobilne platforme, razina zaštite (protokoli komunikacije, kriptiranje...)... Svaki takav zahtjev potrebno je navesti u jednoj ili dvije rečenice.}
 
-
+\begin{packed_item}
+	\item Sustav treba omogućiti rad više korisnika u stvarnom vremenu
+	\item Neispravno korištenje korisničkog sučelja ne smije narušiti funkcionalnost sustava
+	\item Aplikacija treba biti izvedena kao web aplikacija prilagođena za mobilne uređaje (responzivna)
+	\item Korisničko sučelje i sustav moraju podržavati hrvatsku abecedu (dijakritičke znakove) pri unosu i prikazu tekstualnog sadržaja
+	\item Sustav treba biti jednostavan za korištenje
+	
+\end{packed_item}
 
