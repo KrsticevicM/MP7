@@ -416,33 +416,116 @@
 	\end{packed_item}
 \end{packed_item}
 
-\noindent \underbar{\textbf{UC11 - Uklanjanje oglasa}}
+\noindent \underbar{\textbf{UC11 - Komunikacija}}
 \begin{packed_item}
 	
 	\item \textbf{Glavni sudionik: }Registrirani korisnik
-	\item  \textbf{Cilj:} Ukloniti oglas
+	\item  \textbf{Cilj:} Kominikacija oko pronalaska kućnog ljubimca
 	\item  \textbf{Sudionici:} Baza podataka
 	\item  \textbf{Preduvjet:} Korisnik je prijavljen
 	\item  \textbf{Opis osnovnog tijeka:}
 	
 	\item[] \begin{packed_enum}
 		
-		\item Korisnik odabire opciju "Moji oglasi"
-		\item Odabire oglas kojeg želi izbrisati
-		\item Korisnik odabire opciju "Izbriši"
+		\item Korisnik odabire oglas o kućnom ljubimcu
+		\item Korisnik odabire opciju "Poruke"
+		\item Aplikacija prikazuje poruke vezane za komunikaciju oko potrage za kućnim ljubimcem
+
+	\end{packed_enum}
+	
+
+\end{packed_item}
+
+\noindent \underbar{\textbf{UC12 - Slanje poruke}}
+\begin{packed_item}
+	
+	\item \textbf{Glavni sudionik: }Registrirani korisnik
+	\item  \textbf{Cilj:} Poslati poruku s informacijama o kućnom ljubimcu
+	\item  \textbf{Sudionici:} Baza podataka
+	\item  \textbf{Preduvjet:} Korisnik je prijavljen
+	\item  \textbf{Opis osnovnog tijeka:}
+	
+	\item[] \begin{packed_enum}
+		
+		\item UC11
+		\item Korisnik odabire opciju "Pošalji poruku"
+		\item Korisnik unosi poruku
+		\item Korisnik odabire opciju "Pošalji" i šalje poruku
+		
 	\end{packed_enum}
 	
 	\item  \textbf{Opis mogućih odstupanja:}
 	
 	\item[] \begin{packed_item}
 		
-		\item[3.a] korisnik odustaje od brisnja oglasa
+		\item[3.a] korisnik odustaje od slanja poruke
 		\item[] \begin{packed_enum}
 			
 			\item Korisnik odabire opciju "Odustani"
-			\item Aplikacija prikazuje listu korisnikovih oglasa
+			\item Aplikacija prikazuje poruke vezane za komunikaciju oko potrage za kućnim ljubimcem
 			
 		\end{packed_enum}
+		
+		
+	\end{packed_item}
+\end{packed_item}
+
+\noindent \underbar{\textbf{UC13 - Slanje slike}}
+\begin{packed_item}
+	
+	\item \textbf{Glavni sudionik: }Registrirani korisnik
+	\item  \textbf{Cilj:} Poslati sliku u poruci
+	\item  \textbf{Sudionici:} Baza podataka
+	\item  \textbf{Preduvjet:} Korisnik je prijavljen
+	\item  \textbf{Opis osnovnog tijeka:}
+	
+	\item[] \begin{packed_enum}
+		
+		\item UC11
+		\item Korisnik odabire opciju "Pošalji poruku"
+		\item Korisnik odabire opciju "Dodaj sliku u privitak"
+		\item Korisnik odabire sliku
+		\item Korisnik odabire opciju "Pošalji" i šalje poruku
+		
+		
+	\end{packed_enum}
+	
+	\item  \textbf{Opis mogućih odstupanja:}
+	
+	\item[] \begin{packed_item}
+		
+		\item[4.a] UC12 3.a
+		\item[5.a] UC12 3.a
+		
+		
+	\end{packed_item}
+\end{packed_item}
+
+\noindent \underbar{\textbf{UC14 - Slanje geolokacije}}
+\begin{packed_item}
+	
+	\item \textbf{Glavni sudionik: }Registrirani korisnik
+	\item  \textbf{Cilj:} Poslati geolokaciju u poruci
+	\item  \textbf{Sudionici:} Baza podataka
+	\item  \textbf{Preduvjet:} Korisnik je prijavljen
+	\item  \textbf{Opis osnovnog tijeka:}
+	
+	\item[] \begin{packed_enum}
+		
+		\item UC11
+		\item Korisnik odabire opciju "Pošalji poruku"
+		\item Korisnik odabire opciju "Dodaj geolokaciju"
+		\item Korisnik odabire geolokaciju
+		\item Korisnik odabire opciju "Pošalji" i šalje poruku
+		
+	\end{packed_enum}
+	
+	\item  \textbf{Opis mogućih odstupanja:}
+	
+	\item[] \begin{packed_item}
+		
+		\item[4.a] UC12 3.a
+		\item[5.a] UC12 3.a
 		
 		
 	\end{packed_item}
