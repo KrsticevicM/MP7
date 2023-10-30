@@ -113,46 +113,309 @@
 
 \subsection{Obrasci uporabe}
 
-\textbf{\textit{dio 1. revizije}}
+%\textbf{\textit{dio 1. revizije}}
 
-\subsubsection{Opis obrazaca uporabe}
-\textit{Funkcionalne zahtjeve razraditi u obliku obrazaca uporabe. Svaki obrazac je potrebno razraditi prema donjem predlošku. Ukoliko u nekom koraku može doći do odstupanja, potrebno je to odstupanje opisati i po mogućnosti ponuditi rješenje kojim bi se tijek obrasca vratio na osnovni tijek.}\\
+%\subsubsection{Opis obrazaca uporabe}
+%\textit{Funkcionalne zahtjeve razraditi u obliku obrazaca uporabe. Svaki obrazac je potrebno razraditi prema donjem predlošku. Ukoliko u nekom koraku može doći do odstupanja, potrebno je to odstupanje opisati i po mogućnosti ponuditi rješenje kojim bi se tijek obrasca vratio na osnovni tijek.}\\
 
 
-\noindent \underbar{\textbf{UC$<$broj obrasca$>$ -$<$ime obrasca$>$}}
+\noindent \underbar{\textbf{UC1 - Pregled aktivnih oglasa}}
 \begin{packed_item}
 	
-	\item \textbf{Glavni sudionik: }$<$sudionik$>$
-	\item  \textbf{Cilj:} $<$cilj$>$
-	\item  \textbf{Sudionici:} $<$sudionici$>$
-	\item  \textbf{Preduvjet:} $<$preduvjet$>$
+	\item \textbf{Glavni sudionik: }Korisnik
+	\item  \textbf{Cilj:} Pregledati oglase o nestalim kućnim ljubimcima
+	\item  \textbf{Sudionici:} Baza podataka
+	\item  \textbf{Preduvjet:} -
 	\item  \textbf{Opis osnovnog tijeka:}
 	
 	\item[] \begin{packed_enum}
 		
-		\item $<$opis korak jedan$>$
-		\item $<$opis korak dva$>$
-		\item $<$opis korak tri$>$
-		\item $<$opis korak četiri$>$
-		\item $<$opis korak pet$>$
+		\item Aktivni oglasi su prikazani prilikom učitavanja aplikacije
+		\item Korisnik odabire oglas za više informacija
+		\item Prikazuju se informacije i komunikacija o nestalom kućnom ljubimcu
+
+	\end{packed_enum}
+	
+\end{packed_item}
+
+\noindent \underbar{\textbf{UC2 - Registracija}}
+\begin{packed_item}
+	
+	\item \textbf{Glavni sudionik: }Korisnik
+	\item  \textbf{Cilj:} Stvoriti korisnički račun za pristup sustavu
+	\item  \textbf{Sudionici:} Baza podataka
+	\item  \textbf{Preduvjet:} -
+	\item  \textbf{Opis osnovnog tijeka:}
+	
+	\item[] \begin{packed_enum}
+		
+		\item Korisnik odabire opciju za registraciju
+		\item Korisnik unosi potrebne korisničke podatke
+		\item Korisnik prima obavijest o uspješnoj registraciji
+
 	\end{packed_enum}
 	
 	\item  \textbf{Opis mogućih odstupanja:}
 	
 	\item[] \begin{packed_item}
 		
-		\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+		\item[2.a] Odabir već zauzetog korisničkog imena i/ili e-maila, unos korisničkog podatka u nedozvoljenom formatu ili unos neispravnoga e-maila
+		
 		\item[] \begin{packed_enum}
 			
-			\item $<$opis rješenja mogućeg scenarija korak 1$>$
-			\item $<$opis rješenja mogućeg scenarija korak 2$>$
+			\item Sustav obavještava korisnika o pogrešnom unosu podataka i vraća ga na stranicu za registraciju
+			\item Korisnik mijenja potrebne podatke te završava unos ili odustaje od registracije
 			
 		\end{packed_enum}
-		\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-		\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
+
 		
 	\end{packed_item}
 \end{packed_item}
+
+
+
+\noindent \underbar{\textbf{UC3 - Prijava u sustav}}
+\begin{packed_item}
+	
+	\item \textbf{Glavni sudionik: }Registrirani korisnik
+	\item  \textbf{Cilj:} Dobiti pristup korisničkom sučelju
+	\item  \textbf{Sudionici:} Baza podataka
+	\item  \textbf{Preduvjet:}  Registracija
+	\item  \textbf{Opis osnovnog tijeka:}
+	
+	\item[] \begin{packed_enum}
+		
+		\item Unos korisničkog imena i lozinke
+		\item Potvrda o ispravnosti unesenih podataka
+		\item Pristup korisničkim funkcijama
+
+	\end{packed_enum}
+	
+	\item  \textbf{Opis mogućih odstupanja:}
+	
+	\item[] \begin{packed_item}
+		
+		\item[2.a] Neispravno korisničko ime/lozinka
+		\item[] \begin{packed_enum}
+			
+			\item Sustav obavještava korisnika o neuspjeloj prijavi i vraća ga na stranicu za prijavu u sustav
+			\item Korisnik unosi ispravne podatke i uspješno se prijavljuje u sustav
+			
+		\end{packed_enum}
+		
+	\end{packed_item}
+\end{packed_item}
+
+\noindent \underbar{\textbf{UC4 - Pregled osobnih podataka}}
+\begin{packed_item}
+	
+	\item \textbf{Glavni sudionik: }Registrirani korisnik
+	\item  \textbf{Cilj:} Pregledati osobne podatke
+	\item  \textbf{Sudionici:} Baza podataka
+	\item  \textbf{Preduvjet:} Korisnik je prijavljen
+	\item  \textbf{Opis osnovnog tijeka:}
+	
+	\item[] \begin{packed_enum}
+		
+		\item Korisnik odabire opciju ”Osobni podatci”
+		\item Aplikacija prikazuje osobne podatke korisnika
+
+	\end{packed_enum}
+	
+\end{packed_item}
+
+\noindent \underbar{\textbf{UC5 - Promjena osobnih podataka}}
+\begin{packed_item}
+	
+	\item \textbf{Glavni sudionik: }Registrirani korisnik
+	\item  \textbf{Cilj:} Promijeniti osobne podatke
+	\item  \textbf{Sudionici:} Baza podataka
+	\item  \textbf{Preduvjet:} Korisnik je prijavljen
+	\item  \textbf{Opis osnovnog tijeka:}
+	
+	\item[] \begin{packed_enum}
+		
+		\item Korisnik odabere opciju za promjenu podataka
+		\item Korisnik upisuje nove osobne podatke
+		\item Korisnik sprema promjene
+		\item Baza podataka sprema nove podatke
+	\end{packed_enum}
+	
+	\item  \textbf{Opis mogućih odstupanja:}
+	
+	\item[] \begin{packed_item}
+		
+		\item[3.a] Korisnik promijeni svoje osobne podatke, ali ne odabere opciju ”Spremi promjenu”
+		
+		\item[] \begin{packed_enum}
+			
+			\item Sustav obavještava korisnika da nije spremio podatke prije izlaska iz prozora
+			
+		\end{packed_enum}
+		
+		
+	\end{packed_item}
+\end{packed_item}
+
+\noindent \underbar{\textbf{UC6 - Brisanje korisničkog računa}}
+\begin{packed_item}
+	
+	\item \textbf{Glavni sudionik: }Registrirani korisnik
+	\item  \textbf{Cilj:} Izbrisati svoj korisnički račun
+	\item  \textbf{Sudionici:} Baza podataka
+	\item  \textbf{Preduvjet:} Korisnik je prijavljen
+	\item  \textbf{Opis osnovnog tijeka:}
+	
+	\item[] \begin{packed_enum}
+		
+		\item Korisnik pregledava osobne podatke
+		\item Otvara se stranica s osobnim podacima korisnika
+		\item Korisnik odabire opciju „Izbriši račun“
+		\item Korisnički račun briše se iz baze podataka
+		\item Otvara se stranica za registraciju
+	\end{packed_enum}
+	
+\end{packed_item}
+
+\noindent \underbar{\textbf{UC7 - Postavljanje oglasa}}
+\begin{packed_item}
+	
+	\item \textbf{Glavni sudionik: }Registrirani korisnik
+	\item  \textbf{Cilj:} Postavljanje oglasa o nestalom kućnom ljubimcu
+	\item  \textbf{Sudionici:} Baza podataka
+	\item  \textbf{Preduvjet:} Korisnik je prijavljen
+	\item  \textbf{Opis osnovnog tijeka:}
+	
+	\item[] \begin{packed_enum}
+		
+		\item Korisnik odabire opciju "Novi oglas"
+		\item Korisnik unosi podatke o nestalom kućnom ljubimcu
+		\item Korisnik odabire opciju "Postavi oglas"
+	\end{packed_enum}
+	
+	\item  \textbf{Opis mogućih odstupanja:}
+	
+	\item[] \begin{packed_item}
+		
+		\item[3.a] Korisnik ne unosi obvezne podatke o ljubimcu
+		\item[] \begin{packed_enum}
+			
+			\item Sustav obavještava korisnika da nisu uneseni svi potrebni podaci
+			\item Korisnik unosi sve podatke
+			\item Korisnik postavlja oglas
+		
+		
+			\end{packed_enum}
+			
+			
+		\item[3.b] Korisnik odustaje od postavljanja oglasa
+		\item[] \begin{packed_enum}
+			\item Sustav obavještava korisnika da oglas neće biti postavljen
+			\item Prikazuje se početna stranica
+		\end{packed_enum}
+		
+		
+	\end{packed_item}
+\end{packed_item}
+
+\noindent \underbar{\textbf{UC8 - Moji oglasi}}
+\begin{packed_item}
+	
+	\item \textbf{Glavni sudionik: }Registrirani korisnik
+	\item  \textbf{Cilj:} Pregledati listu oglasa koje je postavio korisnik
+	\item  \textbf{Sudionici:} Baza podataka
+	\item  \textbf{Preduvjet:} Korisnik je prijavljen u sustav
+	\item  \textbf{Opis osnovnog tijeka:}
+	
+	\item[] \begin{packed_enum}
+		
+		\item Korisnik odabire opciju "Moji oglasi"
+		\item Aplikacija prikazuje listu oglasa koje je postavio korisnik
+
+	\end{packed_enum}
+	
+	\item  \textbf{Opis mogućih odstupanja:}
+	
+	\item[] \begin{packed_item}
+		
+		\item[2.a] Korisnik nema postavljene oglase
+		\item[] \begin{packed_enum}
+			
+			\item Sustav obavještava korisnika da još nije postavio oglas
+			
+		\end{packed_enum}
+		
+		
+	\end{packed_item}
+\end{packed_item}
+
+\noindent \underbar{\textbf{UC9 - Izmjena kategorije oglasa}}
+\begin{packed_item}
+	
+	\item \textbf{Glavni sudionik: }Registrirani korisnik
+	\item  \textbf{Cilj:} Promijeniti kategoriju oglasa
+	\item  \textbf{Sudionici:} Baza podataka
+	\item  \textbf{Preduvjet:} Korisnik je prijavljen u sustav
+	\item  \textbf{Opis osnovnog tijeka:}
+	
+	\item[] \begin{packed_enum}
+		
+		\item Korisnik odabire opciju "Moji oglasi"
+		\item Odabire oglas kojem želi promijeniti kategoriju
+		\item Odabire opciju "Uredi"
+		\item Korisnik odabire jednu od ponuđenih kategorija
+		\item Korisnik odabire opciju "Spremi"
+		\item Oglas je promijenjen
+	\end{packed_enum}
+	
+	\item  \textbf{Opis mogućih odstupanja:}
+	
+	\item[] \begin{packed_item}
+		
+		\item[2.a] UC8
+		
+		\item[5.a] Korisnik ne odabire opciju "Spremi"
+		\item[] \begin{packed_enum}
+			
+			\item Oglas ostaje nepromijenjen
+			
+		\end{packed_enum}
+		
+	\end{packed_item}
+\end{packed_item}
+
+\noindent \underbar{\textbf{UC10 - Uklanjanje oglasa}}
+\begin{packed_item}
+	
+	\item \textbf{Glavni sudionik: }Registrirani korisnik
+	\item  \textbf{Cilj:} Ukloniti oglas
+	\item  \textbf{Sudionici:} Baza podataka
+	\item  \textbf{Preduvjet:} Korisnik je prijavljen
+	\item  \textbf{Opis osnovnog tijeka:}
+	
+	\item[] \begin{packed_enum}
+		
+		\item Korisnik odabire opciju "Moji oglasi"
+		\item Odabire oglas kojeg želi izbrisati
+		\item Korisnik odabire opciju "Izbriši"
+	\end{packed_enum}
+	
+	\item  \textbf{Opis mogućih odstupanja:}
+	
+	\item[] \begin{packed_item}
+		
+		\item[3.a] korisnik odustaje od brisnja oglasa
+		\item[] \begin{packed_enum}
+			
+			\item Korisnik odabire opciju "Odustani"
+			\item Aplikacija prikazuje listu korisnikovih oglasa
+			
+		\end{packed_enum}
+		
+		
+	\end{packed_item}
+\end{packed_item}
+
 
 
 \subsubsection{Dijagrami obrazaca uporabe}
