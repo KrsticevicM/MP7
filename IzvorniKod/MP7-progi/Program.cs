@@ -38,7 +38,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-DatabaseFunctions.InitializeDB();
+
+//DatabaseFunctions.InitializeDB();
 
 app.MapControllerRoute(
     name: "default",
