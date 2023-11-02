@@ -3,6 +3,7 @@ using JavaScriptEngineSwitcher.V8;
 using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using React.AspNet;
 using System.Collections.Generic;
+using MP7_progi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+DatabaseFunctions.InitializeDB();
 
 app.MapControllerRoute(
     name: "default",
