@@ -1,11 +1,13 @@
 ﻿using System.Data.SQLite;
 using System.IO;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace MP7_progi.Models
 {
     public class DatabaseFunctions
     {
-        private static string connectionString = @"Data Source=..\..\MP7.db";
+        private static string connectionString = @"Data Source=..\..\MP7.db;Version=3;";
 
         public static void InitializeDB()
         {
@@ -121,6 +123,37 @@ namespace MP7_progi.Models
                     }
                 }
             }
+        }
+
+        public static void readKorisnik()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {/*
+                connection.Open();
+
+                string query = "SELECT * FROM Korisnik WHERE userID = @userID";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+
+                    command.ExecuteNonQuery();
+                }
+
+                    string query = "INSERT INTO Korisnik (userID, ime, prezime, email, telBroj, lozinka, korIme, nazSklon)" +
+                        " VALUES (@userID, @ime, @prezime, @email, @telBroj, @lozinka, @korIme, @nazSklon)";
+
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@UserId", updatedUser.UserId);
+                        command.Parameters.AddWithValue("@UserName", updatedUser.UserName);
+                        command.Parameters.AddWithValue("@Email", updatedUser.Email);
+
+                        command.ExecuteNonQuery();
+                    }
+                    */
+            }
+
         }
 
     }
