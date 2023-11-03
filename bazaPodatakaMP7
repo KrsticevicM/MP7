@@ -1,0 +1,37 @@
+--
+-- File generated with SQLiteStudio v3.4.4 on pet stu 3 16:31:41 2023
+--
+-- Text encoding used: System
+--
+PRAGMA foreign_keys = off;
+BEGIN TRANSACTION;
+
+-- Table: Komunikacija
+CREATE TABLE IF NOT EXISTS Komunikacija( porID INTEGER PRIMARY KEY, lokPor TEXT, slikaPor TEXT, tekstPor TEXT, oglasID INTEGER, FOREIGN KEY(oglasID) REFERENCES Oglas(oglasID));
+
+-- Table: Korisnik
+CREATE TABLE IF NOT EXISTS Korisnik (userID INTEGER PRIMARY KEY, ime TEXT, prezime TEXT, email TEXT UNIQUE, telBroj INTEGER UNIQUE, lozinka TEXT, korIme TEXT UNIQUE, nazSklon TEXT UNIQUE, CONSTRAINT checkSloniste CHECK ((ime IS NULL AND prezime IS NULL AND nazSklon IS NOT NULL) OR (ime IS NOT NULL AND prezime IS NOT NULL AND nazSklon IS NULL)));
+
+-- Table: Ljubimac
+CREATE TABLE IF NOT EXISTS Ljubimac( petID INTEGER, imeLjub TEXT, vrsta TEXT, boja TEXT, starost TEXT, datSatNest DATETIME, lokacija TEXT, tekstniOpis TEXT,oglasID INTEGER, PRIMARY KEY(petID), FOREIGN KEY(oglasID) REFERENCES Oglas(oglasID));
+
+-- Table: Oglas
+CREATE TABLE IF NOT EXISTS Oglas (oglasID INTEGER PRIMARY KEY, katOglas TEXT CHECK (katOglas IN ('u potrazi', 'sretno pronaðen', 'nije pronaðen', 'pronaðen uz nesretne okolnosti')));
+
+-- Table: pisePor
+CREATE TABLE IF NOT EXISTS pisePor( userID INTEGER, porID INTEGER, PRIMARY KEY(userID, porID), FOREIGN KEY(userID) REFERENCES Korisnik(userID), FOREIGN KEY (porID) REFERENCES Komunikacija(porID));
+
+-- Table: slikeOglas
+CREATE TABLE IF NOT EXISTS slikeOglas( fotoID INTEGER, userID INTEGER, oglasID INTEGER, petID INTEGER, foto TEXT, PRIMARY KEY( fotoID), FOREIGN KEY (userID) REFERENCES Korisnik(userID), FOREIGN KEY (oglasID) REFERENCES Oglas(oglasID), FOREIGN KEY(petID) REFERENCES Ljubimac(petID));
+
+-- Trigger: check_numOf_Photos
+CREATE TRIGGER IF NOT EXISTS check_numOf_Photos BEFORE INSERT ON slikeOglas WHEN (
+    SELECT COUNT(*) FROM slikeOglas
+    WHERE userID = NEW.userID AND
+    oglasID = NEW.oglasID AND
+    petID= NEW.petID
+    ) >= 3 
+     BEGIN SELECT RAISE(ABORT,'Cannot insert more than three photos of missing pet'); END;
+
+COMMIT TRANSACTION;
+PRAGMA foreign_keys = on;
