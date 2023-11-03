@@ -1,7 +1,13 @@
-﻿class ReactTest extends React.Component {
+﻿import Navbar from './Navbar.jsx'
+import Home from './Home.jsx'
+
+class ReactTest extends React.Component {
     render() {
         return (
-            <div className="comment">Hello World!</div>
+            <>
+                <Navbar/>
+                <Home/>
+            </>
         );
     }
 }
