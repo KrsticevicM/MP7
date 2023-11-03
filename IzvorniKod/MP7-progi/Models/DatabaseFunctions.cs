@@ -7,7 +7,7 @@ namespace MP7_progi.Models
 {
     public class DatabaseFunctions
     {
-        private static string connectionString = @"Data Source=..\..\MP7.db;Version=3;";
+        private static string connectionString = @"Data Source=MP7.db;Version=3;";
 
         public static void InitializeDB()
         {
@@ -130,20 +130,23 @@ namespace MP7_progi.Models
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                //Console.WriteLine("succesful");
+                Console.WriteLine("succesful");
 
                 string query = "SELECT * FROM Korisnik WHERE userID = @userID";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@userID", userId);
+                    
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
+                        Console.WriteLine("succesful2");
                         while (reader.Read())
                         {
                             Console.WriteLine($"UserID: {reader["userID"]}, UserName: {reader["ime"]}, Email: {reader["email"]}");
                         }
+                        Console.WriteLine("succesful3");
                     }
                 }
 
