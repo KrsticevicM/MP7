@@ -130,7 +130,7 @@ namespace MP7_progi.Models
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                Console.WriteLine("succesful");
+                //Console.WriteLine("succesful");
 
                 string query = "SELECT * FROM Korisnik WHERE userID = @userID";
 
