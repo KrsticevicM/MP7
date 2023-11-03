@@ -40,6 +40,7 @@ app.UseAuthorization();
 
 
 //DatabaseFunctions.InitializeDB();
+DatabaseFunctions.readKorisnik();
 
 app.MapControllerRoute(
     name: "default",

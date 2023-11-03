@@ -11,7 +11,7 @@ namespace MP7_progi.Models
 
         public static void InitializeDB()
         {
-            if(!File.Exists(@"..\..\MP7.db"))
+            if (!File.Exists(@"..\..\MP7.db"))
             {
                 SQLiteConnection.CreateFile(@"..\..\MP7.db");
 
@@ -125,36 +125,35 @@ namespace MP7_progi.Models
             }
         }
 
-        public static void readKorisnik()
+        public static void readKorisnik(int userId)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-            {/*
+            {
                 connection.Open();
+                Console.WriteLine("succesful");
 
                 string query = "SELECT * FROM Korisnik WHERE userID = @userID";
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("@userID", userId);
 
-                    command.ExecuteNonQuery();
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Console.WriteLine($"UserID: {reader["userID"]}, UserName: {reader["ime"]}, Email: {reader["email"]}");
+                        }
+                    }
                 }
 
-                    string query = "INSERT INTO Korisnik (userID, ime, prezime, email, telBroj, lozinka, korIme, nazSklon)" +
-                        " VALUES (@userID, @ime, @prezime, @email, @telBroj, @lozinka, @korIme, @nazSklon)";
 
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@UserId", updatedUser.UserId);
-                        command.Parameters.AddWithValue("@UserName", updatedUser.UserName);
-                        command.Parameters.AddWithValue("@Email", updatedUser.Email);
-
-                        command.ExecuteNonQuery();
-                    }
-                    */
             }
 
         }
 
     }
+
 }
+
+  
