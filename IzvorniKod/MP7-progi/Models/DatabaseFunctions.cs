@@ -125,28 +125,29 @@ namespace MP7_progi.Models
             }
         }
 
-        public static void readKorisnik(int userId)
+        public static void readKorisnik(string email, string psw)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                Console.WriteLine("succesful");
+                //Console.WriteLine("succesful");
 
-                string query = "SELECT * FROM Korisnik WHERE userID = @userID";
+                string query = "SELECT * FROM Korisnik WHERE email = @email AND lozinka = @psw";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@userID", userId);
-                    
+                    command.Parameters.AddWithValue("@email", email);
+                    command.Parameters.AddWithValue("@psw", psw);
+
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
-                        Console.WriteLine("succesful2");
+                        //Console.WriteLine("succesful2");
                         while (reader.Read())
                         {
                             Console.WriteLine($"UserID: {reader["userID"]}, UserName: {reader["ime"]}, Email: {reader["email"]}");
                         }
-                        Console.WriteLine("succesful3");
+                        //Console.WriteLine("succesful3");
                     }
                 }
 
@@ -154,6 +155,8 @@ namespace MP7_progi.Models
             }
 
         }
+
+
 
     }
 
