@@ -40,6 +40,7 @@ app.UseAuthorization();
 
 
 //DatabaseFunctions.InitializeDB();
+DatabaseFunctions.readSlike(1);
 
 
 app.MapControllerRoute(

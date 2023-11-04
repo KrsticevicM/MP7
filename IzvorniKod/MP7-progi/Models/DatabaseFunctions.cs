@@ -188,6 +188,35 @@ namespace MP7_progi.Models
 
         }
 
+        public static void readSlike(int oglasID)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                //Console.WriteLine("succesful");
+
+                string query = "SELECT * FROM Oglas NATURAL JOIN slikeOglas WHERE oglasID = @oglasID";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@oglasID", oglasID);
+
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        //Console.WriteLine("succesful2");
+                        while (reader.Read())
+                        {
+                            Console.WriteLine($"OglasID: {reader["oglasID"]}, fotoID: {reader["fotoID"]}, foto: {reader["foto"]}");
+                        }
+                        //Console.WriteLine("succesful3");
+                    }
+                }
+
+
+            }
+
+        }
     }
 
 }

@@ -1,7 +1,8 @@
 ﻿namespace MP7_progi.Models
 {
     public class slikeOglas
-    {
+    { 
+        // cak mozda ne treba userID?
         public int fotoID { get; set; }
         public int userID { get; set; }
         public int oglasID { get; set; }
