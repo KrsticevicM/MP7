@@ -168,7 +168,118 @@ namespace MP7_progi.Models
             }
             return dict;
         }
-        public static void readKorisnik(string email, string psw)
+
+        public static Dictionary<string, List<Table>> read(string table, string? where, string? orderBy)
+        {
+            Dictionary<string, List<Table>> dict = new Dictionary<string, List<Table>>();
+
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+
+                string query = "SELECT * FROM " + table;
+                if (where != null)
+                    query += " WHERE " + where;
+                if (orderBy != null)
+                    query += " ORDER BY " + orderBy;
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+
+                        for (int j = 0; j < reader.StepCount; j++)
+                        {
+                            string columnName = reader.GetName(j);
+                            Console.WriteLine(columnName);
+                            List<Table> column_list = new List<Table>();
+
+                            column_list.Add((Table)reader.GetValue(j));
+
+                            dict.Add(columnName, column_list);
+                        }
+                    }
+                }
+
+            }
+            return dict;
+        }
+
+        public static Dictionary<string, List<Table>> read(string table, string? where)
+        {
+            Dictionary<string, List<Table>> dict = new Dictionary<string, List<Table>>();
+
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+
+                string query = "SELECT * FROM " + table;
+                if (where != null)
+                    query += " WHERE " + where;
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+
+                        for (int j = 0; j < reader.StepCount; j++)
+                        {
+                            string columnName = reader.GetName(j);
+                            Console.WriteLine(columnName);
+                            List<Table> column_list = new List<Table>();
+
+                            column_list.Add((Table)reader.GetValue(j));
+
+                            dict.Add(columnName, column_list);
+                        }
+                    }
+                }
+
+            }
+            return dict;
+        }
+
+        public static Dictionary<string, List<Table>> read(string table)
+        {
+            Dictionary<string, List<Table>> dict = new Dictionary<string, List<Table>>();
+
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+
+                string query = "SELECT * FROM " + table;
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+
+                        for (int j = 0; j < reader.StepCount; j++)
+                        {
+                            string columnName = reader.GetName(j);
+                            Console.WriteLine(columnName);
+                            List<Table> column_list = new List<Table>();
+
+                            column_list.Add((Table)reader.GetValue(j));
+
+                            dict.Add(columnName, column_list);
+                        }
+                    }
+                }
+
+            }
+            return dict;
+        }
+        /*public static void readKorisnik(string email, string psw)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -259,7 +370,7 @@ namespace MP7_progi.Models
 
             }
 
-        }
+        }*/
     }
 
 }

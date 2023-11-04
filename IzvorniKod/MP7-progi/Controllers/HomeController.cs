@@ -14,7 +14,7 @@ namespace MP7_progi.Controllers
         }
 
         public IActionResult Index() {
-            DatabaseFunctions.read("Korisnik","userID>0","userID",10);
+            //DatabaseFunctions.read("Korisnik");
             return View();
         }
 
