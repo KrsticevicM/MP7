@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Korisnik\\Desktop\\mp7\\IzvorniKod\\MP7-progi\\MP7-progi.csproj": {}
+    "D:\\proggy\\PROGI2023\\IzvorniKod\\MP7-progi\\MP7-progi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Korisnik\\Desktop\\mp7\\IzvorniKod\\MP7-progi\\MP7-progi.csproj": {
+    "D:\\proggy\\PROGI2023\\IzvorniKod\\MP7-progi\\MP7-progi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\mp7\\IzvorniKod\\MP7-progi\\MP7-progi.csproj",
+        "projectUniqueName": "D:\\proggy\\PROGI2023\\IzvorniKod\\MP7-progi\\MP7-progi.csproj",
         "projectName": "MP7-progi",
-        "projectPath": "C:\\Users\\Korisnik\\Desktop\\mp7\\IzvorniKod\\MP7-progi\\MP7-progi.csproj",
+        "projectPath": "D:\\proggy\\PROGI2023\\IzvorniKod\\MP7-progi\\MP7-progi.csproj",
         "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Korisnik\\Desktop\\mp7\\IzvorniKod\\MP7-progi\\obj\\",
+        "outputPath": "D:\\proggy\\PROGI2023\\IzvorniKod\\MP7-progi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Korisnik\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -84,7 +84,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

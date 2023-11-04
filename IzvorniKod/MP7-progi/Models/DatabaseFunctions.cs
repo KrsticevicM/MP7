@@ -2,6 +2,7 @@
 using System.IO;
 using System.Data;
 using System.Data.SqlClient;
+using System.Collections;
 
 namespace MP7_progi.Models
 {
@@ -125,6 +126,50 @@ namespace MP7_progi.Models
             }
         }
 
+        //Generalizirana funkcija citanja koja bi trebala uzeti u obzir sve nama potrebne upite
+        //**funkcionalnost jos nije testirana posto nema podataka u bazi**
+        public static Dictionary<string, List<Table>> read(string table, string? where, string? orderBy, int? numOfCol)
+        {
+            Dictionary<string, List<Table>> dict = new Dictionary<string,List<Table>>();
+
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+     
+
+                string query = "SELECT * FROM " + table;
+                if (where != null)
+                    query += " WHERE " + where;
+                if(orderBy != null)
+                    query += " ORDER BY " + orderBy;
+                if (numOfCol != null)
+                    query += " LIMIT " + numOfCol;
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+           
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+     
+                            for (int j = 0; j < reader.StepCount; j++)
+                            {
+                                string columnName = reader.GetName(j);
+
+                                List<Table> column_list = new List<Table>();
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    Table value = (Table)reader.GetValue(i);
+                                    column_list.Add(value);
+                                }
+                                dict.Add(columnName, column_list);
+                            }                             
+                    }               
+                }
+
+            }
+            return dict;
+        }
         public static void readKorisnik(string email, string psw)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))

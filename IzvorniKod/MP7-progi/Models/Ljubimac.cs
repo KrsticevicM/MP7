@@ -2,7 +2,7 @@
 
 namespace MP7_progi.Models
 {
-    public class Ljubimac
+    public class Ljubimac:Table
     {
         public int petID { get; set; }
         public string? imeLjub { get; set; }

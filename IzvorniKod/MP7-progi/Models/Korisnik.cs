@@ -2,7 +2,7 @@
 
 namespace MP7_progi.Models
 {
-    public class Korisnik
+    public class Korisnik:Table
     {
         public int userID { get; set; }
         public string? ime { get; set; }

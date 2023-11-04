@@ -13,8 +13,7 @@ namespace MP7_progi.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
+        public IActionResult Index() {
             return View();
         }
 

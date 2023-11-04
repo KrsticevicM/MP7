@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BH8LDk3eNDgB2vzNJw/I/HyxTOrKd2PEHz49JuXO31qapAeEad+XayOIPZUrOFZA4t63+bSHqKhA43XQzqO8Eg==",
+  "dgSpecHash": "qMkEWz0ui7Xnirqp/5daJbq94O+qI1qvoTYfUIcpQcPcrYCayaBtjNApYg7RTE5wyF/NVVDGb2IuA8bGg0Zv8w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Korisnik\\Desktop\\mp7\\IzvorniKod\\MP7-progi\\MP7-progi.csproj",
+  "projectFilePath": "D:\\proggy\\PROGI2023\\IzvorniKod\\MP7-progi\\MP7-progi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Korisnik\\.nuget\\packages\\advancedstringbuilder\\0.1.0\\advancedstringbuilder.0.1.0.nupkg.sha512",
     "C:\\Users\\Korisnik\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",

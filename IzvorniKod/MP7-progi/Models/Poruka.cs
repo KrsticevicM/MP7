@@ -1,6 +1,6 @@
 ﻿namespace MP7_progi.Models
 {
-    public class Poruka
+    public class Poruka:Table
     {
         public int porID { get; set; }
         public string? lokPor{ get; set; }
