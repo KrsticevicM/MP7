@@ -40,6 +40,7 @@ app.UseAuthorization();
 
 
 //DatabaseFunctions.InitializeDB();
+//DatabaseFunctions.readKorisnik("mk540@fer.hr","frankodanci");
 
 
 app.MapControllerRoute(

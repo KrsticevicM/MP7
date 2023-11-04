@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\filip\\Source\\Repos\\KrsticevicM\\PROGI2023\\IzvorniKod\\MP7-progi\\MP7-progi.csproj": {}
+    "C:\\Users\\Korisnik\\Desktop\\mp7\\IzvorniKod\\MP7-progi\\MP7-progi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\filip\\Source\\Repos\\KrsticevicM\\PROGI2023\\IzvorniKod\\MP7-progi\\MP7-progi.csproj": {
+    "C:\\Users\\Korisnik\\Desktop\\mp7\\IzvorniKod\\MP7-progi\\MP7-progi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\filip\\Source\\Repos\\KrsticevicM\\PROGI2023\\IzvorniKod\\MP7-progi\\MP7-progi.csproj",
+        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\mp7\\IzvorniKod\\MP7-progi\\MP7-progi.csproj",
         "projectName": "MP7-progi",
-        "projectPath": "C:\\Users\\filip\\Source\\Repos\\KrsticevicM\\PROGI2023\\IzvorniKod\\MP7-progi\\MP7-progi.csproj",
-        "packagesPath": "C:\\Users\\filip\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\filip\\Source\\Repos\\KrsticevicM\\PROGI2023\\IzvorniKod\\MP7-progi\\obj\\",
+        "projectPath": "C:\\Users\\Korisnik\\Desktop\\mp7\\IzvorniKod\\MP7-progi\\MP7-progi.csproj",
+        "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Korisnik\\Desktop\\mp7\\IzvorniKod\\MP7-progi\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\filip\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Korisnik\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
