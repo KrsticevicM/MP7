@@ -11,9 +11,9 @@ namespace MP7_progi.Models
 
         public static void InitializeDB()
         {
-            if (!File.Exists(@"..\..\MP7.db"))
+            if (!File.Exists(@"MP7.db"))
             {
-                SQLiteConnection.CreateFile(@"..\..\MP7.db");
+                SQLiteConnection.CreateFile(@"MP7.db");
 
                 using (var connection = new SQLiteConnection(connectionString))
                 {
@@ -156,8 +156,37 @@ namespace MP7_progi.Models
 
         }
 
+        public static void readOglas(string kategorija)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                //Console.WriteLine("succesful");
+
+                string query = "SELECT * FROM Oglas NATURAL JOIN Ljubimac WHERE katOglas = @kat";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@kat", kategorija);
 
 
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        //Console.WriteLine("succesful2");
+                        while (reader.Read())
+                        {
+                            Console.WriteLine($"OglasID: {reader["oglasID"]}, Ime ljubimca: {reader["imeLjub"]}, Boja: {reader["boja"]}");
+                        }
+                        //Console.WriteLine("succesful3");
+                    }
+                }
+
+
+            }
+
+
+
+        }
     }
 
 }
