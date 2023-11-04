@@ -5,8 +5,8 @@ namespace MP7_progi.Models
     public class Ljubimac
     {
         public int petID { get; set; }
-        public string imeLjub { get; set; }
-        public string vrsta { get; set; }
+        public string? imeLjub { get; set; }
+        public string? vrsta { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime datSatNest { get; set; }
