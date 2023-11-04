@@ -155,13 +155,11 @@ namespace MP7_progi.Models
                             for (int j = 0; j < reader.StepCount; j++)
                             {
                                 string columnName = reader.GetName(j);
-
+                                Console.WriteLine(columnName);
                                 List<Table> column_list = new List<Table>();
-                                for (int i = 0; i < reader.FieldCount; i++)
-                                {
-                                    Table value = (Table)reader.GetValue(i);
-                                    column_list.Add(value);
-                                }
+                              
+                                column_list.Add((Table)reader.GetValue(j));
+                                
                                 dict.Add(columnName, column_list);
                             }                             
                     }               
