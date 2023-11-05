@@ -1,12 +1,17 @@
-import Navbar from './Navbar';
-import Home from './Home';
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import './App.css'
+import Navbar from './components/Navbar'
+import Home from './components/Home'
 
-export default function App () {
+function App() {
+
     return (
-        <>
-            <Navbar/>
-            <Home/>
-        </>
-    );
-
+        <div className="App">
+            <Navbar className="navbar" />
+            <Home className="home" />
+        </div>
+    )
 }
+
+export default App
