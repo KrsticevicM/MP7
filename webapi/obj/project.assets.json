@@ -474,11 +474,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Korisnik\\source\\repos\\Example3\\webapi\\webapi.csproj",
+      "projectUniqueName": "C:\\Users\\Korisnik\\Documents\\PROGI2023\\webapi\\webapi.csproj",
       "projectName": "webapi",
-      "projectPath": "C:\\Users\\Korisnik\\source\\repos\\Example3\\webapi\\webapi.csproj",
+      "projectPath": "C:\\Users\\Korisnik\\Documents\\PROGI2023\\webapi\\webapi.csproj",
       "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Korisnik\\source\\repos\\Example3\\webapi\\obj\\",
+      "outputPath": "C:\\Users\\Korisnik\\Documents\\PROGI2023\\webapi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Korisnik\\AppData\\Roaming\\NuGet\\NuGet.Config",
