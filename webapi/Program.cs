@@ -1,4 +1,8 @@
+using MP7_progi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+
+DatabaseFunctions.InitializeDB();
 
 // Add services to the container.
 
