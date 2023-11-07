@@ -4,17 +4,17 @@
 		
 		%\textit{Na osnovi projektnog zadatka detaljno opisati korisničke zahtjeve. Što jasnije opisati cilj projektnog zadatka, razraditi problematiku zadatka, dodati nove aspekte problema i potencijalnih rješenja. Očekuje se minimalno 3, a poželjno 4-5 stranica opisa.	Teme koje treba dodatno razraditi u ovom poglavlju su:}\\
 		%\underline{CILJ}\\
-		Cilj ovog projektnog zadatka je razviti web aplikaciju „Nestali ljubimci“ koja će korisniku olakšati potragu za odlutalim kućnim ljubimcem. Budući da je informacije o potrazi nepraktično oglašavati putem uobičajenih internetskih platformi za komunikaciju (npr. društvene mreže, stranice za oglašavanje, forumi i slično), ova web aplikacija će vlasnicima životinja, skloništima za životinje i dobrim ljudima koji pomažu u pronalasku životinje omogućiti brz i efikasan način izmjene informacija o nestanku, opažanju i pronalasku odbjeglog kućnog ljubimca. U ime što bržeg pronalaska ljubimca, web aplikacija će biti razvijena za mobilne uređaje  kako bi u procesu potrage podržala veću brzinu reagiranja, koja je često ključna za uspješan završetak potrage za kućnim ljubimcem.\\
+		Cilj ovog projektnog zadatka je razviti web aplikaciju „Nestali ljubimci“ koja će korisniku olakšati potragu za odlutalim kućnim ljubimcem. Budući da je informacije o potrazi nepraktično oglašavati putem uobičajenih internetskih platformi za komunikaciju (npr. društvene mreže, stranice za oglašavanje, forumi i slično), ova web aplikacija će vlasnicima životinja, skloništima za životinje i dobrim ljudima koji pomažu u pronalasku životinje omogućiti brz i efikasan način izmjene informacija o nestanku, opažanju i pronalasku odbjeglog kućnog ljubimca. Radi što bržeg pronalaska ljubimca, web aplikacija će biti razvijena za mobilne uređaje kako bi u procesu potrage podržala veću brzinu reagiranja, koja je često ključna za uspješan završetak potrage za kućnim ljubimcem.\\
 		
-		Prilikom ulaska u web aplikaciju prikazuju se aktivni oglasi i oglasi o životinjama koje su pronašla skloništa.\\
+		Prilikom ulaska u web aplikaciju prikazuju se aktivni oglasi, točnije nestali ljubimci. Oglase mogu postaviti uobičajeni korisnici ili skloništa. Poredak oglasa ovisi o načinu pretraživanja koji korisnik odabire. \\
 		
 		\textbf{KORISNICI}\\
 		Aplikacija podržava rad tri tipa korisnika (neregistrirani korisnik, registrirani korisnik i sklonište za životinje).\\
-		\underline{Neregistrirani korisnik} pri ulasku u web aplikaciju ima mogućnost pregledavati i pretraživati aktivne oglase o nestalim kućnim ljubimcima i oglase skloništa za životinje. Pretraživanje je ostvareno po nazivu skloništa i po kategorijama podataka o ljubimcu koje su dostupne pri oglašavanju (vrsta, ime na koje se odaziva, datum i sat nestanka, lokacija nestanka, boja, starost, tekstni opis). Za detaljniji pregled informacija o kućnom ljubimcu kao i pregled komunikacije o potrazi za njime potrebno je odabrati oglas. Ako neregistrirani korisnik može i želi doprinijeti potrazi davanjem nekih informacija, potrebna je registracija.
+		\underline{Neregistrirani korisnik} pri ulasku u web aplikaciju ima mogućnost pregledavati i pretraživati aktivne oglase o nestalim kućnim ljubimcima. Pretraživanje je ostvareno po kategoriji oglasa i po kategorijama podataka o ljubimcu koje su dostupne pri oglašavanju (vrsta, ime na koje se odaziva, datum i sat nestanka, lokacija nestanka, boja, starost, tekstni opis). Za detaljniji pregled informacija o kućnom ljubimcu kao i za pregled komunikacije o potrazi za njime potrebno je odabrati oglas. Ako neregistrirani korisnik želi sudjelovati u komunikaciji oko potrage za kućnim ljubimcem, potrebna je registracija.
 		Podaci potrebni za registraciju su:
 		\begin{packed_item}
 			\item Ime
-			\item Ime
+			\item Prezime
 			\item Korisničko ime
 			\item Lozinka
 			\item Adresa e-pošte
@@ -27,7 +27,8 @@
 			\item Uklanjanje oglasa o nestalom kućnom ljubimcu
 			\item Izmjena oglasa o nestalom kućnom ljubimcu
 		\end{packed_item}
-		Treći tip korisnika su \underline{skloništa za životinje}, koji osiim svih mogućnosti koje ima registrirani korisnik, ima dodatnu mogućnost oglašavanja životinja koje su pronađene i nalaze se u njihovom prostoru. Skloništa za životinje pri registraciji moraju unijeti i naziv skloništa.\\
+		Treći tip korisnika su \underline{skloništa za životinje}, koji osim svih mogućnosti koje ima registrirani korisnik, ima dodatnu mogućnost oglašavanja životinja koje su pronađene i nalaze se u njihovom prostoru. Skloništa za životinje pri registraciji moraju unijeti i naziv skloništa.\\
+		
 		
 		\textbf{OGLASI}\\
 		Za \underline{postavljanje oglasa} potrebno je unijeti sljedeće informacije o ljubimcu:
@@ -41,28 +42,31 @@
 			\item Tekstni opis
 			\item Slike (najviše 3 slike)
 		\end{packed_item}
-		Osim podataka o kućnom ljubimcu, oglas sadrži i kontak podatke korisnika koji se povlače iz korisničkih podataka danih pri registraciji (adresa e-pošte, broj telefona).\\
+		Pri pretraživanju kućnih ljubimaca, vrsta je podijeljena u kategorije: pas, mačka, ptica, glodavac, kunić, gmaz te ostalo.\\
+		Uz to, postoje kategorije za boju (crna, smeđa, bijela, siva, zelena, crvena, crna, žuta, narančasta, plava) i za starost. Starost je podijeljena u intervale: $<$1god., 1god., 2god., 3god., 4-5god., 6-10god. i $>$10god.
+		Osim podataka o kućnom ljubimcu, oglas sadrži i kontakt podatke korisnika koji se povlače iz korisničkih podataka danih pri registraciji (adresa e-pošte, broj telefona).\\
 		Oglas mora imati jednu od \underline{kategorija}:
 		\begin{packed_item}
-			\item Za ljubimcem se traga (aktivan oglas)
+			\item Za ljubimcem se traga
 			\item Ljubimac je sretno pronađen
 			\item Ljubimac nije pronađen, ali se za njim više ne traga aktivno
 			\item Ljubimac je pronađen uz nesretne okolnosti
-			\item U skloništu (koju može postaviti samo sklonište za životinje)
+			\item U skloništu 
 		\end{packed_item}
-		Na oglasu je moguća \underline{izmjena} svih kategorija podataka o ljubimcima, kao i kategorija oglasa. Sve kategorije, osim da se za ljubimcem aktivno traga, oglas čine neaktivnim. Popis neaktivnih oglasa mogu pregledavati samo registrirani korisnici.\\
+		Od ovih kategorija inicijalno je postavljena da se za ljubimcem traga. Kategoriju 'U skloništu' imaju mogućnost postaviti samo prijavljena skloništa za životinje. Na oglasu je moguća
+		 \underline{izmjena} svih kategorija podataka o ljubimcima, kao i kategorija oglasa. Sve kategorije, osim da se za ljubimcem aktivno traga, oglas čine neaktivnim. Također, web aplikacija sadrži popis neaktivnih oglasa koje mogu pregledavati samo registrirani korisnici.\\
 		\underline{Komunikacija} oko potrage za kućnim ljubimcem odvijat će se porukama koje mogu sadržavati:
 		\begin{packed_item}
 			\item Tekst
 			\item Sliku
 			\item Geolokaciju
 		\end{packed_item}
-		uz kontakt podatke o osobi koja komunicira.\\
+		uz kontakt podatke o osobi koja komunicira. Geolokacija je izvedena uz pomoć vanjske usluge OpenStreetMap.\\
 		
 		\textbf{Ostalo}\\
 		Aplikacija je izvedena kao mobilna aplikacija.\\
-		Sustav podržava rad više korisnika u stvarnom vremenu.\\
-		Aplikacija je namijenjena vlasnicima životinja i svim dobrim dušama koje su volje pomoći oko potrage za nestalim kućnim ljubimcima.
+		Sustav podržava rad više korisnika u stvarnom vremenu. Također, sustav podržava hrvatski jezik.\\
+		Aplikacija je namijenjena vlasnicima izgubljenih ljubimaca i svim dobrim dušama koje su voljne pomoći oko potrage za nestalim kućnim ljubimcima.
 		%\begin{packed_item}
 			%\item \textit{potencijalna korist ovog projekta}
 			%\item \textit{postojeća slična rješenja (istražiti i ukratko opisati razlike u odnosu na zadani zadatak). Dodajte slike koja predočavaju slična rješenja.}
@@ -156,14 +160,14 @@
 		
 		%unos slike
 		\begin{figure}[H]
-			%\includegraphics[scale=0.4]{slike/aktivnost.PNG} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+			\includegraphics[scale=0.4]{slike/aktivnost.PNG} %veličina slike u odnosu na originalnu datoteku i pozicija slike
 			\centering
 			\caption{Primjer slike s potpisom}
 			\label{fig:promjene}
 		\end{figure}
 		
 		\begin{figure}[H]
-			%\includegraphics[width=\textwidth]{slike/aktivnost.PNG} %veličina u odnosu na širinu linije
+			\includegraphics[width=\textwidth]{slike/aktivnost.PNG} %veličina u odnosu na širinu linije
 			\caption{Primjer slike s potpisom 2}
 			\label{fig:promjene2} %label mora biti drugaciji za svaku sliku
 		\end{figure}
