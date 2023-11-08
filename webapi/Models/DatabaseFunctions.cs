@@ -279,98 +279,39 @@ namespace MP7_progi.Models
             }
             return dict;
         }
-        /*public static void readKorisnik(string email, string psw)
+        public static void databaseTester(string table)
         {
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            Dictionary<string, List<Table>>? tableOut;
+            Console.WriteLine("Attempting read operation from the database...");
+
+            try
             {
-                connection.Open();
-                //Console.WriteLine("succesful");
-
-                string query = "SELECT * FROM Korisnik WHERE email = @email AND lozinka = @psw";
-
-                using (SQLiteCommand command = new SQLiteCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@email", email);
-                    command.Parameters.AddWithValue("@psw", psw);
-
-
-                    using (SQLiteDataReader reader = command.ExecuteReader())
-                    {
-                        //Console.WriteLine("succesful2");
-                        while (reader.Read())
-                        {
-                            Console.WriteLine($"UserID: {reader["userID"]}, UserName: {reader["ime"]}, Email: {reader["email"]}");
-                        }
-                        //Console.WriteLine("succesful3");
-                    }
-                }
-
-
+                tableOut = DatabaseFunctions.read(table);
+                
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
             }
 
+            string[] keys = tableOut.Keys.ToArray();
+
+            Console.WriteLine("Performing test for database: " + table);
+
+            foreach(string key in keys)
+            {
+                Console.Write(key + "\t");
+            }
+
+            for(int i = 0; i < 3; i++)
+            {
+                foreach(string key in keys)
+                {
+                    Console.Write(tableOut[key].ToArray()[i]);
+                }
+            } 
         }
-
-        public static void readOglas(string kategorija)
-        {
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-            {
-                connection.Open();
-                //Console.WriteLine("succesful");
-
-                string query = "SELECT * FROM Oglas NATURAL JOIN Ljubimac WHERE katOglas = @kat";
-
-                using (SQLiteCommand command = new SQLiteCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@kat", kategorija);
-
-
-                    using (SQLiteDataReader reader = command.ExecuteReader())
-                    {
-                        //Console.WriteLine("succesful2");
-                        while (reader.Read())
-                        {
-                            Console.WriteLine($"OglasID: {reader["oglasID"]}, Ime ljubimca: {reader["imeLjub"]}, Boja: {reader["boja"]}");
-                        }
-                        //Console.WriteLine("succesful3");
-                    }
-                }
-
-
-            }
-
-
-
-        }
-
-        public static void readSlike(int oglasID)
-        {
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-            {
-                connection.Open();
-                //Console.WriteLine("succesful");
-
-                string query = "SELECT * FROM Oglas NATURAL JOIN slikeOglas WHERE oglasID = @oglasID";
-
-                using (SQLiteCommand command = new SQLiteCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@oglasID", oglasID);
-
-
-                    using (SQLiteDataReader reader = command.ExecuteReader())
-                    {
-                        //Console.WriteLine("succesful2");
-                        while (reader.Read())
-                        {
-                            Console.WriteLine($"OglasID: {reader["oglasID"]}, fotoID: {reader["fotoID"]}, foto: {reader["foto"]}");
-                        }
-                        //Console.WriteLine("succesful3");
-                    }
-                }
-
-
-            }
-
-        }*/
     }
 
 }

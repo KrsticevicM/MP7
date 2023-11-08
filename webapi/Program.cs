@@ -2,7 +2,11 @@ using MP7_progi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-DatabaseFunctions.InitializeDB();
+//Init database - only used in special cases
+//DatabaseFunctions.InitializeDB();
+
+//Database tester - perform basic tests on tables
+DatabaseFunctions.databaseTester("korisnik");
 
 // Add services to the container.
 
