@@ -1,6 +1,6 @@
 
 
-.headline{
+.login-headline{
     text-align: center;
     margin-bottom: 25%;
     font-family: "Josefin Sans", sans-serif;
@@ -10,7 +10,7 @@
     margin-bottom: 20%;
 }
 
-.window {
+.login-window {
     margin-top: 10vh;
     height: fit-content;
     width: fit-content;
@@ -18,16 +18,15 @@
     box-sizing: border-box;
     outline-style: solid;
     padding: 5%;
+    border-radius: 5%;
+    
     
 }
 
-.container{
+.login-container{
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Josefin Sans", sans-serif;
-   
-
 }
 
 .button-container{

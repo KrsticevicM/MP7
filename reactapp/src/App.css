@@ -12,6 +12,7 @@
     flex-direction: column;
     align-items: center;
     background-color: white;
+    font-family: "Josefin Sans", sans-serif;
 }
 
 a:link, a:visited {

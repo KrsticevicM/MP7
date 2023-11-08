@@ -19,10 +19,10 @@ function Login(){
     }
     
     return (
-        <div className="container">
+        <div className="login-container">
 
-            <section className="window">
-                <h1 className='headline'>Prijava</h1>
+            <section className="login-window">
+                <h1 className='login-headline'>Prijava</h1>
                 <form onSubmit={handlesubmit}>
                     <div className="form-floating ">
                         
@@ -53,8 +53,6 @@ function Login(){
                     </div>
 
                     <p className='nisiregistriran'> Nisi registriran? <Link to='/registration' id='link'>Registriraj se</Link></p> 
-                    <p>{username}</p>
-                    <p>{password}</p>
                         
                 </form>
             </section>
