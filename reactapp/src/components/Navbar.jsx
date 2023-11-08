@@ -9,9 +9,9 @@ function Navbar() {
         className="logo-img"
       />
       <div className="navbar-inner-container">
-        <Link className="element-container" to='/'>POČETNA</Link>
+              <Link to='/'><div className="element-container">POČETNA</div></Link>
         <div className="element-container">SKLONIŠTA</div>
-        <Link className="element-container" to='/login'>PRIJAVI SE</Link>
+              <Link to='/login'><div className="element-container">PRIJAVI SE</div></Link>
       </div>
     </div>
   );

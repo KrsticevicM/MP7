@@ -33,10 +33,15 @@
 }
 
 .element-container {
+    text-decoration: none;
+    font-family: "Josefin Sans", sans-serif;
+    color: black;
     transition: color 0.35s;
 }
 
-.element-container:hover {
-    color: white;
-    cursor: pointer;
-}
+    .element-container:hover {
+        text-decoration: none;
+        font-family: "Josefin Sans", sans-serif;
+        color: white;
+        cursor: pointer;
+    }
