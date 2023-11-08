@@ -10,7 +10,7 @@ function Navbar() {
       />
       <div className="navbar-inner-container">
               <Link to='/'><div className="element-container">POČETNA</div></Link>
-        <div className="element-container">SKLONIŠTA</div>
+              <Link to='/sklonista'><div className="element-container">SKLONIŠTA</div></Link>
               <Link to='/login'><div className="element-container">PRIJAVI SE</div></Link>
       </div>
     </div>
