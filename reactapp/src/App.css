@@ -11,5 +11,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #dee2ff;
+    background-color: white;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+    color: black;
+    font-family: "Josefin Sans", sans-serif;
 }
