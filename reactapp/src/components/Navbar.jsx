@@ -11,7 +11,7 @@ function Navbar() {
       <div className="navbar-inner-container">
         <Link className="element-container" to='/'>POČETNA</Link>
         <div className="element-container">SKLONIŠTA</div>
-        <div className="element-container">PRIJAVI SE</div>
+        <Link className="element-container" to='/login'>PRIJAVI SE</Link>
       </div>
     </div>
   );

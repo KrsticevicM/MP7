@@ -21,101 +21,141 @@ namespace MP7_progi.Models
                     connection.Open();
 
                     //Kreiramo tablice
-                    string createKorisnikTableQuery = @"
-                        CREATE TABLE IF NOT EXISTS Korisnik(
-                        userID INTEGER PRIMARY KEY, 
-                        ime TEXT,
-                        prezime TEXT,
-                        email TEXT UNIQUE,
-                        telBroj INTEGER UNIQUE,
-                        lozinka TEXT,
-                        korIme TEXT UNIQUE,
-                        nazSklon TEXT UNIQUE CHECK (ime IS NULL OR prezime IS NULL)
+                    string createUserTableQuery = @"
+                          CREATE TABLE IF NOT EXISTS User(
+                          userID INT NOT NULL,
+                          userName INT NOT NULL,
+                          email INT NOT NULL,
+                          phoneNum INT NOT NULL,
+                          psw INT NOT NULL,
+                          PRIMARY KEY (userID)
                      );";
 
-                    string createKomunikacijaTableQuery = @"
-                        CREATE TABLE IF NOT EXISTS Komunikacija(
-                        porID INTEGER PRIMARY KEY,
-                        lokPor TEXT,
-                        slikaPor TEXT,
-                        tekstPor TEXT,
-                        oglasID INTEGER,
-                        FOREIGN KEY(oglasID) REFERENCES Oglas(oglasID)
+                    string createRegularTableQuery = @"
+                          CREATE TABLE IF NOT EXISTS Regular(
+                            firstName INT NOT NULL,
+                            lastName INT NOT NULL,
+                            userID INT NOT NULL,
+                            FOREIGN KEY (userID) REFERENCES User(userID)
                      );";
 
-                    string createLjubimacTableQuery = @"
-                        CREATE TABLE IF NOT EXISTS Ljubimac(
-                        petID INTEGER,
-                        imeLjub TEXT,
-                        vrsta TEXT,
-                        boja TEXT,
-                        starost TEXT,
-                        datSatNest DATETIME,
-                        lokacija TEXT,
-                        tekstniOpis TEXT,
-                        oglasID INTEGER,
-                        PRIMARY KEY(petID),
-                        FOREIGN KEY(oglasID) REFERENCES Oglas(oglasID)
+                    string createShelterTableQuery = @"
+                          CREATE TABLE IF NOT EXISTS Shelter(
+                            nameShelter INT NOT NULL,
+                            userID INT NOT NULL,
+                            FOREIGN KEY (userID) REFERENCES User(userID)
+                    );";
+
+                    string createTypeOfUserTableQuery = @"
+                          CREATE TABLE IF NOT EXISTS TypeOfUser(
+                          userType INT NOT NULL,
+                          userID INT NOT NULL,
+                          FOREIGN KEY (userID) REFERENCES User(userID)
+                    );";
+
+                    string createCommunicationTableQuery = @"
+                        CREATE TABLE IF NOT EXISTS Communication(
+                        textID INT NOT NULL,
+                        photoCom INT NOT NULL,
+                        textCom INT NOT NULL,
+                        locCom INT NOT NULL,
+                        adID INT NOT NULL,
+                        userID INT NOT NULL,
+                        PRIMARY KEY (textID),
+                        FOREIGN KEY (adID) REFERENCES Ad(adID),
+                        FOREIGN KEY (userID) REFERENCES User(userID)
+                    );";
+
+                    string createPetTableQuery = @"
+                        CREATE TABLE IF NOT EXISTS Pet(
+                        petID INT NOT NULL,
+                        namePet INT NOT NULL,
+                        dateHourMis INT NOT NULL,
+                        location INT NOT NULL,
+                        species INT NOT NULL,
+                        age INT NOT NULL,
+                        description INT NOT NULL,
+                        adID INT NOT NULL,
+                        PRIMARY KEY (petID),
+                        FOREIGN KEY (adID) REFERENCES Ad(adID)
+                    );";
+
+                    string createAdTableQuery = @"
+                       CREATE TABLE IF NOT EXISTS Ad (
+                        adID INT NOT NULL,
+                        catAd INT NOT NULL CHECK ((catAd IN ('u potrazi', 'sretno pronađen', 'nije pronađen', 'pronađen uz nesretne okolnosti', 'u skloništu'))),
+                        userID INT NOT NULL,
+                        PRIMARY KEY (adID),
+                        FOREIGN KEY (userID) REFERENCES User (userID)
                      );";
 
-                    string createOglasTableQuery = @"
-                        CREATE TABLE IF NOT EXISTS Oglas (
-                        oglasID INTEGER PRIMARY KEY,
-                        katOglas TEXT CHECK (katOglas IN ('u potrazi', 'sretno pronađen', 'nije pronađen', 'pronađen uz nesretne okolnosti'))
-                     );";
+                    
 
-                    string createpisePorTableQuery = @"
-                        CREATE TABLE IF NOT EXISTS pisePor(
-                        userID INTEGER,
-                        porID INTEGER,
-                        PRIMARY KEY(userID, porID),
-                        FOREIGN KEY(userID) REFERENCES Korisnik(userID),
-                        FOREIGN KEY (porID) REFERENCES Komunikacija(porID)
-                     );";
+                    string createPhotoAdTableQuery = @"
+                        CREATE TABLE IF NOT EXISTS PhotoAd(
+                        photoID INT NOT NULL,
+                        photo INT NOT NULL,
+                        adID INT NOT NULL,
+                        PRIMARY KEY (photoID),
+                        FOREIGN KEY (adID) REFERENCES Ad(adID)
+                    );";
 
-                    string createslikeOglasTableQuery = @"
-                        CREATE TABLE IF NOT EXISTS slikeOglas(
-                        fotoID INTEGER,
-                        userID INTEGER,
-                        oglasID INTEGER,
-                        petID INTEGER,
-                        foto TEXT,
-                        PRIMARY KEY( fotoID),
-                        FOREIGN KEY (userID) REFERENCES Korisnik(userID),
-                        FOREIGN KEY (oglasID) REFERENCES Oglas(oglasID),
-                        FOREIGN KEY(petID) REFERENCES Ljubimac(petID)
-                     );";
+                    string createColorPetTableQuery = @"
+                        CREATE TABLE IF NOT EXISTS ColorPet(
+                        color INT NOT NULL,
+                        colorID INT NOT NULL,
+                        PRIMARY KEY (colorID)
+                    );";
+
+                    string createhasTableQuery = @"
+                        CREATE TABLE IF NOT EXISTS has(
+                        petID INT NOT NULL,
+                        colorID INT NOT NULL,
+                        PRIMARY KEY (petID, colorID),
+                        FOREIGN KEY (petID) REFERENCES Pet(petID),
+                        FOREIGN KEY (colorID) REFERENCES ColorPet(colorID)
+                    );";
 
                     string createCountPhotosTrigger = @"
-                    CREATE TRIGGER IF NOT EXISTS check_numOf_Photos BEFORE INSERT ON slikeOglas WHEN (
-                        SELECT COUNT(*) FROM slikeOglas
-                        WHERE userID = NEW.userID AND
-                        oglasID = NEW.oglasID AND
-                        petID= NEW.petID
-                        ) >= 3 
-                         BEGIN SELECT RAISE(ABORT,'Cannot insert more than three photos of missing pet'); END;
+                    CREATE TRIGGER IF NOT EXISTS check_numOf_Photos
+                    BEFORE INSERT ON PhotoAd
+                    WHEN (SELECT COUNT(*) FROM PhotoAd WHERE adID = NEW.adID) >= 3
+                    BEGIN
+                    SELECT RAISE (ABORT, 'Cannot insert more than three photos of missing pet'); END;
                     ";
 
 
 
                     using (var command = new SQLiteCommand(connection))
                     {
-                        command.CommandText = createKorisnikTableQuery;
+                        command.CommandText = createUserTableQuery;
                         command.ExecuteNonQuery();
 
-                        command.CommandText = createKomunikacijaTableQuery;
+                        command.CommandText = createRegularTableQuery;
                         command.ExecuteNonQuery();
 
-                        command.CommandText = createOglasTableQuery;
+                        command.CommandText = createShelterTableQuery;
                         command.ExecuteNonQuery();
 
-                        command.CommandText = createpisePorTableQuery;
+                        command.CommandText = createTypeOfUserTableQuery;
                         command.ExecuteNonQuery();
 
-                        command.CommandText = createslikeOglasTableQuery;
+                        command.CommandText = createCommunicationTableQuery;
                         command.ExecuteNonQuery();
 
-                        command.CommandText = createLjubimacTableQuery;
+                        command.CommandText = createPetTableQuery;
+                        command.ExecuteNonQuery();
+
+                        command.CommandText = createAdTableQuery;
+                        command.ExecuteNonQuery();
+
+                        command.CommandText = createPhotoAdTableQuery;
+                        command.ExecuteNonQuery();
+
+                        command.CommandText = createColorPetTableQuery;
+                        command.ExecuteNonQuery();
+
+                        command.CommandText = createhasTableQuery;
                         command.ExecuteNonQuery();
 
                         command.CommandText = createCountPhotosTrigger;
