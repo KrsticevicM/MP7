@@ -43,24 +43,24 @@
     grid-column: 1 / span 2;
     height: 50vh;
     overflow: hidden;
-    border-radius: 2.5px;
-    padding: 10px;
-    padding-left: 0px;
-    padding-top: 0px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: #E6CCB2;
 }
 
 .pet-info-container {
     grid-column: 3 / span 4;
     height: 50vh;
-    background-color: #ede0d4;
+    background-color: white;
+    border: solid black 1px;
     padding: 10px;
     padding-left: 25px;
     text-align: left;
     font-size: medium;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 
 .pet-info-container-left {
@@ -75,16 +75,24 @@
 .comment-section-container {
     grid-column: 1 / span 6;
     height: 50vh;
-    background-color: #ede0d4;
-    border-top-left-radius: 5px;
+    background-color: #EDE0D4;
+    border-radius: 15px;
     text-align: left;
     padding: 10px;
     padding-left: 25px;
+    margin-top: 15px;
 }
 
 .pet-image {
     position: relative;
+    border-radius: 2.5px;
+    object-fit: cover;
     width: 100%;
     height: 100%;
-    border-radius: 2.5px;
+}
+
+.category-style {
+    font-style: normal;
+    font-weight: bold;
+    color: #7F5539;
 }
