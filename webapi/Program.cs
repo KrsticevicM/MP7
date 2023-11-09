@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 //DatabaseFunctions.InitializeDB();
 
 //Database tester - perform basic tests on tables
-DatabaseFunctions.databaseTester("korisnik");
+DatabaseFunctions.databaseTester(new ColorPet());
 
 // Add services to the container.
 

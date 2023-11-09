@@ -8,7 +8,7 @@ namespace MP7_progi.Models
 {
     public class DatabaseFunctions
     {
-        private static string connectionString = @"Data Source=MP7.db;Version=3;";
+        private static string connectionString = @"Data Source=MP7.db;Version=3;UTF8Encoding=True;";
 
         public static void InitializeDB()
         {
@@ -285,49 +285,58 @@ namespace MP7_progi.Models
             return dict;
         }
 
-        public static Dictionary<string, List<Table>> read(string table)
+        public static Dictionary<string, List<Object>> read(Table table)
         {
-            Dictionary<string, List<Table>> dict = new Dictionary<string, List<Table>>();
+            Dictionary<string, List<Object>> queryResultData = new Dictionary<string, List<Object>>();
+            List<Object> tableAttributes = new List<Object>();
+            List<Object> tableRows = new List<object>();
+            List<string> row;
 
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
 
-
-                string query = "SELECT * FROM " + table;
+                string query = "SELECT * FROM " + table.returnTable();
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
-
-                        for (int j = 0; j < reader.StepCount; j++)
+                        for(int i = 0; i < reader.FieldCount; i++)
                         {
-                            string columnName = reader.GetName(j);
-                            Console.WriteLine(columnName);
-                            List<Table> column_list = new List<Table>();
+                            tableAttributes.Add(reader.GetName(i));
+                        }
+                        while (reader.Read())
+                        {
+                            row = new List<string>();
 
-                            column_list.Add((Table)reader.GetValue(j));
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                row.Add(reader.GetValue(i).ToString());
+                            }
 
-                            dict.Add(columnName, column_list);
+                            tableRows.Add(row);
                         }
                     }
                 }
-
+                queryResultData.Add("Names", tableAttributes);
+                queryResultData.Add("Values", tableRows);
             }
-            return dict;
+            return queryResultData;
         }
-        public static void databaseTester(string table)
+        public static void databaseTester(Table table)
         {
-            Dictionary<string, List<Table>>? tableOut;
+            Dictionary<string, List<Object>>? tableOut;
+            List<Object> attributes = new List<Object>();
+            List<Object> values = new List<Object>();
+
             Console.WriteLine("Attempting read operation from the database...");
 
             try
             {
                 tableOut = DatabaseFunctions.read(table);
-                
             }
             catch(Exception ex)
             {
@@ -335,25 +344,26 @@ namespace MP7_progi.Models
                 return;
             }
 
-            string[] keys = tableOut.Keys.ToArray();
+            tableOut.TryGetValue("Names", out attributes);
+            tableOut.TryGetValue("Values", out values);
 
             Console.WriteLine("Performing test for database: " + table);
 
-            foreach(string key in keys)
+            foreach (string attrib in attributes.ToArray())
             {
-                Console.Write(key + "\t");
+                Console.Write(attrib + "\t\t");
             }
 
-            for(int i = 0; i < 3; i++)
+            foreach(List<string> row in values)
             {
-                foreach(string key in keys)
+                Console.WriteLine();
+
+                foreach(string rowItem in row)
                 {
-                    Console.Write(tableOut[key].ToArray()[i]);
+                    Console.Write(rowItem + "\t\t");
                 }
-            } 
+            }
+            Console.WriteLine();
         }
     }
-
 }
-
-  
