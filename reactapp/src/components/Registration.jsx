@@ -183,11 +183,11 @@ export const registrationAction= async ({request})=>{
         return {error: "Nevaljan email"}
     }else if(!(isNaN(submission.phoneNumber) === false) || submission.phoneNumber.length<7){
         return {error: "Nevaljan broj telefona"}
-    }else if(!(/^[a-zA-Z]/.test(submission.firstName))){
+    }else if(!(/^[a-zA-Z]+$/.test(submission.firstName))){
         return {error: "Nevaljano ime"}
-    }else if(!(/^[a-zA-Z]/.test(submission.lastName))){
+    }else if(!(/^[a-zA-Z]+$/.test(submission.lastName))){
         return {error: "Nevaljano prezime"}
-    }else if(!(/^[a-zA-Z]/.test(submission.shelterName))){
+    }else if(!(/^[a-zA-Z]+$/.test(submission.shelterName))){
         return {error: "Nevaljani naziv skloništa"}
     }
 
