@@ -18,6 +18,6 @@ public class MainController : ControllerBase
     [HttpGet(Name = "GetFrontPageData")]
     public string GetFrontPageData()
     {
-        return JsonSerializer.Serialize(DatabaseFunctions.read("Oglas"));
+        return JsonSerializer.Serialize(DatabaseFunctions.read(new User()));
     }
 }
