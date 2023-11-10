@@ -2,8 +2,13 @@ import "./Home.css";
 import Ad_card from "./Ad_card";
 import ListGroup from "./ListGroup";
 import { Link } from 'react-router-dom'
+import useFetch from "./useFetch"
+import { useEffect } from "react";
 
 function Home() {
+
+    const { data: ads_test, isPending, Error } = useFetch('main');
+        
   const ads = [
     {
       image: "images/Bichon-frise-dog.webp",
