@@ -2,7 +2,7 @@
 {
     public class typeOfUser : Table
     {
-        public readonly Dictionary<string, string> types = new Dictionary<string, string>()
+        private Dictionary<string, string> types = new Dictionary<string, string>()
         {
             {"userID", "int"},
             {"userType", "string"}
@@ -18,6 +18,11 @@
         public String returnColumnType(string column)
         {
             return types[column];
+        }
+        override
+        public Dictionary<string, string> returnColumnTypes()
+        {
+            return types;
         }
     }
 }

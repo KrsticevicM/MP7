@@ -2,7 +2,7 @@
 {
     public class Comment : Table
     {
-        public readonly Dictionary<string, string> types = new Dictionary<string, string>()
+        private Dictionary<string, string> types = new Dictionary<string, string>()
         {
             {"textID", "string"},
             {"photoCom", "string"},
@@ -27,6 +27,11 @@
         public String returnColumnType(string column)
         {
             return types[column];
+        }
+        override
+        public Dictionary<string, string> returnColumnTypes()
+        {
+            return types;
         }
     }
 }

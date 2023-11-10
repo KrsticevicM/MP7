@@ -6,7 +6,7 @@ namespace MP7_progi.Models
 {
     public class ColorPet : Table
     {
-        public readonly Dictionary<string, string> types = new Dictionary<string, string>()
+        private Dictionary<string, string> types = new Dictionary<string, string>()
         {
             {"colorID", "int"},
             {"color", "string"}
@@ -24,6 +24,11 @@ namespace MP7_progi.Models
         public String returnColumnType(string column)
         {
             return types[column];
+        }
+        override
+        public Dictionary<string, string> returnColumnTypes()
+        {
+            return types;
         }
     }
 }
