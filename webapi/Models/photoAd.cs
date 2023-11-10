@@ -2,7 +2,7 @@
 {
     public class photoAd : Table
     {
-        public readonly Dictionary<string, string> types = new Dictionary<string, string>()
+        private Dictionary<string, string> types = new Dictionary<string, string>()
         {
             {"photoID", "int"},
             {"adID", "int"},
@@ -21,6 +21,11 @@
         public String returnColumnType(string column)
         {
             return types[column];
+        }
+        override
+        public Dictionary<string, string> returnColumnTypes()
+        {
+            return types;
         }
     }
 }

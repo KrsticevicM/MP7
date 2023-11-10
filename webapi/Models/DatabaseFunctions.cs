@@ -317,12 +317,15 @@ namespace MP7_progi.Models
 
                 string query = "SELECT * FROM " + table.returnTable();
 
-                if(joins != null)
+                mergedDataTypes = mergedDataTypes.Concat(table.returnColumnTypes()).ToDictionary(pair => pair.Key, pair => pair.Value);
+
+                if (joins != null)
                 {
                     foreach(Table joinTables in joins)
                     {
-                        mergedDataTypes.Concat(joinTables.types);
+                        mergedDataTypes = mergedDataTypes.Union(joinTables.returnColumnTypes()).ToDictionary(pair => pair.Key, pair => pair.Value);
                     }
+                    
                     for(int i = 0; i < joins.Count; i++)
                     {
                         query += " " + DatabaseFunctions.joinExpression[jt[i]] + " " + joins[i].returnTable();
@@ -350,7 +353,7 @@ namespace MP7_progi.Models
                                 }
                                 else
                                 {
-                                    if (table.returnColumnType(reader.GetName(i)) != "string")
+                                    if (mergedDataTypes[reader.GetName(i)] != "string")
                                     {
 
                                         row.Add(reader.GetValue(i));
@@ -381,7 +384,7 @@ namespace MP7_progi.Models
 
             try
             {
-                tableOut = DatabaseFunctions.read(table, null, null);
+                tableOut = DatabaseFunctions.read(table, new List<Table> { new Pet() }, new List<joinType> { joinType.Natural });
             }
             catch (Exception ex)
             {
