@@ -5,21 +5,31 @@ namespace MP7_progi.Models
 {
     public class User : Table
     {
+        public readonly Dictionary<string, string> types = new Dictionary<string, string>()
+        {
+            {"userID", "int"},
+            {"userName", "string"},
+            {"email", "string"},
+            {"phoneNum", "int"},
+            {"psw", "string"}
+        };
         private readonly string _id = "User";
         public int userID { get; set; }
         public string userName { get; set; }
         public string email { get; set; }
 
         public string phoneNum { get; set; }
-        public string pws { get; set; }
+        public string psw { get; set; }
 
-        public List<Object> rows { get; }
+        public User() {}
 
-        public User()
-        {
-            rows = new List<Object>();
-        }
-
+        override
         public String returnTable() { return _id; }
+
+        override
+        public String returnColumnType(string column)
+        {
+            return types[column];
+        }
     }
 }

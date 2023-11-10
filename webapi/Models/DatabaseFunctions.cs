@@ -3,11 +3,29 @@ using System.IO;
 using System.Data;
 using System.Data.SqlClient;
 using System.Collections;
+using System.Data.Entity.Core.Common.CommandTrees;
+using System.Runtime.InteropServices;
 
 namespace MP7_progi.Models
 {
     public class DatabaseFunctions
     {
+        public enum joinType
+        {
+            Natural,
+            Inner,
+            Left,
+            Right
+        }
+
+        public static readonly Dictionary<joinType, string> joinExpression = new Dictionary<joinType, string>()
+        {
+            {joinType.Natural, "NATURAL JOIN"},
+            {joinType.Inner, "INNER JOIN"},
+            {joinType.Left, "LEFT JOIN"},
+            {joinType.Right, "RIGHT JOIN"}
+        };
+
         private static string connectionString = @"Data Source=MP7.db;Version=3;UTF8Encoding=True;";
 
         public static void InitializeDB()
@@ -285,19 +303,31 @@ namespace MP7_progi.Models
             return dict;
         }
 
-        public static Dictionary<string, List<Object>> read(Table table)
+        public static Dictionary<string, List<Object>> read(Table table, List<Table>? joins, List<joinType>? jt)
         {
             Dictionary<string, List<Object>> queryResultData = new Dictionary<string, List<Object>>();
+            Dictionary<string, string> mergedDataTypes = new Dictionary<string, string>();
             List<Object> tableAttributes = new List<Object>();
             List<Object> tableRows = new List<object>();
-            List<string> row;
-
+            List<Object> row;
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
 
                 string query = "SELECT * FROM " + table.returnTable();
+
+                if(joins != null)
+                {
+                    foreach(Table joinTables in joins)
+                    {
+                        mergedDataTypes.Concat(joinTables.types);
+                    }
+                    for(int i = 0; i < joins.Count; i++)
+                    {
+                        query += " " + DatabaseFunctions.joinExpression[jt[i]] + " " + joins[i].returnTable();
+                    }
+                }
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
@@ -310,11 +340,26 @@ namespace MP7_progi.Models
                         }
                         while (reader.Read())
                         {
-                            row = new List<string>();
+                            row = new List<Object>();
 
                             for (int i = 0; i < reader.FieldCount; i++)
                             {
-                                row.Add(reader.GetValue(i).ToString());
+                                if (reader.IsDBNull(i))
+                                {
+                                    row.Add(null);
+                                }
+                                else
+                                {
+                                    if (table.returnColumnType(reader.GetName(i)) != "string")
+                                    {
+
+                                        row.Add(reader.GetValue(i));
+                                    }
+                                    else
+                                    {
+                                        row.Add(reader.GetString(i));
+                                    }
+                                }
                             }
 
                             tableRows.Add(row);
@@ -336,9 +381,9 @@ namespace MP7_progi.Models
 
             try
             {
-                tableOut = DatabaseFunctions.read(table);
+                tableOut = DatabaseFunctions.read(table, null, null);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return;
@@ -354,11 +399,11 @@ namespace MP7_progi.Models
                 Console.Write(attrib + "\t\t");
             }
 
-            foreach(List<string> row in values)
+            foreach(List<Object> row in values)
             {
                 Console.WriteLine();
 
-                foreach(string rowItem in row)
+                foreach(Object rowItem in row)
                 {
                     Console.Write(rowItem + "\t\t");
                 }

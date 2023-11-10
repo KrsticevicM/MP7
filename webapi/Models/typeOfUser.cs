@@ -2,9 +2,22 @@
 {
     public class typeOfUser : Table
     {
-        private readonly string _id = "Shelter";
+        public readonly Dictionary<string, string> types = new Dictionary<string, string>()
+        {
+            {"userID", "int"},
+            {"userType", "string"}
+        };
+        private readonly string _id = "typeOfUser";
         public int userID { get; set; }
         public string? userType { get; set; }
+
+        override
         public String returnTable() { return _id; }
+
+        override
+        public String returnColumnType(string column)
+        {
+            return types[column];
+        }
     }
 }
