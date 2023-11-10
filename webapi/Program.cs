@@ -1,4 +1,5 @@
 using MP7_progi.Models;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 //DatabaseFunctions.InitializeDB();
 
 //Database tester - perform basic tests on tables
-DatabaseFunctions.databaseTester(new User());
+DatabaseFunctions.databaseTester(new Ad());
+Console.WriteLine(JsonSerializer.Serialize(DatabaseFunctions.read(new Ad(),
+                                                               new List<Table> { new Pet() },
+                                                               new List<DatabaseFunctions.joinType> 
+                                                               { DatabaseFunctions.joinType.Natural })));
 
 // Add services to the container.
 

@@ -1,10 +1,4 @@
 ﻿using System.Data.SQLite;
-using System.IO;
-using System.Data;
-using System.Data.SqlClient;
-using System.Collections;
-using System.Data.Entity.Core.Common.CommandTrees;
-using System.Runtime.InteropServices;
 
 namespace MP7_progi.Models
 {
@@ -18,7 +12,7 @@ namespace MP7_progi.Models
             Right
         }
 
-        public static readonly Dictionary<joinType, string> joinExpression = new Dictionary<joinType, string>()
+        public static readonly Dictionary<joinType, string> joinExpression = new ()
         {
             {joinType.Natural, "NATURAL JOIN"},
             {joinType.Inner, "INNER JOIN"},
@@ -26,7 +20,7 @@ namespace MP7_progi.Models
             {joinType.Right, "RIGHT JOIN"}
         };
 
-        private static string connectionString = @"Data Source=MP7.db;Version=3;UTF8Encoding=True;";
+        private static readonly string connectionString = @"Data Source=MP7.db;Version=3;UTF8Encoding=True;";
 
         public static void InitializeDB()
         {
@@ -107,7 +101,7 @@ namespace MP7_progi.Models
                         FOREIGN KEY (userID) REFERENCES User (userID)
                      );";
 
-                    
+
 
                     string createPhotoAdTableQuery = @"
                         CREATE TABLE IF NOT EXISTS PhotoAd(
@@ -184,131 +178,35 @@ namespace MP7_progi.Models
             }
         }
 
-        //Generalizirana funkcija citanja koja bi trebala uzeti u obzir sve nama potrebne upite
-        //**funkcionalnost jos nije testirana posto nema podataka u bazi**
-        public static Dictionary<string, List<Table>> read(string table, string? where, string? orderBy, int? numOfCol)
-        {
-            Dictionary<string, List<Table>> dict = new Dictionary<string,List<Table>>();
+        /*
+        read([Table], [List<Table>], [List<joinType>]) takes parameters for doint the SELECT SQL operation
+        on the database.
 
+        Params in:
+            
+            @ [Table]           - Takes the table to perform the operation on, REQ
+            @ [List<Table>]     - Takes the list of tables which are going to be joined, OPT (NULL)
+            @ [List<joinType>]  - Takes the list of join types for each of the tables, OPT (NULL)
 
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-            {
-                connection.Open();
-     
+        Params out:
 
-                string query = "SELECT * FROM " + table;
-                if (where != null)
-                    query += " WHERE " + where;
-                if(orderBy != null)
-                    query += " ORDER BY " + orderBy;
-                if (numOfCol != null)
-                    query += " LIMIT " + numOfCol;
-
-                using (SQLiteCommand command = new SQLiteCommand(query, connection))
-                {
-           
-                    using (SQLiteDataReader reader = command.ExecuteReader())
-                    {
-     
-                            for (int j = 0; j < reader.StepCount; j++)
-                            {
-                                string columnName = reader.GetName(j);
-                                Console.WriteLine(columnName);
-                                List<Table> column_list = new List<Table>();
-                              
-                                column_list.Add((Table)reader.GetValue(j));
-                                
-                                dict.Add(columnName, column_list);
-                            }                             
-                    }               
-                }
-
-            }
-            return dict;
-        }
-
-        public static Dictionary<string, List<Table>> read(string table, string? where, string? orderBy)
-        {
-            Dictionary<string, List<Table>> dict = new Dictionary<string, List<Table>>();
-
-
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-            {
-                connection.Open();
-
-
-                string query = "SELECT * FROM " + table;
-                if (where != null)
-                    query += " WHERE " + where;
-                if (orderBy != null)
-                    query += " ORDER BY " + orderBy;
-
-                using (SQLiteCommand command = new SQLiteCommand(query, connection))
-                {
-
-                    using (SQLiteDataReader reader = command.ExecuteReader())
-                    {
-
-                        for (int j = 0; j < reader.StepCount; j++)
-                        {
-                            string columnName = reader.GetName(j);
-                            Console.WriteLine(columnName);
-                            List<Table> column_list = new List<Table>();
-
-                            column_list.Add((Table)reader.GetValue(j));
-
-                            dict.Add(columnName, column_list);
-                        }
-                    }
-                }
-
-            }
-            return dict;
-        }
-
-        public static Dictionary<string, List<Table>> read(string table, string? where)
-        {
-            Dictionary<string, List<Table>> dict = new Dictionary<string, List<Table>>();
-
-
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-            {
-                connection.Open();
-
-
-                string query = "SELECT * FROM " + table;
-                if (where != null)
-                    query += " WHERE " + where;
-
-                using (SQLiteCommand command = new SQLiteCommand(query, connection))
-                {
-
-                    using (SQLiteDataReader reader = command.ExecuteReader())
-                    {
-
-                        for (int j = 0; j < reader.StepCount; j++)
-                        {
-                            string columnName = reader.GetName(j);
-                            Console.WriteLine(columnName);
-                            List<Table> column_list = new List<Table>();
-
-                            column_list.Add((Table)reader.GetValue(j));
-
-                            dict.Add(columnName, column_list);
-                        }
-                    }
-                }
-
-            }
-            return dict;
-        }
-
+            @ [Dictionary<string, List<Object>] - SQL operation result
+                > Key                           - Defines if values are column names or data
+                    > Possible keys:
+                        @ "Names"
+                        @ "Values"
+                > Values                        - SQL operation result values, columns and data
+                    > Values:
+                        @ List<Object>          - Names (list of strings) - KEY: Names
+                        @ List<List<Object>>    - Data table              - KEY: Values
+                            @ List<Object>      - One row
+         */
         public static Dictionary<string, List<Object>> read(Table table, List<Table>? joins, List<joinType>? jt)
         {
-            Dictionary<string, List<Object>> queryResultData = new Dictionary<string, List<Object>>();
-            Dictionary<string, string> mergedDataTypes = new Dictionary<string, string>();
-            List<Object> tableAttributes = new List<Object>();
-            List<Object> tableRows = new List<object>();
+            Dictionary<string, List<Object>> queryResultData = new ();
+            Dictionary<string, string> mergedDataTypes = new ();
+            List<Object> tableAttributes = new ();
+            List<Object> tableRows = new ();
             List<Object> row;
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
@@ -317,13 +215,20 @@ namespace MP7_progi.Models
 
                 string query = "SELECT * FROM " + table.returnTable();
 
-                if(joins != null)
+                mergedDataTypes = mergedDataTypes
+                                  .Concat(table.returnColumnTypes())
+                                  .ToDictionary(pair => pair.Key, pair => pair.Value);
+
+                if (joins != null)
                 {
-                    foreach(Table joinTables in joins)
+                    foreach (Table joinTables in joins)
                     {
-                        mergedDataTypes.Concat(joinTables.types);
+                        mergedDataTypes = mergedDataTypes
+                                          .Union(joinTables.returnColumnTypes())
+                                          .ToDictionary(pair => pair.Key, pair => pair.Value);
                     }
-                    for(int i = 0; i < joins.Count; i++)
+
+                    for (int i = 0; i < joins.Count; i++)
                     {
                         query += " " + DatabaseFunctions.joinExpression[jt[i]] + " " + joins[i].returnTable();
                     }
@@ -334,7 +239,7 @@ namespace MP7_progi.Models
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
-                        for(int i = 0; i < reader.FieldCount; i++)
+                        for (int i = 0; i < reader.FieldCount; i++)
                         {
                             tableAttributes.Add(reader.GetName(i));
                         }
@@ -350,18 +255,20 @@ namespace MP7_progi.Models
                                 }
                                 else
                                 {
-                                    if (table.returnColumnType(reader.GetName(i)) != "string")
+                                    if (mergedDataTypes[reader.GetName(i)] == "int")
                                     {
-
                                         row.Add(reader.GetValue(i));
                                     }
-                                    else
+                                    else if (mergedDataTypes[reader.GetName(i)] == "string")
                                     {
                                         row.Add(reader.GetString(i));
                                     }
+                                    else if (mergedDataTypes[reader.GetName(i)] == "DateTime")
+                                    {
+                                        row.Add(reader.GetDateTime(i).ToString());
+                                    }
                                 }
                             }
-
                             tableRows.Add(row);
                         }
                     }
@@ -374,14 +281,14 @@ namespace MP7_progi.Models
         public static void databaseTester(Table table)
         {
             Dictionary<string, List<Object>>? tableOut;
-            List<Object> attributes = new List<Object>();
-            List<Object> values = new List<Object>();
+            List<Object> attributes = new ();
+            List<Object> values = new ();
 
             Console.WriteLine("Attempting read operation from the database...");
 
             try
             {
-                tableOut = DatabaseFunctions.read(table, null, null);
+                tableOut = DatabaseFunctions.read(table, new List<Table> { new Pet() }, new List<joinType> { joinType.Natural });
             }
             catch (Exception ex)
             {
@@ -399,11 +306,11 @@ namespace MP7_progi.Models
                 Console.Write(attrib + "\t\t");
             }
 
-            foreach(List<Object> row in values)
+            foreach (List<Object> row in values)
             {
                 Console.WriteLine();
 
-                foreach(Object rowItem in row)
+                foreach (Object rowItem in row)
                 {
                     Console.Write(rowItem + "\t\t");
                 }

@@ -5,7 +5,7 @@ namespace MP7_progi.Models
 {
     public class User : Table
     {
-        public readonly Dictionary<string, string> types = new Dictionary<string, string>()
+        private Dictionary<string, string> types = new Dictionary<string, string>()
         {
             {"userID", "int"},
             {"userName", "string"},
@@ -30,6 +30,11 @@ namespace MP7_progi.Models
         public String returnColumnType(string column)
         {
             return types[column];
+        }
+        override
+        public Dictionary<string, string> returnColumnTypes()
+        {
+            return types;
         }
     }
 }
