@@ -215,20 +215,31 @@ namespace MP7_progi.Models
 
                 string query = "SELECT * FROM " + table.returnTable();
 
+<<<<<<< HEAD
                 mergedDataTypes = mergedDataTypes
                                   .Concat(table.returnColumnTypes())
                                   .ToDictionary(pair => pair.Key, pair => pair.Value);
+=======
+                mergedDataTypes = mergedDataTypes.Concat(table.returnColumnTypes()).ToDictionary(pair => pair.Key, pair => pair.Value);
+>>>>>>> 26d8c33eb18ac8fadc3022088a250064f3466f78
 
                 if (joins != null)
                 {
                     foreach (Table joinTables in joins)
                     {
+<<<<<<< HEAD
                         mergedDataTypes = mergedDataTypes
                                           .Union(joinTables.returnColumnTypes())
                                           .ToDictionary(pair => pair.Key, pair => pair.Value);
                     }
 
                     for (int i = 0; i < joins.Count; i++)
+=======
+                        mergedDataTypes = mergedDataTypes.Union(joinTables.returnColumnTypes()).ToDictionary(pair => pair.Key, pair => pair.Value);
+                    }
+                    
+                    for(int i = 0; i < joins.Count; i++)
+>>>>>>> 26d8c33eb18ac8fadc3022088a250064f3466f78
                     {
                         query += " " + DatabaseFunctions.joinExpression[jt[i]] + " " + joins[i].returnTable();
                     }
@@ -255,7 +266,11 @@ namespace MP7_progi.Models
                                 }
                                 else
                                 {
+<<<<<<< HEAD
                                     if (mergedDataTypes[reader.GetName(i)] == "int")
+=======
+                                    if (mergedDataTypes[reader.GetName(i)] != "string")
+>>>>>>> 26d8c33eb18ac8fadc3022088a250064f3466f78
                                     {
                                         row.Add(reader.GetValue(i));
                                     }
