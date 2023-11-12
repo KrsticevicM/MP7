@@ -1,4 +1,5 @@
-﻿using System.Data.SQLite;
+﻿using System.Collections;
+using System.Data.SQLite;
 using System.Linq.Expressions;
 
 namespace MP7_progi.Models
@@ -283,6 +284,87 @@ namespace MP7_progi.Models
             }
             return queryResultData;
         }
+
+             /*
+        insert(Table, List<ArrayList> method for inserting rows into database
+
+        Params in:
+            
+            @ [Table]           - Takes the table to perform the operation on, REQ
+            @ [List<ArrayList>]  - Takes rows that are to be added into table, REQ
+
+        */
+
+        public static void insert(Table table, List<ArrayList> rows)
+        {
+            //check if provided data types inside list match those in table
+            for (int i = 0; i < rows.Count; i++)
+            {
+                for (int j = 0; j < table.returnColumnTypes().Count; j++)
+                {
+                    string suffix = "";
+                    if (table.returnColumnTypes().ElementAt(j).Value == "int")
+                    {
+                        suffix += "32";
+                    }
+
+                    if (("system." + table.returnColumnTypes().ElementAt(j).Value + suffix) != rows.ElementAt(i)[j].GetType().ToString().ToLower())
+                    {
+                        Console.WriteLine("ERROR: Tried to enter type that doesnt match that in table");
+                        Console.WriteLine("Expected type: system." + table.returnColumnTypes().ElementAt(j).Value);
+                        Console.WriteLine("Provided type: " + rows.ElementAt(i)[j].GetType().ToString().ToLower() + " (" + rows.ElementAt(i)[j] + ")");
+
+                        return;
+                    }
+                }
+            }
+            Console.WriteLine("All provided data is matching type");
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {                    
+                connection.Open();
+                int changes = 0;
+                for (int i = 0; i < rows.Count; i++)
+                {
+                    string query = "INSERT INTO " + table.returnTable();
+                    query += "  VALUES(";
+                    for (int j = 0; j < table.returnColumnTypes().Count; j++)
+                    {
+
+                        if (rows.ElementAt(i)[j].GetType().ToString() == "System.String")
+                        {
+                            query += "'" + rows.ElementAt(i)[j] + "'";
+                        }
+                        else {
+                            query += rows.ElementAt(i)[j];
+                        }
+                        if(j < table.returnColumnTypes().Count - 1)
+                        {
+                            query += ", ";
+                        }
+                    }
+                    query += ");";
+                    
+                    SQLiteCommand command = new SQLiteCommand(query, connection);
+           
+                    int check = command.ExecuteNonQuery();
+                    if (check == 1)
+                    {
+                        changes++;
+                    }
+                    else
+                    {
+                        Console.WriteLine("ERROR: Row hasnt been inserted");
+                    }
+                    query = "";
+                }
+
+                Console.WriteLine("Number of rows added: " + changes);
+
+            }
+
+        }
+
         public static void databaseTester(Table table)
         {
             Dictionary<string, List<Object>>? tableOut;
