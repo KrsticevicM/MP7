@@ -6,6 +6,11 @@ namespace MP7_progi.Models
 {
     public class ColorPet : Table
     {
+        enum names
+        {
+            colorID,
+            color
+        }
         private Dictionary<string, string> types = new Dictionary<string, string>()
         {
             {"colorID", "int"},

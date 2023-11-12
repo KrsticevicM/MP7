@@ -2,6 +2,15 @@
 {
     public class Comment : Table
     {
+        enum names
+        {
+            textID,
+            photoCom,
+            textCom,
+            locCom,
+            adID,
+            userID
+        }
         private Dictionary<string, string> types = new Dictionary<string, string>()
         {
             {"textID", "string"},

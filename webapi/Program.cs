@@ -8,10 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 //Database tester - perform basic tests on tables
 DatabaseFunctions.databaseTester(new Ad());
-Console.WriteLine(JsonSerializer.Serialize(DatabaseFunctions.read(new Ad(),
-                                                               new List<Table> { new Pet() },
-                                                               new List<DatabaseFunctions.joinType> 
-                                                               { DatabaseFunctions.joinType.Natural })));
 
 // Add services to the container.
 

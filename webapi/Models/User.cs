@@ -5,6 +5,14 @@ namespace MP7_progi.Models
 {
     public class User : Table
     {
+        enum names
+        {
+            userID,
+            userName,
+            email,
+            phoneNum,
+            psw
+        }
         private Dictionary<string, string> types = new Dictionary<string, string>()
         {
             {"userID", "int"},
