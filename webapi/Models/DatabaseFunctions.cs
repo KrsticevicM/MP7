@@ -1,5 +1,7 @@
 ﻿using System.Data.SQLite;
 using System.Linq.Expressions;
+using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace MP7_progi.Models
 {
@@ -298,7 +300,8 @@ namespace MP7_progi.Models
 
             try
             {
-                tableOut = DatabaseFunctions.read(table, new List<Table> { new Pet() }, new List<joinType> { joinType.Natural }, exp);
+                tableOut = DatabaseFunctions.read(table, new List<Table> { new Pet(), new ColorPet(), new photoAd() }, new List<joinType> { joinType.Natural, joinType.Natural, joinType.Natural }, null);
+                Console.WriteLine(JsonConvert.SerializeObject(tableOut, Formatting.Indented));
             }
             catch (Exception ex)
             {
@@ -306,6 +309,8 @@ namespace MP7_progi.Models
                 return;
             }
 
+            
+            /*
             tableOut.TryGetValue("Names", out attributes);
             tableOut.TryGetValue("Values", out values);
 
@@ -326,6 +331,7 @@ namespace MP7_progi.Models
                 }
             }
             Console.WriteLine();
+            */
         }
     }
 }
