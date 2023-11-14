@@ -1,8 +1,6 @@
-﻿using System.Collections;
+﻿using Newtonsoft.Json;
+using System.Collections;
 using System.Data.SQLite;
-using System.Linq.Expressions;
-using System.Text.Json;
-using Newtonsoft.Json;
 
 namespace MP7_progi.Models
 {
@@ -16,7 +14,7 @@ namespace MP7_progi.Models
             Right
         }
 
-        public static readonly Dictionary<joinType, string> joinExpression = new ()
+        public static readonly Dictionary<joinType, string> joinExpression = new()
         {
             {joinType.Natural, "NATURAL JOIN"},
             {joinType.Inner, "INNER JOIN"},
@@ -209,10 +207,10 @@ namespace MP7_progi.Models
          */
         public static Dictionary<string, List<Object>> read(Table table, List<Table>? joins, List<joinType>? jt, Expression? where)
         {
-            Dictionary<string, List<Object>> queryResultData = new ();
-            Dictionary<string, string> mergedDataTypes = new ();
-            List<Object> tableAttributes = new ();
-            List<Object> tableRows = new ();
+            Dictionary<string, List<Object>> queryResultData = new();
+            Dictionary<string, string> mergedDataTypes = new();
+            List<Object> tableAttributes = new();
+            List<Object> tableRows = new();
             List<Object> row;
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
@@ -233,8 +231,8 @@ namespace MP7_progi.Models
                                           .Union(joinTables.returnColumnTypes())
                                           .ToDictionary(pair => pair.Key, pair => pair.Value);
                     }
-                    
-                    for(int i = 0; i < joins.Count; i++)
+
+                    for (int i = 0; i < joins.Count; i++)
                     {
                         query += " " + DatabaseFunctions.joinExpression[jt[i]] + " " + joins[i].returnTable();
                     }
@@ -287,13 +285,50 @@ namespace MP7_progi.Models
             return queryResultData;
         }
 
-             /*
+        public static string ConvertDictionaryToJson(Dictionary<string, List<object>> data)
+        {
+            if (!data.ContainsKey("Names") || !data.ContainsKey("Values"))
+            {
+                throw new ArgumentException("Invalid data structure. 'Names' and 'Values' keys are required.");
+            }
+
+            var names = ((List<object>)data["Names"]).ConvertAll(name => (string)name);
+
+            if (data["Values"] is List<Object> values)
+            {
+                var rows = new List<Dictionary<string, object>>();
+                foreach (List<Object> valueRow in values)
+                {
+                    var row = new Dictionary<string, object>();
+                    for (int i = 0; i < names.Count; i++)
+                    {
+                        row[names[i]] = valueRow[i];
+                    }
+                    rows.Add(row);
+                }
+
+                var resultData = new Dictionary<string, object>
+                {
+                    { "Data", rows }
+                };
+
+                string jsonString = JsonConvert.SerializeObject(resultData, Formatting.Indented);
+
+                return jsonString;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid data type for 'Values'. List<List<object>> expected.");
+            }
+        }
+
+        /*
         insert(Table, List<ArrayList> method for inserting rows into database
 
         Params in:
-            
-            @ [Table]           - Takes the table to perform the operation on, REQ
-            @ [List<ArrayList>]  - Takes rows that are to be added into table, REQ
+
+           @ [Table]           - Takes the table to perform the operation on, REQ
+           @ [List<ArrayList>]  - Takes rows that are to be added into table, REQ
 
         */
 
@@ -323,7 +358,7 @@ namespace MP7_progi.Models
             Console.WriteLine("All provided data is matching type");
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-                {                    
+            {
                 connection.Open();
                 int changes = 0;
                 for (int i = 0; i < rows.Count; i++)
@@ -337,18 +372,19 @@ namespace MP7_progi.Models
                         {
                             query += "'" + rows.ElementAt(i)[j] + "'";
                         }
-                        else {
+                        else
+                        {
                             query += rows.ElementAt(i)[j];
                         }
-                        if(j < table.returnColumnTypes().Count - 1)
+                        if (j < table.returnColumnTypes().Count - 1)
                         {
                             query += ", ";
                         }
                     }
                     query += ");";
-                    
+
                     SQLiteCommand command = new SQLiteCommand(query, connection);
-           
+
                     int check = command.ExecuteNonQuery();
                     if (check == 1)
                     {
@@ -370,8 +406,8 @@ namespace MP7_progi.Models
         public static void databaseTester(Table table)
         {
             Dictionary<string, List<Object>>? tableOut;
-            List<Object> attributes = new ();
-            List<Object> values = new ();
+            List<Object> attributes = new();
+            List<Object> values = new();
             Expression exp = new Expression();
 
             exp.addElement(Pet.names.petID, Expression.OP.EQUAL);
@@ -383,7 +419,7 @@ namespace MP7_progi.Models
             try
             {
                 tableOut = DatabaseFunctions.read(table, new List<Table> { new Pet(), new ColorPet(), new photoAd() }, new List<joinType> { joinType.Natural, joinType.Natural, joinType.Natural }, null);
-                Console.WriteLine(JsonConvert.SerializeObject(tableOut, Formatting.Indented));
+                Console.WriteLine(ConvertDictionaryToJson(tableOut));
             }
             catch (Exception ex)
             {
@@ -391,7 +427,7 @@ namespace MP7_progi.Models
                 return;
             }
 
-            
+
             /*
             tableOut.TryGetValue("Names", out attributes);
             tableOut.TryGetValue("Values", out values);

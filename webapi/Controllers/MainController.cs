@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MP7_progi.Models;
 using System.Text.Json;
 using Newtonsoft.Json;
+using System.Data.Entity;
 
 namespace webapi.Controllers;
 
@@ -27,6 +28,6 @@ public class MainController : ControllerBase
                                                                    DatabaseFunctions.joinType.Natural
                                                                }, null);
 
-        return JsonConvert.SerializeObject(data, Formatting.Indented);
+        return DatabaseFunctions.ConvertDictionaryToJson(data);
     }
 }
