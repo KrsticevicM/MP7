@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MP7_progi.Models;
 using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace webapi.Controllers;
 
@@ -18,6 +19,14 @@ public class MainController : ControllerBase
     [HttpGet(Name = "GetFrontPageData")]
     public string GetFrontPageData()
     {
-        return JsonSerializer.Serialize(DatabaseFunctions.read(new Ad(), null, null));
+        Dictionary<string, List<Object>> data = DatabaseFunctions.read(new Ad(),
+                                                               new List<Table> { new Pet(), new ColorPet(), new photoAd() },
+                                                               new List<DatabaseFunctions.joinType> {
+                                                                   DatabaseFunctions.joinType.Natural,
+                                                                   DatabaseFunctions.joinType.Natural,
+                                                                   DatabaseFunctions.joinType.Natural
+                                                               }, null);
+
+        return JsonConvert.SerializeObject(data, Formatting.Indented);
     }
 }

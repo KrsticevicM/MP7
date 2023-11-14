@@ -2,6 +2,11 @@
 {
     public class typeOfUser : Table
     {
+        enum names
+        {
+            userID,
+            userType
+        }
         private Dictionary<string, string> types = new Dictionary<string, string>()
         {
             {"userID", "int"},

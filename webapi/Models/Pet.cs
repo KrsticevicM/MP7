@@ -4,6 +4,17 @@ namespace MP7_progi.Models
 {
     public class Pet : Table
     {
+        public enum names
+        {
+            petID,
+            namePet,
+            dateHourMis,
+            location,
+            species,
+            age,
+            description,
+            adID
+        }
         private Dictionary<string, string> types = new Dictionary<string, string>()
         {
             {"petID", "int"},

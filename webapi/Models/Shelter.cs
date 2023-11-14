@@ -2,6 +2,11 @@
 {
     public class Shelter : Table
     {
+        enum names
+        {
+            userID,
+            nameShelter
+        }
         private Dictionary<string, string> types = new Dictionary<string, string>()
         {
             {"userID", "int"},

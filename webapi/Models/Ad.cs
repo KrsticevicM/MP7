@@ -2,6 +2,12 @@
 {
     public class Ad : Table
     {
+        enum names
+        {
+            adID,
+            catAd,
+            userID
+        }
         private Dictionary<string, string> types = new Dictionary<string, string>()
         {
             {"adID", "int"},
@@ -15,7 +21,8 @@
         public Ad() { }
 
         override
-        public String returnTable() { return _id; }
+        public String returnTable()
+        { return _id; }
 
         override
         public String returnColumnType(string column)
