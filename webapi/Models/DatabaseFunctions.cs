@@ -403,6 +403,49 @@ namespace MP7_progi.Models
 
         }
 
+        /*
+
+        checkLoginData(string username, string password) - method for checking whether user already has account
+
+        Params in:
+
+           @ [string]           - user username, REQ
+           @ [string]           - user password, REQ
+
+        Params out:
+
+            @ [string]          - user ID
+          
+         */
+        public static string checkLoginData(string username, string password)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT userID FROM User WHERE userName = @username AND psw = @password";
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    
+                    command.Parameters.AddWithValue("@username", username);
+                    command.Parameters.AddWithValue("@password", password); 
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
+                            object id = reader.GetValue(0);
+                            return id.ToString();
+                        }
+
+                        Console.WriteLine("Wrong username or password entered");
+                        return "";
+                    }
+                }
+            }
+        }
+
         public static void databaseTester(Table table)
         {
             Dictionary<string, List<Object>>? tableOut;
