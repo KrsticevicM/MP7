@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { Form, Link, redirect, useActionData} from "react-router-dom";
+import { useContext, useState } from "react";
+import { Form, Link, Navigate, redirect, useActionData} from "react-router-dom";
 import './Registration.css'
+import { AuthContext } from "./AuthenticationContext";
 
 let isPending=false
 function setIsPending(value){
@@ -10,9 +11,79 @@ function setIsPending(value){
 function Registration(){
 
     const [typeOfuser,setTypeOfUser]=useState("Regular")
-    const data = useActionData()
-    
+    const [error,setError]=useState("")
+    const {user,updateUser}=useContext(AuthContext)
 
+    const registrationAction= async (event)=>{
+
+        event.preventDefault()
+        //getting form data and turning it into object
+        const data = new FormData(event.target)
+        const submission={
+            username: data.get('username'),
+            password: data.get('password'),
+            email: data.get('email'),
+            phoneNumber: data.get('phoneNumber'),
+            firstName: data.get('firstName'),
+            lastName: data.get('lastName'),
+            shelterName: data.get('shelterName'),
+            typeOfUser: data.get('typeOfUser')
+        }
+        
+    
+        //check if info is valid and set error if it isnt
+        
+        if(submission.username.length<4){
+           setError("Username mora sadržavati barem 4 znaka")
+           return 
+        }else if(submission.password.length<6){
+            
+            setError("Password mora imati barem 6 znaka")
+            return
+        }else if(!(submission.email.includes("@"))){
+            
+            setError("Nevaljan email")
+            return
+        }else if(!(isNaN(submission.phoneNumber) === false) || submission.phoneNumber.length<7){
+            
+            setError("Nevaljan broj telefona")
+             return
+        }else if(!(/^[a-zA-Z]+$/.test(submission.firstName))){
+            
+            setError("Nevaljano ime")
+            return
+        }else if(!(/^[a-zA-Z]+$/.test(submission.lastName))){
+            
+            setError("Nevaljano prezime")
+            return
+        }else if(!(/^[a-zA-Z]+$/.test(submission.shelterName))){
+            
+            setError("Nevaljani naziv skloništa")
+            return
+        }
+        setError("")
+    
+        /*
+        setIsPending(true)
+        //send post request with fetch
+        //TODO fix route to one that exists
+        fetch("https://localhost:7024/api/resgistration",{
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(submission)
+        }).then(()=>{
+            console.log(submission)
+            setIsPending(false)
+            
+        })
+        */
+        updateUser({firstName:"FRAN",lastName:"KUFRIN",isAuth:true,userID:32321})
+        console.log(submission)
+        //redirect to homepage if successful
+    }
+    if(user.isAuth){
+        return <Navigate to="/"/>
+    }
 
     return (
 
@@ -22,7 +93,7 @@ function Registration(){
 
                 <h1 className="registration-headline">Registracija</h1>
 
-                <Form method="post" action="/registration">
+                <Form onSubmit={registrationAction}>
                 <div className="registration-details">
                     <div className="form-divider">
                         <div className="form-floating ">
@@ -145,9 +216,9 @@ function Registration(){
                 
                 <p className='vecregistriran'> Već si registriran? <Link to='/login' id='link'>Prijavi se</Link></p> 
 
-                {data && data.error && 
-                <p id="registration-error" >{data.error}</p>
-                }
+                
+                <p id="registration-error" >{error}</p>
+                
             
                 </Form>
             </section>
@@ -156,57 +227,3 @@ function Registration(){
 }
 export default Registration;
 
-export const registrationAction= async ({request})=>{
-
-
-    //getting form data and turning it into object
-    const data = await request.formData()
-    const submission={
-        username: data.get('username'),
-        password: data.get('password'),
-        email: data.get('email'),
-        phoneNumber: data.get('phoneNumber'),
-        firstName: data.get('firstName'),
-        lastName: data.get('lastName'),
-        shelterName: data.get('shelterName'),
-        typeOfUser: data.get('typeOfUser')
-    }
-    
-
-    //check if info is valid and throw error if it isnt
-    
-    if(submission.username.length<4){
-       return {error: "Username mora sadržavati barem 4 znaka"}
-    }else if(submission.password.length<6){
-        return {error: "Password mora imati barem 6 znaka"}
-    }else if(!(submission.email.includes("@"))){
-        return {error: "Nevaljan email"}
-    }else if(!(isNaN(submission.phoneNumber) === false) || submission.phoneNumber.length<7){
-        return {error: "Nevaljan broj telefona"}
-    }else if(!(/^[a-zA-Z]+$/.test(submission.firstName))){
-        return {error: "Nevaljano ime"}
-    }else if(!(/^[a-zA-Z]+$/.test(submission.lastName))){
-        return {error: "Nevaljano prezime"}
-    }else if(!(/^[a-zA-Z]+$/.test(submission.shelterName))){
-        return {error: "Nevaljani naziv skloništa"}
-    }
-
-    /*
-    setIsPending(true)
-    //send post request with fetch
-    //TODO fix route to one that exists
-    fetch("https://localhost:7024/api/resgistration",{
-        method: "POST",
-        mode: "no-cors",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(submission)
-    }).then(()=>{
-        console.log(submission)
-        setIsPending(false)
-        
-    })
-    */
-    console.log(submission)
-    //redirect to homepage if successful
-    return redirect('/')
-}

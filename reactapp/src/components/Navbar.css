@@ -39,9 +39,20 @@
     transition: color 0.35s;
 }
 
-    .element-container:hover {
-        text-decoration: none;
-        font-family: "Josefin Sans", sans-serif;
-        color: white;
-        cursor: pointer;
-    }
+.element-container:hover {
+    text-decoration: none;
+    font-family: "Josefin Sans", sans-serif;
+    color: white;
+    cursor: pointer;
+}
+
+.odjava-button{
+    background: transparent;
+    border: none;
+}
+.odjava-button:hover{
+    text-decoration: none;
+    font-family: "Josefin Sans", sans-serif;
+    color: white;
+    cursor: pointer;
+}
