@@ -31,8 +31,8 @@ red2.Add("2");
 lista.Add(red1);
 lista.Add(red2);
 
-//DatabaseFunctions.databaseTester(new User());
-DatabaseFunctions.checkLoginData("peric", "2");
+//DatabaseFunctions.databaseTester(new Ad());
+//DatabaseFunctions.checkLoginData("peric", "2");
 // Add services to the container.
 
 builder.Services.AddControllers();

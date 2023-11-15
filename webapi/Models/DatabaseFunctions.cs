@@ -462,7 +462,7 @@ namespace MP7_progi.Models
 
             try
             {
-                tableOut = DatabaseFunctions.read(table, new List<Table> { new Pet(), new ColorPet(), new photoAd() }, new List<joinType> { joinType.Natural, joinType.Natural, joinType.Natural }, null);
+                tableOut = DatabaseFunctions.read(table, new List<Table> { new Pet(), new hasColor(), new ColorPet(), new photoAd() }, new List<joinType> { joinType.Natural, joinType.Natural, joinType.Natural, joinType.Natural }, null);
                 Console.WriteLine(ConvertDictionaryToJson(tableOut));
             }
             catch (Exception ex)

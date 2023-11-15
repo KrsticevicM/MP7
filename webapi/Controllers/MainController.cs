@@ -21,8 +21,9 @@ public class MainController : ControllerBase
     public string GetFrontPageData()
     {
         Dictionary<string, List<Object>> data = DatabaseFunctions.read(new Ad(),
-                                                               new List<Table> { new Pet(), new ColorPet(), new photoAd() },
+                                                               new List<Table> { new Pet(), new ColorPet(), new hasColor(), new photoAd() },
                                                                new List<DatabaseFunctions.joinType> {
+                                                                   DatabaseFunctions.joinType.Natural,
                                                                    DatabaseFunctions.joinType.Natural,
                                                                    DatabaseFunctions.joinType.Natural,
                                                                    DatabaseFunctions.joinType.Natural
