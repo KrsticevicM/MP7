@@ -533,8 +533,8 @@
 
 \subsubsection{Dijagrami obrazaca uporabe}
 
-\textit{Prikazati odnos aktora i obrazaca uporabe odgovarajućim UML dijagramom. Nije nužno nacrtati sve na jednom dijagramu. Modelirati po razinama apstrakcije i skupovima srodnih funkcionalnosti.}
-\eject		
+%\textit{Prikazati odnos aktora i obrazaca uporabe odgovarajućim UML dijagramom. Nije nužno nacrtati sve na jednom dijagramu. Modelirati po razinama apstrakcije i skupovima srodnih funkcionalnosti.}
+%\eject		
 
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{Dijagram_obrasca_uporabe.JPEG} %veličina u odnosu na širinu linije
@@ -542,18 +542,30 @@
 	\label{fig:promjene6} %label mora biti drugaciji za svaku sliku
 \end{figure}
 
+\pagebreak
+
 \subsection{Sekvencijski dijagrami}
 
-\textbf{\textit{dio 1. revizije}}\\
+%\textbf{\textit{dio 1. revizije}}\\
 
-\textit{Nacrtati sekvencijske dijagrame koji modeliraju najvažnije dijelove sustava (max. 4 dijagrama). Ukoliko postoji nedoumica oko odabira, razjasniti s asistentom. Uz svaki dijagram napisati detaljni opis dijagrama.}
-\eject
+%\textit{Nacrtati sekvencijske dijagrame koji modeliraju najvažnije dijelove sustava (max. 4 dijagrama). Ukoliko postoji nedoumica oko odabira, razjasniti s asistentom. Uz svaki dijagram napisati detaljni opis dijagrama.}
+%\eject
 
+\noindent {\textbf{Obrazac uporabe UC3 - Prijava u sustav}}
+
+
+\noindent{Korisnik odabire opciju "Prijavi se". Sustav prikazuje formu za prijavu, te korisnik unosi potrebne podatke. Sustav provjerava postoje li uneseni podaci u bazi podataka. Ako su uneseni podaci ispravni, sustav obavještava korisnika da je prijava uspjela te mu omogućava pristup korisničkim funkcijama. U slučaju unosa pogrešnih podataka sustav obavještava korisnika o pogrešci, te se ponovno prikazuje forma za prijavu.}
+	
+	
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{sekvencijski_dijagram_prijava_u_sustav.JPEG} %veličina u odnosu na širinu linije
 	\caption{Sekvencijski dijagram za UC3}
 	\label{fig:promjene3} %label mora biti drugaciji za svaku sliku
 \end{figure}
+
+\pagebreak
+
+\noindent {\textbf{Obrazac uporabe UC7 - Postavljanje oglasa}}
 
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{sekvencijski_dijagram_postavljanje_oglasa.JPEG} %veličina u odnosu na širinu linije
@@ -561,11 +573,16 @@
 	\label{fig:promjen43} %label mora biti drugaciji za svaku sliku
 \end{figure}
 
+\noindent {\textbf{Obrazac uporabe UC12 - Slanje poruke}}
+
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{sekvencijski_dijagram_slanje_poruka.JPEG} %veličina u odnosu na širinu linije
 	\caption{Sekvencijski dijagram za UC12}
 	\label{fig:promjene5} %label mora biti drugaciji za svaku sliku
 \end{figure}
+
+
+\pagebreak
 
 \section{Ostali zahtjevi}
 
