@@ -2,7 +2,6 @@ import "./Home.css";
 import Ad_card from "./Ad_card";
 import ListGroup from "./ListGroup";
 import { Link } from 'react-router-dom'
-import useFetch from "./useFetch"
 import { useEffect, useState } from "react";
 
 function Home() {
@@ -15,9 +14,16 @@ function Home() {
                 return res.json();
             })
             .then(data => {
-                console.log(data.Data);
-                setAds(data.Data);
-                console.log(btoa(data.Data[0].photo));
+                const update_ads = [];
+                const ad_ids = []
+                data.Data.map((ad) => {
+                    if (!(ad_ids.includes(ad.adID))) {
+                        update_ads.push(ad);
+                        ad_ids.push(ad.adID);
+                    }
+                })
+                setAds(update_ads);
+                console.log(update_ads);
             })
     }, []);
         
@@ -35,7 +41,7 @@ function Home() {
                       <Link to={'/'+ad.adID} key={ad.adID}>
               <Ad_card
                 petname={ad.namePet}
-                image={btoa(ad.photo)}
+                image={ad.photo}
                 description={ad.description}
               />
             </Link>

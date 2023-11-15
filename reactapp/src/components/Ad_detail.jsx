@@ -35,7 +35,7 @@ function Ad_detail() {
                 console.log(data.Data);
                 console.log(btoa(data.Data[0].photo));
                 const findAd = data.Data.filter((ad) => ad.adID == params.id);
-                setTheAd(findAd[0]);
+                setTheAd(findAd[0]);   
                 window.scrollTo(0, 0);
             })
     }, []);
@@ -50,7 +50,7 @@ function Ad_detail() {
             </div>
             <div className="ads-detail-container">
                 <div className="pet-image-container">
-                    <img className="pet-image" src={the_ad.photo} />
+                    <img className="pet-image" src={"data:image/png;base64,"+the_ad.photo} />
                 </div>
                 <div className="pet-info-container">
                     <div className="pet-info-container-left">
