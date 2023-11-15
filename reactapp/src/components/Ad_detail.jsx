@@ -7,6 +7,9 @@ function Ad_detail() {
     const params = useParams();
     console.log(params);
 
+    const [colors, setColors] = useState('');
+    const [images, setImages] = useState([]);
+
     const [the_ad, setTheAd] = useState([
         {
             adID: "",
@@ -32,10 +35,28 @@ function Ad_detail() {
                 return res.json();
             })
             .then(data => {
-                console.log(data.Data);
-                console.log(btoa(data.Data[0].photo));
+                const colors_arr = [];
+                const images_arr = [];
+                var color_string = '';
+                var flag = 0;
                 const findAd = data.Data.filter((ad) => ad.adID == params.id);
-                setTheAd(findAd[0]);   
+                setTheAd(findAd[0]);
+                findAd.map((element) => {
+                    if (!colors_arr.includes(element.color)) {
+                        colors_arr.push(element.color);
+                        if (flag == 0) {
+                            flag = 1;
+                            color_string += element.color;
+                        } else {
+                            color_string += ", " + element.color;
+                        }
+                    }
+                    if (!images_arr.includes(element.photo)) {
+                        images_arr.push(element.photo);
+                    }
+                    setColors(color_string);
+                    setImages(images_arr);
+                })
                 window.scrollTo(0, 0);
             })
     }, []);
@@ -50,7 +71,24 @@ function Ad_detail() {
             </div>
             <div className="ads-detail-container">
                 <div className="pet-image-container">
-                    <img className="pet-image" src={"data:image/png;base64,"+the_ad.photo} />
+                    <div id="carouselExample" className="carousel slide">
+                        <div className="carousel-inner">
+                            {images && images.map((image) => (
+                                <div className="carousel-item active" key="image">
+                                    <img src={"data:image/png;base64,"+image} className="d-block w-100" alt="..." />
+                                </div>
+                            ))}
+                        </div>
+                        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span className="visually-hidden">Previous</span>
+                        </button>
+                        <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span className
+                                ="visually-hidden">Next</span>
+                        </button>
+                    </div>
                 </div>
                 <div className="pet-info-container">
                     <div className="pet-info-container-left">
@@ -65,7 +103,7 @@ function Ad_detail() {
                         </p>
                         <p>
                             <i className="category-style">Boja ljubimca: </i>
-                            {the_ad.color}
+                            {colors}
                         </p>
                         <p>
                             <i className="category-style">Starost ljubimca: </i>

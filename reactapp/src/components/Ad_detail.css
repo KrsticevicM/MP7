@@ -46,6 +46,8 @@
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
     background-color: #E6CCB2;
+    display: flex;
+    align-items: center;
 }
 
 .pet-info-container {
@@ -86,6 +88,28 @@
 .pet-image {
     position: relative;
     border-radius: 2.5px;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel {
+    width:100%;
+    height:100%;
+}
+
+.carousel-inner {
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-item {
+    width: 100%;
+    height: 100%;
+}
+
+.d-block {
+    position: relative;
     object-fit: cover;
     width: 100%;
     height: 100%;
