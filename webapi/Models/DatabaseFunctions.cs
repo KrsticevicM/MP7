@@ -436,6 +436,7 @@ namespace MP7_progi.Models
                         {
                             reader.Read();
                             object id = reader.GetValue(0);
+                            Console.WriteLine("UserID: " + id.ToString());
                             return id.ToString();
                         }
 

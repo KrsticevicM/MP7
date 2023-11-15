@@ -32,7 +32,7 @@ lista.Add(red1);
 lista.Add(red2);
 
 //DatabaseFunctions.databaseTester(new User());
-Console.WriteLine("UserID: " + DatabaseFunctions.checkLoginData("peric", "2"));
+DatabaseFunctions.checkLoginData("peric", "2");
 // Add services to the container.
 
 builder.Services.AddControllers();
