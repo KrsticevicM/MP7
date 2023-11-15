@@ -9,6 +9,7 @@ function Ad_detail() {
 
     const [colors, setColors] = useState('');
     const [images, setImages] = useState([]);
+    const [firstImage, setFirstImage] = useState('');
 
     const [the_ad, setTheAd] = useState([
         {
@@ -38,14 +39,14 @@ function Ad_detail() {
                 const colors_arr = [];
                 const images_arr = [];
                 var color_string = '';
-                var flag = 0;
+                var flag1 = 0;
                 const findAd = data.Data.filter((ad) => ad.adID == params.id);
                 setTheAd(findAd[0]);
                 findAd.map((element) => {
                     if (!colors_arr.includes(element.color)) {
                         colors_arr.push(element.color);
-                        if (flag == 0) {
-                            flag = 1;
+                        if (flag1 == 0) {
+                            flag1 = 1;
                             color_string += element.color;
                         } else {
                             color_string += ", " + element.color;
@@ -54,9 +55,11 @@ function Ad_detail() {
                     if (!images_arr.includes(element.photo)) {
                         images_arr.push(element.photo);
                     }
-                    setColors(color_string);
-                    setImages(images_arr);
                 })
+                setFirstImage(images_arr[0]);
+                images_arr.shift();
+                setColors(color_string);
+                setImages(images_arr);
                 window.scrollTo(0, 0);
             })
     }, []);
@@ -73,8 +76,11 @@ function Ad_detail() {
                 <div className="pet-image-container">
                     <div id="carouselExample" className="carousel slide">
                         <div className="carousel-inner">
+                            <div className="carousel-item active" key="image">
+                                <img src={"data:image/png;base64," + firstImage} className="d-block w-100" alt="..." />
+                            </div>
                             {images && images.map((image) => (
-                                <div className="carousel-item active" key="image">
+                                <div className="carousel-item" key="image">
                                     <img src={"data:image/png;base64,"+image} className="d-block w-100" alt="..." />
                                 </div>
                             ))}
