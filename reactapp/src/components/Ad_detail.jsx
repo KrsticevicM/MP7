@@ -31,7 +31,7 @@ function Ad_detail() {
     ]);
 
     useEffect(() => {
-        fetch('main')
+        fetch('main/frontpagedata')
             .then(res => {
                 return res.json();
             })

@@ -9,7 +9,7 @@ function Home() {
     const [ads, setAds] = useState()
 
     useEffect(() => {
-        fetch('main')
+        fetch('main/frontpagedata')
             .then(res => {
                 return res.json();
             })

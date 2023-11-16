@@ -24,25 +24,30 @@ function Login(){
             username: data.get('username'),
             password: data.get('password')
         }
-        /*
         setIsPending(true)
         //send post request with fetch
         //TODO fix route to one that exists
-        fetch("https://localhost:7024/api/login",{
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(submission)
-        }).then((res)=>{
+        fetch(`main/login?usrname=${submission.username}&password=${submission.password}`,{
+            method: "GET",
+            headers: {"Content-Type": "application/json"}
+            }).then((res)=>{
             console.log(submission)
             setIsPending(false)
-            if(!res.ok){
+            /* if(!res.ok){
                 return {error: "Krivi username ili password"}
-            }
+            } */
+            return res.text();
             
+        }).then(text => {
+            if (text.trim().length==0) {
+                setError("Nevaljani username ili password")
+                return
+            }
+            else {
+                updateUser({userID: text,isAuth:true, firstName: "Fran", lastName: "Kufrin"})
+            }
         })
-        setError("Nevaljani username ili password")
         return
-        */
        
         
         console.log(submission)

@@ -7,7 +7,7 @@ using System.Data.Entity;
 namespace webapi.Controllers;
 
 [ApiController]
-[Route("main/[controller]")]
+[Route("[controller]")]
 public class MainController : ControllerBase
 {
     private readonly ILogger<MainController> _logger;
@@ -18,6 +18,7 @@ public class MainController : ControllerBase
     }
 
     [HttpGet(Name = "GetFrontPageData")]
+    [Route("frontpagedata")]
     public string GetFrontPageData()
     {
         Dictionary<string, List<Object>> data = DatabaseFunctions.read(new Ad(),
@@ -33,7 +34,7 @@ public class MainController : ControllerBase
     }
 
     [HttpGet(Name = "Login")]
-
+    [Route("login")]
     public string Login([FromQuery] string usrname, [FromQuery] string password)
     {
         return DatabaseFunctions.checkLoginData(usrname, password);
