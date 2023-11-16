@@ -9,6 +9,7 @@ import Ad_detail from './components/Ad_detail'
 import Shelter from './components/Shelter'
 import { AuthContext } from './components/AuthenticationContext'
 import { useState } from 'react'
+import MyAds from './components/MyAds'
 
 
 const router=createBrowserRouter(
@@ -23,6 +24,8 @@ const router=createBrowserRouter(
             <Route path=":id" element={<Ad_detail />}></Route>
 
             <Route path="/sklonista" element={<Shelter />} />
+
+            <Route path="/moji-oglasi" element={<MyAds />} />
 
             <Route path='registration' element={<Registration/>}/>
 

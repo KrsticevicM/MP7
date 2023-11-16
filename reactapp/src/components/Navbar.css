@@ -1,6 +1,24 @@
+@media only screen and (max-width: 1024px) {
+    .element-container {
+        display: none;
+    }
+    .odjava-button {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    .navbar-menu-button {
+        display : none;
+    }
+    .navbar-popup-menu {
+        display : none;
+    }
+}
+
 .navbar-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     background-color: #b08968;
     padding: 25px;
@@ -13,10 +31,45 @@
     min-width: 100vw;
 }
 
+.navbar-popup-menu {
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: ; 
+    border-bottom: solid 1px;
+}
+
+.element-container-menu {
+    text-decoration: none;
+    font-family: "Josefin Sans", sans-serif;
+    color: black;
+    margin: 0.5rem;
+}
+
+.element-container-menu:hover {
+    text-decoration: none;
+    font-family: "Josefin Sans", sans-serif;
+    cursor: pointer;
+}
+
+.odjava-button-menu {
+    background: transparent;
+    border: none;
+}
+
+.odjava-button-menu:hover {
+    text-decoration: none;
+    font-family: "Josefin Sans", sans-serif;
+    cursor: pointer;
+}
+
 .logo-img {
-    position: absolute;
-    top: 12.5px;
-    left: 50px; 
+    margin-left: 2.25rem;
+    position: relative; 
     width: 3rem;
 }
 
@@ -55,4 +108,12 @@
     font-family: "Josefin Sans", sans-serif;
     color: white;
     cursor: pointer;
+}
+
+.navbar-menu-button {
+    border: none;
+    font-size: 2rem;
+    background-color: transparent;
+    width: 3rem;
+    height: 3rem;
 }

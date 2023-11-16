@@ -1,0 +1,31 @@
+.myads-container {
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.header-container {
+    width: 50rem;
+    display: flex;
+    justify-content: baseline;
+}
+
+.myads-header {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-weight: normal;
+}
+
+#add-button {
+    background-color: #b08968;
+    color: white;
+    height: 3rem;
+    margin: 5px;
+    border-radius: 10px;
+    transition: opacity 0.2s;
+}
+
+#add-button:hover {
+    opacity: 0.8;
+}
