@@ -1,19 +1,27 @@
 \chapter{Arhitektura i dizajn sustava}
 		
-		\textbf{\textit{dio 1. revizije}}\\
+		%\textbf{\textit{dio 1. revizije}}\\
 
-		\textit{ Potrebno je opisati stil arhitekture te identificirati: podsustave, preslikavanje na radnu platformu, spremišta podataka, mrežne protokole, globalni upravljački tok i sklopovsko-programske zahtjeve. Po točkama razraditi i popratiti odgovarajućim skicama:}
-	\begin{itemize}
-		\item 	\textit{izbor arhitekture temeljem principa oblikovanja pokazanih na predavanjima (objasniti zašto ste baš odabrali takvu arhitekturu)}
-		\item 	\textit{organizaciju sustava s najviše razine apstrakcije (npr. klijent-poslužitelj, baza podataka, datotečni sustav, grafičko sučelje)}
-		\item 	\textit{organizaciju aplikacije (npr. slojevi frontend i backend, MVC arhitektura) }		
-	\end{itemize}
+		%\textit{ Potrebno je opisati stil arhitekture te identificirati: podsustave, preslikavanje na radnu platformu, spremišta podataka, mrežne protokole, globalni upravljački tok i sklopovsko-programske zahtjeve. Po točkama razraditi i popratiti odgovarajućim skicama:}
+	%\begin{itemize}
+		%\item 	\textit{izbor arhitekture temeljem principa oblikovanja pokazanih na predavanjima (objasniti zašto ste baš odabrali takvu arhitekturu)}
+		%\item 	\textit{organizaciju sustava s najviše razine apstrakcije (npr. klijent-poslužitelj, baza podataka, datotečni sustav, grafičko sučelje)}
+		%\item 	\textit{organizaciju aplikacije (npr. slojevi frontend i backend, MVC arhitektura) }		
+	%\end{itemize}
 
-	
-		
+\noindent{Arhitektura se dijeli na tri podsustava:}
+\begin{packed_item}
+	\item web poslužitelj
+	\item web aplikaciju
+	\item bazu podataka
+\end{packed_item}
+\noindent{Web aplikacije često zahtijevaju integraciju poslužitelja, aplikacije i baze podataka kako bi pružile korisnicima dinamičke i interaktivne sadržaje. \textbf{Web poslužitelj} služi kao središnja točka koja prima zahtjeve korisnika putem internetskog preglednika. \textbf{Web aplikacija} obrađuje zahtjev te ovisno o njemu komunicira s bazom podataka kako bi dohvatila, mijenjala ili pohranjivala podatke koji se koriste u procesu. \textbf{Baza podataka} je skup strukturiranih podataka koji se čuvaju na poslužitelju, a aplikacija je odgovorna za upravljanje tim podacima i osiguravanje njihove konzistentnosti. Kada se podaci mijenjaju putem aplikacije, te promjene se ažuriraju u bazi podataka, a zatim web poslužitelj šalje ažurirane informacije korisnicima putem preglednika.}
+\newline
+\noindent{Jezici korišteni pri izradi aplikacije su C\#, CSS, HTML i JavaScript.}
+\newline
+\noindent{Arhitektura sustava se bazira na \textbf{MVC} konceptu. MVC (Model-View-Controller) je arhitekturni obrazac za razvoj softverskih aplikacija. \textbf{Model} predstavlja podatke i logiku aplikacije, \textbf{View} predstavlja sučelje preko kojeg korisnici komuniciraju s aplikacijom i prikazuje im podatke iz Modela, dok \textbf{Controller} upravlja komunikacijom između Modela i View-a. Ovaj koncept omogućava jasnu organizaciju koda, razdvajanje odgovornosti između komponenti aplikacije (Model, View, Controller) te olakšava timsku suradnju i održavanje aplikacije. Zbog jasne podjele na modele, poglede i kontrolere, aplikacije izgrađene na MVC arhitekturi često su fleksibilnije i lakše za održavanje.}
 
-		
-
+\pagebreak
 				
 		\section{Baza podataka}
 			
