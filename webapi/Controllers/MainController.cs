@@ -7,7 +7,7 @@ using System.Data.Entity;
 namespace webapi.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("main/[controller]")]
 public class MainController : ControllerBase
 {
     private readonly ILogger<MainController> _logger;
@@ -30,5 +30,12 @@ public class MainController : ControllerBase
                                                                }, null);
 
         return DatabaseFunctions.ConvertDictionaryToJson(data);
+    }
+
+    [HttpGet(Name = "Login")]
+
+    public string Login([FromQuery] string usrname, [FromQuery] string password)
+    {
+        return DatabaseFunctions.checkLoginData(usrname, password);
     }
 }
