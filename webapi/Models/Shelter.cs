@@ -9,7 +9,7 @@
         }
         private Dictionary<string, string> types = new Dictionary<string, string>()
         {
-            {"userID", "int"},
+            {"shelterID", "int"},
             {"nameShelter", "string"}
         };
         private readonly string _id = "Shelter";

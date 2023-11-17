@@ -20,10 +20,10 @@ red1.Add("0123312313");
 red1.Add("323");
 
 
-int c = DatabaseFunctions.insert(new User(), red1);
-Console.WriteLine(c);
+//int c = DatabaseFunctions.insert(new User(), red1);
+//Console.WriteLine(c);
 //DatabaseFunctions.databaseTester(new Ad());
-
+DatabaseFunctions.getNextAvailableID(new User());
 // Add services to the container.
 
 builder.Services.AddControllers();

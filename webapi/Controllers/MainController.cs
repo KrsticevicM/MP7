@@ -75,6 +75,35 @@ public class MainController : ControllerBase
         return code2;
     }
 
+    public int RegisterShelter([FromQuery] string usrname, [FromQuery] string password, [FromQuery] string email, [FromQuery] string phoneNum, [FromQuery] string shelterName)
+    {
+        List<Object> shelterRow = new List<Object>();
+
+        shelterRow.Add(DatabaseFunctions.getNextAvailableID(new Shelter()));
+        shelterRow.Add(shelterName);
+
+        int code1 = DatabaseFunctions.insert(new Shelter(), shelterRow);
+
+        List<Object> userRow = new List<Object>();
+        userRow.Add(DatabaseFunctions.getNextAvailableID(new User()));
+        userRow.Add(usrname);
+        userRow.Add(email);
+        userRow.Add(phoneNum);
+        userRow.Add(password);
+
+        int code2 = DatabaseFunctions.insert(new User(), userRow);
+
+        if (code1 == 200 && code2 == 200)
+        {
+            return code1;
+        }
+        else if (code1 != 200)
+        {
+            return code1;
+        }
+        return code2;
+    }
+
     [HttpPost(Name = "PostAd")]
     [Route("postAd")]
     public int PostAd([FromQuery] string insertJSON)
