@@ -18,6 +18,7 @@ public class MainController : ControllerBase
     }
 
     [HttpGet(Name = "GetFrontPageData")]
+    [Route("frontpagedata")]
     public string GetFrontPageData()
     {
         Dictionary<string, List<Object>> data = DatabaseFunctions.read(new Ad(),
@@ -30,5 +31,12 @@ public class MainController : ControllerBase
                                                                }, null);
 
         return DatabaseFunctions.ConvertDictionaryToJson(data);
+    }
+
+    [HttpGet(Name = "Login")]
+    [Route("login")]
+    public string Login([FromQuery] string usrname, [FromQuery] string password)
+    {
+        return DatabaseFunctions.checkLoginData(usrname, password);
     }
 }

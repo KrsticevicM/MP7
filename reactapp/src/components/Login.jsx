@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import './Login.css'
-import {Form, Link, Navigate, useActionData} from 'react-router-dom'
+import {Form, Link, Navigate, useActionData, useNavigate} from 'react-router-dom'
 import { redirect } from "react-router-dom";
 import { AuthContext } from './AuthenticationContext';
 
@@ -13,6 +13,7 @@ function Login(){
     
     const {user,updateUser}=useContext(AuthContext)
     const [error,setError]=useState("")
+    const navigate=useNavigate()
 
     const loginAction = async(event)=>{
         event.preventDefault()
@@ -24,31 +25,30 @@ function Login(){
             username: data.get('username'),
             password: data.get('password')
         }
-        /*
         setIsPending(true)
         //send post request with fetch
         //TODO fix route to one that exists
-        fetch("https://localhost:7024/api/login",{
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(submission)
-        }).then((res)=>{
+        fetch(`main/login?usrname=${submission.username}&password=${submission.password}`,{
+            method: "GET",
+            headers: {"Content-Type": "application/json"}
+            }).then((res)=>{
             console.log(submission)
             setIsPending(false)
-            if(!res.ok){
+            /* if(!res.ok){
                 return {error: "Krivi username ili password"}
-            }
+            } */
+            return res.text();
             
+        }).then(text => {
+            if (text.trim().length==0) {
+                setError("Nevaljani username ili password")
+                return
+            }
+            else {
+                updateUser({userID: text,isAuth:true, firstName: "Fran", lastName: "Kufrin"})
+            }
         })
-        setError("Nevaljani username ili password")
-        return
-        */
-       
-        
-        console.log(submission)
-        
-        updateUser({firstName:"FRAN",lastName:"KUFRIN",isAuth:true,userID:32321})
-        //redirect to homepage if successful
+        navigate("/")
     }
 
     if(user.isAuth){

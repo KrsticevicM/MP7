@@ -1,11 +1,12 @@
 import MyAd_card from "./MyAd_card";
 import "./MyAds.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+
 
 function MyAds() {
   const ads = [
     {
-      image: "public/images/Bichon-frise-dog.webp",
+      image: "/images/Bichon-frise-dog.webp",
       petname: "Johnny",
       description:
         "Izgubljen 21.01.2023, posljednja lokacija sutomiska ulica, odaziva se na ime Johnny",
@@ -20,7 +21,7 @@ function MyAds() {
     },
     {
       image:
-        "public/images/black-dog-breeds-black-labrador-retriever-1566497968.jpg",
+        "/images/black-dog-breeds-black-labrador-retriever-1566497968.jpg",
       petname: "Timmy",
       description:
         "Izgubljen 21.01.2023, posljednja lokacija sutomiska ulica, odaziva se na ime Timmy",
@@ -34,6 +35,8 @@ function MyAds() {
       phonenumber: "0989175125",
     },
   ];
+  
+  
 
   return (
     <div className="myads-container">
@@ -48,7 +51,7 @@ function MyAds() {
           kategorija={ad.kategorija}
         />
       ))}
-      <Link to="new_ad">
+      <Link to="/newAd">
         <button className="btn btn-light" id="add-button">
           Dodaj oglas <i className="bi bi-plus-lg"></i>
         </button>
