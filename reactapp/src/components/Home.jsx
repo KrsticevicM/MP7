@@ -3,8 +3,13 @@ import Ad_card from "./Ad_card";
 import ListGroup from "./ListGroup";
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from "react";
+import useScreenSize from './screenSizeHook';
 
 function Home() {
+
+    const screenSize = useScreenSize();
+
+    const [filter, setFilter] = useState(false)
 
     const [ads, setAds] = useState()
 
@@ -28,13 +33,14 @@ function Home() {
     }, []);
         
   return (
-    <div className="home-container">
-          <div className="left-categories">
+      <div className="home-container">
+          <button className="filter-button" onClick={() => setFilter(!filter)}>Filter  <i className="bi bi-funnel"></i></button>
+          {(filter || screenSize.width>1024) && <div className="left-categories">
               <h1 className="search-heading">Pretraživanje</h1>
               <div className="categories-container">
                   <ListGroup />
               </div>
-          </div>
+          </div>}
           <div className="ads-container">
               <div className="ads-container2">
                   {ads && ads.map((ad) => (

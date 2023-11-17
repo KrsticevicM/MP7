@@ -1,5 +1,9 @@
 
 @media only screen and (max-width: 1024px) {
+    .home-container {
+        align-items:start;
+    }
+
     .left-categories {
         width: 100vw;
         grid-column: 1 / span 4;
@@ -40,6 +44,10 @@
         background-color: white;
         padding: 0px;
     }
+
+    .filter-button {
+        display: none;
+    }
 }
 
 .home-container {
@@ -53,6 +61,7 @@
     font-family: "Josefin Sans", sans-serif;
     padding: 0;
     margin-left:0px;
+    position: relative;
 }
 
 .left-categories {
@@ -71,4 +80,13 @@
     font-size: 2rem;
     margin-left: 25px;
     margin-top: 15px;
+}
+
+.filter-button {
+    background-color:transparent;
+    border: solid black 1px;
+    margin: 1rem;
+    margin-left:3rem;
+    margin-bottom: 0;
+    width: 10rem;
 }

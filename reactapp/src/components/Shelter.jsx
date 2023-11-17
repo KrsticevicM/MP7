@@ -1,9 +1,9 @@
 function Shelter() {
   return (
-    <div className="home-container">
-      <div className="left-categories">
+    <div className="home-shelter-container">
+      <div className="left-shelter-categories">
         <h1 className="search-heading">Pretraživanje</h1>
-        <div className="categories-container">
+        <div className="categories-shelter-container">
           <form>
             <div className="form-floating mb-3">
               <input
@@ -23,8 +23,8 @@ function Shelter() {
           </form>
         </div>
       </div>
-      <div className="ads-container">
-        <div className="ads-container2"></div>
+      <div className="ads-shelter-container">
+        <div className="ads-shelter-container2"></div>
       </div>
     </div>
   );
