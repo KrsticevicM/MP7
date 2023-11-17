@@ -40,15 +40,22 @@ function Login(){
             return res.text();
             
         }).then(text => {
-            if (text.trim().length==0) {
-                setError("Nevaljani username ili password")
-                return
+            console.log(text)
+            text = JSON.parse(text)
+            text = text.Data[0]
+            console.log(text)
+            if (!text.firstName){
+                text.firstName = text.nameShelter
             }
-            else {
-                updateUser({userID: text,isAuth:true, firstName: "Fran", lastName: "Kufrin"})
+            if (!text.lastName){
+                text.lastName = ""
             }
-        })
-        navigate("/")
+            updateUser({userID: text.userID,isAuth:true, firstName: text.firstName.toUpperCase(), lastName: text.lastName.toUpperCase()})
+        }).catch(ex => {
+            console.log(ex)
+            setError("Nevaljani username ili password")
+            return
+        }) 
     }
 
     if(user.isAuth){

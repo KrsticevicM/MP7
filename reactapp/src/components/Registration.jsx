@@ -64,24 +64,43 @@ function Registration(){
         }
         setError("")
     
-        /*
-        setIsPending(true)
-        //send post request with fetch
-        //TODO fix route to one that exists
-        fetch("https://localhost:7024/api/resgistration",{
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(submission)
-        }).then(()=>{
-            console.log(submission)
-            setIsPending(false)
-            
-        })
-        */
-        updateUser({firstName:"FRAN",lastName:"KUFRIN",isAuth:true,userID:32321})
-        console.log(submission)
-        //redirect to homepage if successful
-        navigate("/")
+        if(submission.typeOfUser=="Regular"){
+            setIsPending(true)
+            //send post request with fetch
+            //TODO fix route to one that exists
+            fetch(`main/register_user?usrname=${submission.username}&password=${submission.password
+            }&email=${submission.email}&phoneNum=${submission.phoneNumber
+            }&name=${submission.firstName}&surname=${submission.lastName}`,{
+                method: "POST"
+                
+            }).then((res)=>{
+                console.log(submission)
+                setIsPending(false)
+                if(res.ok){
+                    navigate("/login")
+                }
+                
+            })
+        } else if (submission.typeOfUser=="Shelter"){
+            setIsPending(true)
+            //send post request with fetch
+            //TODO fix route to one that exists
+            fetch(`main/register_shelter?usrname=${submission.username}&password=${submission.password
+            }&email=${submission.email}&phoneNum=${submission.phoneNumber
+            }&shelterName=${submission.shelterName}`,{
+                method: "POST"
+                
+            }).then((res)=>{
+                console.log(submission)
+                setIsPending(false)
+                if(res.ok){
+                    navigate("/login")
+                }
+                
+            })
+        }
+        
+        
     }
     if(user.isAuth){
         return <Navigate to="/"/>
