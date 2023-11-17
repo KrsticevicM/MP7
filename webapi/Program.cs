@@ -33,6 +33,7 @@ lista.Add(red2);
 
 //DatabaseFunctions.databaseTester(new Ad());
 //DatabaseFunctions.checkLoginData("peric", "2");
+Console.WriteLine(DatabaseFunctions.getNextAvailableID(new User()));
 // Add services to the container.
 
 builder.Services.AddControllers();

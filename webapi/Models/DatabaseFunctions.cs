@@ -1,6 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Collections;
+using System.Collections.Generic;
+using System.Data.Entity.Core.Mapping;
 using System.Data.SQLite;
+using System.Security.Cryptography.X509Certificates;
 
 namespace MP7_progi.Models
 {
@@ -332,7 +335,7 @@ namespace MP7_progi.Models
 
         */
 
-        public static void insert(Table table, List<ArrayList> rows)
+        public static int insert(Table table, List<ArrayList> rows)
         {
             //check if provided data types inside list match those in table
             for (int i = 0; i < rows.Count; i++)
@@ -351,7 +354,7 @@ namespace MP7_progi.Models
                         Console.WriteLine("Expected type: system." + table.returnColumnTypes().ElementAt(j).Value);
                         Console.WriteLine("Provided type: " + rows.ElementAt(i)[j].GetType().ToString().ToLower() + " (" + rows.ElementAt(i)[j] + ")");
 
-                        return;
+                        return 400;
                     }
                 }
             }
@@ -393,12 +396,13 @@ namespace MP7_progi.Models
                     else
                     {
                         Console.WriteLine("ERROR: Row hasnt been inserted");
+                        return 500;
                     }
                     query = "";
                 }
 
                 Console.WriteLine("Number of rows added: " + changes);
-
+                return 200;
             }
 
         }
@@ -446,6 +450,56 @@ namespace MP7_progi.Models
                 }
             }
         }
+        /*
+
+        getNextAvailableID(Table) - method to get an ID for new User/Ad/Pet/...
+
+        Params in:
+
+           @ [Table]         - table from which ID is being requested, REQ
+
+        Params out:
+
+            @ [int]          - ID of new User/Ad/Pet/...
+          
+         */
+        public static int getNextAvailableID(Table table)
+        {
+            Dictionary<string, List<Object>> ids = new Dictionary<string, List<Object>>();
+            ids = read(table, null, null, null);
+           
+            List<Object> list = new List<Object>();
+            List<Object> valuesList = new List<Object>();
+            List<int> idList = new List<int>(); 
+
+            bool check = ids.TryGetValue("Values", out valuesList) ;
+            if (!check)
+            {
+                Console.WriteLine("Couldnt get values!");
+                return -1;
+            }
+
+            for (int i = 0; i < valuesList.Count; i++)
+            {
+                list = (List<object>)valuesList.ElementAt(i);
+
+                Object id = list.ElementAt(0);
+      
+                idList.Add((int)id);
+                Console.WriteLine((int)id);
+            }
+            idList.Sort();
+
+            for(int i = 0;i < idList.Count; i++)
+            {
+                if (idList.ElementAt(i) != i + 1)
+                {
+                    return (i + 1);
+                }
+            }
+           
+            return idList.Count + 1;
+        }
 
         public static void databaseTester(Table table)
         {
@@ -470,6 +524,8 @@ namespace MP7_progi.Models
                 Console.WriteLine(ex.Message);
                 return;
             }
+
+            
 
 
             /*

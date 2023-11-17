@@ -18,7 +18,7 @@ namespace MP7_progi.Models
             {"userID", "int"},
             {"userName", "string"},
             {"email", "string"},
-            {"phoneNum", "int"},
+            {"phoneNum", "string"},
             {"psw", "string"}
         };
         private readonly string _id = "User";
