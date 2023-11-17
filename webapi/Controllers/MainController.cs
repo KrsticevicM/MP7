@@ -34,7 +34,25 @@ public class MainController : ControllerBase
     [Route("login")]
     public string Login([FromQuery] string usrname, [FromQuery] string password)
     {
-        return DatabaseFunctions.checkLoginData(usrname, password);
+        Dictionary<string, List<Object>> result = new Dictionary<string, List<Object>>();
+        Expression where = new Expression();
+        string userID;
+
+        try
+        {
+            userID = DatabaseFunctions.checkLoginData(usrname, password);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            return "";
+        }
+
+        where.addElement((Object) "userID", Expression.OP.EQUAL);
+        where.addElement((Object) userID, Expression.OP.None);
+        result = DatabaseFunctions.read(new User(), new List<Table> { new Regular() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural }, where);
+
+        return DatabaseFunctions.ConvertDictionaryToJson(result);
     }
 
     [HttpPost(Name = "RegisterUser")]
