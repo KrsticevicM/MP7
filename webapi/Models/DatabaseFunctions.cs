@@ -322,21 +322,54 @@ namespace MP7_progi.Models
             }
         }
 
+        public static Dictionary<string, List<object>> ConvertJsonToDictionary(string jsonString)
+        {
+            // Deserialize JSON string to a dynamic object
+            dynamic jsonData = JsonConvert.DeserializeObject(jsonString);
+
+            // Extract data from dynamic object
+            var resultDictionary = new Dictionary<string, List<object>>();
+            var names = new List<object>();
+            var values = new List<Object>();
+
+            // Extract column names
+            foreach (var property in jsonData.Data[0].Properties())
+            {
+                names.Add(property.Name);
+            }
+
+            // Extract data rows
+            foreach (var dataRow in jsonData.Data)
+            {
+                var row = new List<object>();
+                foreach (var property in dataRow.Properties())
+                {
+                    row.Add(property.Value.ToObject<object>());
+                }
+                values.Add(row);
+            }
+
+            // Populate the result dictionary
+            resultDictionary["Names"] = names;
+            resultDictionary["Values"] = values;
+
+            return resultDictionary;
+        }
+
         /*
         insert(Table, List<ArrayList> method for inserting rows into database
 
         Params in:
 
-           @ [Table]           - Takes the table to perform the operation on, REQ
-           @ [List<ArrayList>]  - Takes rows that are to be added into table, REQ
+           @ [Table]            - Takes the table to perform the operation on, REQ
+           @ [List<Object>]     - Single row that is to be added into table, REQ
 
         */
 
-        public static void insert(Table table, List<ArrayList> rows)
+        public static int insert(Table table, List<Object> row)
         {
             //check if provided data types inside list match those in table
-            for (int i = 0; i < rows.Count; i++)
-            {
+         
                 for (int j = 0; j < table.returnColumnTypes().Count; j++)
                 {
                     string suffix = "";
@@ -344,37 +377,50 @@ namespace MP7_progi.Models
                     {
                         suffix += "32";
                     }
-
-                    if (("system." + table.returnColumnTypes().ElementAt(j).Value + suffix) != rows.ElementAt(i)[j].GetType().ToString().ToLower())
+                try
+                {
+                    if (("system." + table.returnColumnTypes().ElementAt(j).Value + suffix) != row.ElementAt(j).GetType().ToString().ToLower())
                     {
-                        Console.WriteLine("ERROR: Tried to enter type that doesnt match that in table");
-                        Console.WriteLine("Expected type: system." + table.returnColumnTypes().ElementAt(j).Value);
-                        Console.WriteLine("Provided type: " + rows.ElementAt(i)[j].GetType().ToString().ToLower() + " (" + rows.ElementAt(i)[j] + ")");
-
-                        return;
-                    }
+                        throw new InvalidOperationException("ERROR: Tried to enter type that doesn't match that in the table")
+                        {
+                            Data =
+                                {
+                                 { "ExpectedType", "system." + table.returnColumnTypes().ElementAt(j).Value },
+                                 { "ProvidedType", row.ElementAt(j).GetType().ToString().ToLower() + " (" + row.ElementAt(j) + ")" }
+                                }
+                        };
+                    }                 
                 }
+                catch (InvalidOperationException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Expected type: " + ex.Data["ExpectedType"]);
+                    Console.WriteLine("Provided type: " + ex.Data["ProvidedType"]);
+
+                    return 400; 
+                }
+
             }
+
             Console.WriteLine("All provided data is matching type");
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
                 int changes = 0;
-                for (int i = 0; i < rows.Count; i++)
-                {
+
                     string query = "INSERT INTO " + table.returnTable();
                     query += "  VALUES(";
                     for (int j = 0; j < table.returnColumnTypes().Count; j++)
                     {
 
-                        if (rows.ElementAt(i)[j].GetType().ToString() == "System.String")
+                        if (row.ElementAt(j).GetType().ToString() == "System.String")
                         {
-                            query += "'" + rows.ElementAt(i)[j] + "'";
+                            query += "'" + row.ElementAt(j) + "'";
                         }
                         else
                         {
-                            query += rows.ElementAt(i)[j];
+                            query += row.ElementAt(j);
                         }
                         if (j < table.returnColumnTypes().Count - 1)
                         {
@@ -393,12 +439,13 @@ namespace MP7_progi.Models
                     else
                     {
                         Console.WriteLine("ERROR: Row hasnt been inserted");
+                        return 500;
                     }
                     query = "";
-                }
 
-                Console.WriteLine("Number of rows added: " + changes);
 
+                Console.WriteLine("Row has been successfully added");
+                return 200;
             }
 
         }
@@ -426,9 +473,9 @@ namespace MP7_progi.Models
                 string query = "SELECT userID FROM User WHERE userName = @username AND psw = @password";
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    
+
                     command.Parameters.AddWithValue("@username", username);
-                    command.Parameters.AddWithValue("@password", password); 
+                    command.Parameters.AddWithValue("@password", password);
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
@@ -445,6 +492,56 @@ namespace MP7_progi.Models
                     }
                 }
             }
+        }
+        /*
+
+        getNextAvailableID(Table) - method to get an ID for new User/Ad/Pet/...
+
+        Params in:
+
+           @ [Table]         - table from which ID is being requested, REQ
+
+        Params out:
+
+            @ [int]          - ID of new User/Ad/Pet/...
+          
+         */
+        public static int getNextAvailableID(Table table)
+        {
+            Dictionary<string, List<Object>> ids = new Dictionary<string, List<Object>>();
+            ids = read(table, null, null, null);
+
+            List<Object> list = new List<Object>();
+            List<Object> valuesList = new List<Object>();
+            List<int> idList = new List<int>();
+
+            bool check = ids.TryGetValue("Values", out valuesList);
+            if (!check)
+            {
+                Console.WriteLine("Couldnt get values!");
+                return -1;
+            }
+
+            for (int i = 0; i < valuesList.Count; i++)
+            {
+                list = (List<object>)valuesList.ElementAt(i);
+
+                Object id = list.ElementAt(0);
+
+                idList.Add((int)id);
+                Console.WriteLine((int)id);
+            }
+            idList.Sort();
+
+            for (int i = 0; i < idList.Count; i++)
+            {
+                if (idList.ElementAt(i) != i + 1)
+                {
+                    return (i + 1);
+                }
+            }
+
+            return idList.Count + 1;
         }
 
         public static void databaseTester(Table table)
@@ -470,6 +567,8 @@ namespace MP7_progi.Models
                 Console.WriteLine(ex.Message);
                 return;
             }
+
+
 
 
             /*

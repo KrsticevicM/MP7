@@ -11,28 +11,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 //**testing data**
 
-List<ArrayList> lista = new List<ArrayList>() ;
-ArrayList red1 = new ArrayList();
-ArrayList red2 = new ArrayList();
-red1.Add(100);
-red1.Add("jozic");
+List<Object> red1 = new List<Object>();
+
+red1.Add(102);
+red1.Add("jozic3");
 red1.Add("zg");
-red1.Add(13);
-red1.Add("5");
+red1.Add("0123312313");
+red1.Add("323");
 
 
-red2.Add(122);
-red2.Add("peric");
-red2.Add("vz");
-red2.Add(22);
-red2.Add("2");
-
-
-lista.Add(red1);
-lista.Add(red2);
-
+int c = DatabaseFunctions.insert(new User(), red1);
+Console.WriteLine(c);
 //DatabaseFunctions.databaseTester(new Ad());
-//DatabaseFunctions.checkLoginData("peric", "2");
+
 // Add services to the container.
 
 builder.Services.AddControllers();
