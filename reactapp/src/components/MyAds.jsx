@@ -29,7 +29,8 @@ function MyAds() {
 
   return (
     <div className="myads-container">
-      <br />
+          <br />
+          {!ads && <h1>Nemate postavljenih oglasa</h1> }
       {ads && ads.map((ad) => (
         <MyAd_card
           key={ad.adID}

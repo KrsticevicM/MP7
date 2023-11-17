@@ -1,3 +1,5 @@
+import './Shelter.css'
+
 function Shelter() {
   return (
     <div className="home-shelter-container">
