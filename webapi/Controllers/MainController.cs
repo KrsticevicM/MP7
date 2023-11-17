@@ -44,15 +44,15 @@ public class MainController : ControllerBase
     
     [HttpPost(Name = "Register")]
     [Route("register")]
-    public int Register([FromQuery] string usrname,[FromQuery] string password, [FromQuery] string email, [FromQuery] string phoneNum, [FromQuery] string name, [FromQuery] string surname)
+    public int RegisterUser([FromQuery] string usrname,[FromQuery] string password, [FromQuery] string email, [FromQuery] string phoneNum, [FromQuery] string name, [FromQuery] string surname)
     {
         List<Object> userRow = new List<Object>();
 
         userRow.Add(DatabaseFunctions.getNextAvailableID(new User()));
         userRow.Add(usrname);
-        userRow.Add(password);
         userRow.Add(email);
-        userRow.Add(phoneNum);
+        userRow.Add(phoneNum);    
+        userRow.Add(password);
 
 
         int code1 = DatabaseFunctions.insert(new User(), userRow);
