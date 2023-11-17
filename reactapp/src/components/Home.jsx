@@ -30,13 +30,13 @@ function Home() {
         
   return (
     <div className="home-container">
-      <div className="left-categories">
-        <h1 className="search-heading">Pretraživanje</h1>
-        <div className="categories-container">
-          <ListGroup />
-        </div>
-      </div>
-      <div className="ads-container">
+          <div className="left-categories">
+              <h1 className="search-heading">Pretraživanje</h1>
+              <div className="categories-container">
+                  <ListGroup />
+              </div>
+          </div>
+          <div className="ads-container">
               <div className="ads-container2">
                   {ads && ads.map((ad) => (
                       <Link to={'/'+ad.adID} key={ad.adID}>

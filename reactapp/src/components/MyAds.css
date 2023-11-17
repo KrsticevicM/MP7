@@ -1,3 +1,15 @@
+@media only screen and (max-width: 1024px) {
+    .myad-card-container {
+        width: 30rem;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    .myad-card-container {
+        width:50rem;
+    }
+}
+
 .myads-container {
     height: 90vh;
     display: flex;
