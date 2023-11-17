@@ -1,10 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using MP7_progi.Models;
-using System.Text.Json;
-using Newtonsoft.Json;
-using System.Data.Entity;
-using System.Data.Entity.Core.Mapping;
-using System.Collections;
 
 namespace webapi.Controllers;
 
@@ -41,17 +36,17 @@ public class MainController : ControllerBase
     {
         return DatabaseFunctions.checkLoginData(usrname, password);
     }
-    
+
     [HttpPost(Name = "RegisterUser")]
     [Route("register_user")]
-    public int RegisterUser([FromQuery] string usrname,[FromQuery] string password, [FromQuery] string email, [FromQuery] string phoneNum, [FromQuery] string name, [FromQuery] string surname)
+    public int RegisterUser([FromQuery] string usrname, [FromQuery] string password, [FromQuery] string email, [FromQuery] string phoneNum, [FromQuery] string name, [FromQuery] string surname)
     {
         List<Object> userRow = new List<Object>();
 
         userRow.Add(DatabaseFunctions.getNextAvailableID(new User()));
         userRow.Add(usrname);
         userRow.Add(email);
-        userRow.Add(phoneNum);    
+        userRow.Add(phoneNum);
         userRow.Add(password);
 
 
@@ -63,12 +58,12 @@ public class MainController : ControllerBase
         regularRow.Add(surname);
 
         int code2 = DatabaseFunctions.insert(new Regular(), regularRow);
-        
-        if(code1 == 200 && code2 == 200)
+
+        if (code1 == 200 && code2 == 200)
         {
             return code1;
         }
-        else if(code1 != 200)
+        else if (code1 != 200)
         {
             return code1;
         }
@@ -142,7 +137,7 @@ public class MainController : ControllerBase
                 if (ad.returnColumnTypes().ContainsKey(name.ToString()))
                 {
                     int index = names.IndexOf(name.ToString());
-                    insertRow.Add(row[index]);
+                    insertRow[ad.returnColumnTypes().Keys.ToList().IndexOf(name.ToString())] = row[index];
                 }
             }
 
@@ -155,7 +150,7 @@ public class MainController : ControllerBase
                 if (pet.returnColumnTypes().ContainsKey(name.ToString()))
                 {
                     int index = names.IndexOf(name.ToString());
-                    insertRow.Add(row[index]);
+                    insertRow[pet.returnColumnTypes().Keys.ToList().IndexOf(name.ToString())] = row[index];
                 }
             }
 
@@ -168,7 +163,7 @@ public class MainController : ControllerBase
                 if (hc.returnColumnTypes().ContainsKey(name.ToString()))
                 {
                     int index = names.IndexOf(name.ToString());
-                    insertRow.Add(row[index]);
+                    insertRow[hc.returnColumnTypes().Keys.ToList().IndexOf(name.ToString())] = row[index];
                 }
             }
 
@@ -181,7 +176,7 @@ public class MainController : ControllerBase
                 if (pa.returnColumnTypes().ContainsKey(name.ToString()))
                 {
                     int index = names.IndexOf(name.ToString());
-                    insertRow.Add(row[index]);
+                    insertRow[pa.returnColumnTypes().Keys.ToList().IndexOf(name.ToString())] = row[index];
                 }
             }
 
@@ -198,4 +193,5 @@ public class MainController : ControllerBase
         return 200;
     }
 }
+
 
