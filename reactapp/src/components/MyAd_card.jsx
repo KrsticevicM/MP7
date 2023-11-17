@@ -5,7 +5,7 @@ function MyAd_card(props) {
   return (
     <div className="myad-card-container">
       <div className="myad-img">
-        <img src={props.image} />
+              <img src={"data:image/png;base64,"+props.image} />
       </div>
       <div className="myad-info">
         <h1>{props.petname}</h1>

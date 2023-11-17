@@ -1,42 +1,15 @@
 import MyAd_card from "./MyAd_card";
 import "./MyAds.css";
 import { Link, Navigate } from "react-router-dom";
-
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "./AuthenticationContext";
 
 function MyAds() {
-  const ads = [
-    {
-      image: "/images/Bichon-frise-dog.webp",
-      petname: "Johnny",
-      description:
-        "Izgubljen 21.01.2023, posljednja lokacija sutomiska ulica, odaziva se na ime Johnny",
-      id: 1,
-      petspecies: "Pas",
-      datehour: "21.01.2003 16:42",
-      color: "Bijela",
-      age: "2 god.",
-      kategorija: "U potrazi",
-      email: "filip.smolic.zadar@gmail.com",
-      phonenumber: "0989175125",
-    },
-    {
-      image:
-        "/images/black-dog-breeds-black-labrador-retriever-1566497968.jpg",
-      petname: "Timmy",
-      description:
-        "Izgubljen 21.01.2023, posljednja lokacija sutomiska ulica, odaziva se na ime Timmy",
-      id: 2,
-      petspecies: "Pas",
-      datehour: "4.8.2022 4:20",
-      color: "Crna",
-      age: "7 god.",
-      kategorija: "U potrazi",
-      email: "filip.smolic.zadar@gmail.com",
-      phonenumber: "0989175125",
-    },
-  ];
+
+    const { user, updateUser } = useContext(AuthContext)
+    const [ads, setAds] = useState()
   
-  
+    
 
   return (
     <div className="myads-container">
