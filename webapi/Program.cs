@@ -23,7 +23,7 @@ red1.Add("323");
 //int c = DatabaseFunctions.insert(new User(), red1);
 //Console.WriteLine(c);
 //DatabaseFunctions.databaseTester(new Ad());
-DatabaseFunctions.getNextAvailableID(new Pet());
+DatabaseFunctions.getNextAvailableID(new Shelter()) ;
 // Add services to the container.
 
 builder.Services.AddControllers();
