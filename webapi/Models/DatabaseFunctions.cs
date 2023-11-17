@@ -567,13 +567,19 @@ namespace MP7_progi.Models
                 Console.WriteLine(ex.Message);
                 return;
             }
+            Expression where = new Expression();
+            int userID = 24;
+
+            where.addElement((Object)"userID", Expression.OP.EQUAL);
+            where.addElement((Object)userID, Expression.OP.None);
+
+            Dictionary<string, List<Object>> result = DatabaseFunctions.read(new User(), new List<Table> { new Regular() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural }, where);
+            Console.WriteLine(ConvertDictionaryToJson(result));
 
 
-
-
-            /*
-            tableOut.TryGetValue("Names", out attributes);
-            tableOut.TryGetValue("Values", out values);
+            
+            result.TryGetValue("Names", out attributes);
+            result.TryGetValue("Values", out values);
 
             Console.WriteLine("Performing test for database: " + table);
 
@@ -592,7 +598,7 @@ namespace MP7_progi.Models
                 }
             }
             Console.WriteLine();
-            */
+           
         }
     }
 }

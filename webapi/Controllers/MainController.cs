@@ -138,7 +138,7 @@ public class MainController : ControllerBase
         List<Object> names = insertDictionary["Names"];
         List<Object> values = insertDictionary["Values"];
         List<Object> row = new List<Object>();
-        List<Object> insertRow = new List<Object>();
+        List<Object> insertRow = new List<Object>(20);
 
         Ad ad = new Ad();
         Pet pet = new Pet();
