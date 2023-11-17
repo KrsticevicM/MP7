@@ -121,28 +121,32 @@ export const NewAd = () => {
 
 
     const submission={
-        namePet: data.get('ime'),
-        species: data.get('vrsta'),
-        color: data.get('boja'),
-        age: data.get('age'),
-        description: data.get('opis'),
-        catAd:"u potrazi",
-        location:"Zagreb",
-        userID: user.userID,
-        dateHourMis: data.get('datum') + " "+data.get('vrijeme'),
-        img: images2 
+      "Data":[{
+        "namePet": data.get('ime'),
+        "species": data.get('vrsta'),
+        "color": data.get('boja'),
+        "age": data.get('age'),
+        "description": data.get('opis'),
+        "catAd":"u potrazi",
+        "location":"Zagreb",
+        "userID": user.userID,
+        "dateHourMis": data.get('datum') + " "+data.get('vrijeme'),
+        "img": images2 
+      }] 
     }
     console.log(submission)
-    /* fetch("main/newAd",{
+     fetch(`main/postAd`,{
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(submission)
-    }).then(()=>{
+    }).then((res)=>{
       console.log(submission)
       //setIsPending(false)
-        
-    }) */
-    navigate("/moji-oglasi")
+        if(res.ok){
+          navigate("/moji-oglasi")
+        }
+    }) 
+    
   }
   
   return (
