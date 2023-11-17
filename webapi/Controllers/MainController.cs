@@ -115,7 +115,7 @@ public class MainController : ControllerBase
                 }
             }
 
-            //DatabaseFunctions.insert(ad, insertRow);
+            DatabaseFunctions.insert(ad, insertRow);
             insertRow.RemoveAll(x => x != null);
 
             /* Insert into Pet */
@@ -128,7 +128,7 @@ public class MainController : ControllerBase
                 }
             }
 
-            //DatabaseFunctions.insert(pet, insertRow);
+            DatabaseFunctions.insert(pet, insertRow);
             insertRow.RemoveAll(x => x != null);
 
             /* Insert into hasColor */
@@ -154,7 +154,7 @@ public class MainController : ControllerBase
                 }
             }
 
-            //DatabaseFunctions.insert(pa, insertRow);
+            DatabaseFunctions.insert(pa, insertRow);
             insertRow.RemoveAll(x => x != null);
         }
         catch (Exception ex)
