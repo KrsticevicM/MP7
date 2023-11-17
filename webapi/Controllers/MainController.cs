@@ -52,6 +52,12 @@ public class MainController : ControllerBase
         where.addElement((Object)userID, Expression.OP.None);
         result = DatabaseFunctions.read(new User(), new List<Table> { new Regular(), new typeOfUser() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural, DatabaseFunctions.joinType.Natural }, where);
 
+        if (result["Values"].Count != 0){
+            Console.WriteLine(result.Values.Count);
+            return DatabaseFunctions.ConvertDictionaryToJson(result);
+        }
+
+        result = DatabaseFunctions.read(new User(), new List<Table> { new Shelter(), new typeOfUser() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural, DatabaseFunctions.joinType.Natural }, where);
         return DatabaseFunctions.ConvertDictionaryToJson(result);
     }
 
@@ -60,8 +66,8 @@ public class MainController : ControllerBase
     public int RegisterUser([FromQuery] string usrname, [FromQuery] string password, [FromQuery] string email, [FromQuery] string phoneNum, [FromQuery] string name, [FromQuery] string surname)
     {
         List<Object> userRow = new List<Object>();
-
-        userRow.Add(DatabaseFunctions.getNextAvailableID(new User()));
+        int newId = DatabaseFunctions.getNextAvailableID(new User());
+        userRow.Add(newId);
         userRow.Add(usrname);
         userRow.Add(email);
         userRow.Add(phoneNum);
@@ -71,13 +77,19 @@ public class MainController : ControllerBase
         int code1 = DatabaseFunctions.insert(new User(), userRow);
 
         List<Object> regularRow = new List<Object>();
-        regularRow.Add(DatabaseFunctions.getNextAvailableID(new Regular()));
+        regularRow.Add(newId);
         regularRow.Add(name);
         regularRow.Add(surname);
 
         int code2 = DatabaseFunctions.insert(new Regular(), regularRow);
 
-        if (code1 == 200 && code2 == 200)
+        List<Object> typeOfUserRow = new List<Object>();
+        typeOfUserRow.Add(newId);
+        typeOfUserRow.Add("regular");
+
+        int code3 = DatabaseFunctions.insert(new typeOfUser(), typeOfUserRow);
+
+        if (code1 == 200 && code2 == 200 && code3 == 200)
         {
             return code1;
         }
@@ -85,30 +97,41 @@ public class MainController : ControllerBase
         {
             return code1;
         }
-        return code2;
+        else if (code2 != 200)
+        {
+            return code2;
+        }
+        return code3;
     }
 
     [HttpPost(Name = "RegisterShelter")]
     [Route("register_shelter")]
     public int RegisterShelter([FromQuery] string usrname, [FromQuery] string password, [FromQuery] string email, [FromQuery] string phoneNum, [FromQuery] string shelterName)
     {
-        List<Object> shelterRow = new List<Object>();
-
-        shelterRow.Add(DatabaseFunctions.getNextAvailableID(new Shelter()));
-        shelterRow.Add(shelterName);
-
-        int code1 = DatabaseFunctions.insert(new Shelter(), shelterRow);
 
         List<Object> userRow = new List<Object>();
-        userRow.Add(DatabaseFunctions.getNextAvailableID(new User()));
+        int newId = DatabaseFunctions.getNextAvailableID(new User());
+        userRow.Add(newId);
         userRow.Add(usrname);
         userRow.Add(email);
         userRow.Add(phoneNum);
         userRow.Add(password);
 
-        int code2 = DatabaseFunctions.insert(new User(), userRow);
+        int code1 = DatabaseFunctions.insert(new User(), userRow);
 
-        if (code1 == 200 && code2 == 200)
+        List<Object> shelterRow = new List<Object>();
+        shelterRow.Add(newId);
+        shelterRow.Add(shelterName);
+
+        int code2 = DatabaseFunctions.insert(new Shelter(), shelterRow);
+
+        List<Object> typeOfUserRow = new List<Object>();
+        typeOfUserRow.Add(newId);
+        typeOfUserRow.Add("shelter");
+
+        int code3 = DatabaseFunctions.insert(new typeOfUser(), typeOfUserRow);
+
+        if (code1 == 200 && code2 == 200 && code3 == 200)
         {
             return code1;
         }
@@ -116,7 +139,11 @@ public class MainController : ControllerBase
         {
             return code1;
         }
-        return code2;
+        else if (code2 != 200)
+        {
+            return code2;
+        }
+        return code3;
     }
 
     [HttpPost(Name = "PostAd")]
