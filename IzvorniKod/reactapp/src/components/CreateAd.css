@@ -1,0 +1,79 @@
+.createAd-headline{
+    text-align: center;
+    margin-top: 5%;
+    
+}
+.createAd-img{
+    max-width: 30%;
+    max-height: 30vw;
+    height: auto;
+    border-radius: 10%;
+    outline: solid;
+    margin-left:1.65%;
+    margin-right: 1.65%;
+    margin-bottom: 3%;
+    margin-top: 3%;
+}
+.form-control{
+    margin-bottom: 5%;
+}
+label{
+    margin-bottom: 1%;
+}
+
+.createAd-container{
+    display: grid;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    outline: solid;
+    
+}
+.adbutton{
+    justify-content: center;
+    text-align: center;
+}
+
+.createAd-window{
+    text-align: left;
+    height: fit-content;
+    width: fit-content;
+    justify-content: center;
+    box-sizing: border-box;
+    margin-bottom: 2.2vh;
+    padding: 3.5%;  
+    
+    
+}
+.error-message{
+    text-align: center;
+    margin-top: 2%;
+    color: red;
+}
+select{
+    height: auto;
+    overflow: scroll;
+}
+option{
+    height: auto;
+    overflow: scroll;
+}
+
+label{
+    margin-right: 3px;
+    text-align: left;
+}
+
+@media (min-width:450px){
+    .createAd-window{
+        outline: solid;
+        border-radius: 5%;
+
+    }
+    .createAd-img{
+        max-width: 10%;
+        max-height: 10vw;
+        
+    }
+
+}
