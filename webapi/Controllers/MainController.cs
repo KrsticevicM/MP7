@@ -42,8 +42,8 @@ public class MainController : ControllerBase
         return DatabaseFunctions.checkLoginData(usrname, password);
     }
     
-    [HttpPost(Name = "Register")]
-    [Route("register")]
+    [HttpPost(Name = "RegisterUser")]
+    [Route("register_user")]
     public int RegisterUser([FromQuery] string usrname,[FromQuery] string password, [FromQuery] string email, [FromQuery] string phoneNum, [FromQuery] string name, [FromQuery] string surname)
     {
         List<Object> userRow = new List<Object>();
@@ -75,6 +75,8 @@ public class MainController : ControllerBase
         return code2;
     }
 
+    [HttpPost(Name = "RegisterShelter")]
+    [Route("register_shelter")]
     public int RegisterShelter([FromQuery] string usrname, [FromQuery] string password, [FromQuery] string email, [FromQuery] string phoneNum, [FromQuery] string shelterName)
     {
         List<Object> shelterRow = new List<Object>();
