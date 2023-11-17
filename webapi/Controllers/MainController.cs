@@ -48,9 +48,9 @@ public class MainController : ControllerBase
             return "";
         }
 
-        where.addElement((Object) "userID", Expression.OP.EQUAL);
-        where.addElement((Object) userID, Expression.OP.None);
-        result = DatabaseFunctions.read(new User(), new List<Table> { new Regular() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural }, where);
+        where.addElement((Object)"userID", Expression.OP.EQUAL);
+        where.addElement((Object)userID, Expression.OP.None);
+        result = DatabaseFunctions.read(new User(), new List<Table> { new Regular(), new typeOfUser() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural, DatabaseFunctions.joinType.Natural }, where);
 
         return DatabaseFunctions.ConvertDictionaryToJson(result);
     }
@@ -138,7 +138,6 @@ public class MainController : ControllerBase
         List<Object> names = insertDictionary["Names"];
         List<Object> values = insertDictionary["Values"];
         List<Object> row = new List<Object>();
-        List<Object> insertRow = new List<Object>(20);
 
         Ad ad = new Ad();
         Pet pet = new Pet();
@@ -147,59 +146,55 @@ public class MainController : ControllerBase
 
         row = (List<Object>)values[0];
 
-        /*Insert into Ad*/
         try
         {
+            /* Insert into Ad */
+            List<Object> insertRowAd = new List<Object>();
             foreach (var name in names)
             {
                 if (ad.returnColumnTypes().ContainsKey(name.ToString()))
                 {
                     int index = names.IndexOf(name.ToString());
-                    insertRow[ad.returnColumnTypes().Keys.ToList().IndexOf(name.ToString())] = row[index];
+                    insertRowAd[ad.returnColumnTypes().Keys.ToList().IndexOf(name.ToString())] = row[index];
                 }
             }
-
-            DatabaseFunctions.insert(ad, insertRow);
-            insertRow.RemoveAll(x => x != null);
+            DatabaseFunctions.insert(ad, insertRowAd);
 
             /* Insert into Pet */
+            List<Object> insertRowPet = new List<Object>();
             foreach (var name in names)
             {
                 if (pet.returnColumnTypes().ContainsKey(name.ToString()))
                 {
                     int index = names.IndexOf(name.ToString());
-                    insertRow[pet.returnColumnTypes().Keys.ToList().IndexOf(name.ToString())] = row[index];
+                    insertRowPet[pet.returnColumnTypes().Keys.ToList().IndexOf(name.ToString())] = row[index];
                 }
             }
-
-            DatabaseFunctions.insert(pet, insertRow);
-            insertRow.RemoveAll(x => x != null);
+            DatabaseFunctions.insert(pet, insertRowPet);
 
             /* Insert into hasColor */
+            List<Object> insertRowHC = new List<Object>();
             foreach (var name in names)
             {
                 if (hc.returnColumnTypes().ContainsKey(name.ToString()))
                 {
                     int index = names.IndexOf(name.ToString());
-                    insertRow[hc.returnColumnTypes().Keys.ToList().IndexOf(name.ToString())] = row[index];
+                    insertRowHC[hc.returnColumnTypes().Keys.ToList().IndexOf(name.ToString())] = row[index];
                 }
             }
-
-            DatabaseFunctions.insert(hc, insertRow);
-            insertRow.RemoveAll(x => x != null);
+            DatabaseFunctions.insert(hc, insertRowHC);
 
             /* Insert into photoAd */
+            List<Object> insertRowPA = new List<Object>();
             foreach (var name in names)
             {
                 if (pa.returnColumnTypes().ContainsKey(name.ToString()))
                 {
                     int index = names.IndexOf(name.ToString());
-                    insertRow[pa.returnColumnTypes().Keys.ToList().IndexOf(name.ToString())] = row[index];
+                    insertRowPA[pa.returnColumnTypes().Keys.ToList().IndexOf(name.ToString())] = row[index];
                 }
             }
-
-            DatabaseFunctions.insert(pa, insertRow);
-            insertRow.RemoveAll(x => x != null);
+            DatabaseFunctions.insert(pa, insertRowPA);
         }
         catch (Exception ex)
         {
@@ -210,6 +205,7 @@ public class MainController : ControllerBase
 
         return 200;
     }
+
 }
 
 
