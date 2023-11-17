@@ -361,16 +361,15 @@ namespace MP7_progi.Models
 
         Params in:
 
-           @ [Table]           - Takes the table to perform the operation on, REQ
-           @ [List<ArrayList>]  - Takes rows that are to be added into table, REQ
+           @ [Table]            - Takes the table to perform the operation on, REQ
+           @ [List<Object>]     - Single row that is to be added into table, REQ
 
         */
 
-        public static int insert(Table table, List<ArrayList> rows)
+        public static int insert(Table table, List<Object> row)
         {
             //check if provided data types inside list match those in table
-            for (int i = 0; i < rows.Count; i++)
-            {
+         
                 for (int j = 0; j < table.returnColumnTypes().Count; j++)
                 {
                     string suffix = "";
@@ -378,37 +377,50 @@ namespace MP7_progi.Models
                     {
                         suffix += "32";
                     }
-
-                    if (("system." + table.returnColumnTypes().ElementAt(j).Value + suffix) != rows.ElementAt(i)[j].GetType().ToString().ToLower())
+                try
+                {
+                    if (("system." + table.returnColumnTypes().ElementAt(j).Value + suffix) != row.ElementAt(j).GetType().ToString().ToLower())
                     {
-                        Console.WriteLine("ERROR: Tried to enter type that doesnt match that in table");
-                        Console.WriteLine("Expected type: system." + table.returnColumnTypes().ElementAt(j).Value);
-                        Console.WriteLine("Provided type: " + rows.ElementAt(i)[j].GetType().ToString().ToLower() + " (" + rows.ElementAt(i)[j] + ")");
-
-                        return 400;
-                    }
+                        throw new InvalidOperationException("ERROR: Tried to enter type that doesn't match that in the table")
+                        {
+                            Data =
+                                {
+                                 { "ExpectedType", "system." + table.returnColumnTypes().ElementAt(j).Value },
+                                 { "ProvidedType", row.ElementAt(j).GetType().ToString().ToLower() + " (" + row.ElementAt(j) + ")" }
+                                }
+                        };
+                    }                 
                 }
+                catch (InvalidOperationException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Expected type: " + ex.Data["ExpectedType"]);
+                    Console.WriteLine("Provided type: " + ex.Data["ProvidedType"]);
+
+                    return 400; 
+                }
+
             }
+
             Console.WriteLine("All provided data is matching type");
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
                 int changes = 0;
-                for (int i = 0; i < rows.Count; i++)
-                {
+
                     string query = "INSERT INTO " + table.returnTable();
                     query += "  VALUES(";
                     for (int j = 0; j < table.returnColumnTypes().Count; j++)
                     {
 
-                        if (rows.ElementAt(i)[j].GetType().ToString() == "System.String")
+                        if (row.ElementAt(j).GetType().ToString() == "System.String")
                         {
-                            query += "'" + rows.ElementAt(i)[j] + "'";
+                            query += "'" + row.ElementAt(j) + "'";
                         }
                         else
                         {
-                            query += rows.ElementAt(i)[j];
+                            query += row.ElementAt(j);
                         }
                         if (j < table.returnColumnTypes().Count - 1)
                         {
@@ -430,9 +442,9 @@ namespace MP7_progi.Models
                         return 500;
                     }
                     query = "";
-                }
 
-                Console.WriteLine("Number of rows added: " + changes);
+
+                Console.WriteLine("Row has been successfully added");
                 return 200;
             }
 
