@@ -78,4 +78,97 @@ public class MainController : ControllerBase
         }
         return code2;
     }
+
+    [HttpPost(Name = "PostAd")]
+    [Route("postAd")]
+    public int PostAd([FromQuery] string insertJSON)
+    {
+        Dictionary<string, List<Object>> insertDictionary;
+
+        try
+        {
+            insertDictionary = DatabaseFunctions.ConvertJsonToDictionary(insertJSON);
+        }
+        catch
+        {
+            Console.WriteLine("Incorrect JSON format!");
+            return 400;
+        }
+
+        List<Object> names = insertDictionary["Names"];
+        List<Object> values = insertDictionary["Values"];
+        List<Object> row = new List<Object>();
+        List<Object> insertRow = new List<Object>();
+
+        Ad ad = new Ad();
+        Pet pet = new Pet();
+        hasColor hc = new hasColor();
+        photoAd pa = new photoAd();
+
+        row = (List<Object>)values[0];
+
+        /*Insert into Ad*/
+        try
+        {
+            foreach (var name in names)
+            {
+                if (ad.returnColumnTypes().ContainsKey(name.ToString()))
+                {
+                    int index = names.IndexOf(name.ToString());
+                    insertRow.Add(row[index]);
+                }
+            }
+
+            //DatabaseFunctions.insert(ad, insertRow);
+            insertRow.RemoveAll(x => x != null);
+
+            /* Insert into Pet */
+            foreach (var name in names)
+            {
+                if (pet.returnColumnTypes().ContainsKey(name.ToString()))
+                {
+                    int index = names.IndexOf(name.ToString());
+                    insertRow.Add(row[index]);
+                }
+            }
+
+            //DatabaseFunctions.insert(pet, insertRow);
+            insertRow.RemoveAll(x => x != null);
+
+            /* Insert into hasColor */
+            foreach (var name in names)
+            {
+                if (hc.returnColumnTypes().ContainsKey(name.ToString()))
+                {
+                    int index = names.IndexOf(name.ToString());
+                    insertRow.Add(row[index]);
+                }
+            }
+
+            //DatabaseFunctions.insert(hc, insertRow);
+            insertRow.RemoveAll(x => x != null);
+
+            /* Insert into photoAd */
+            foreach (var name in names)
+            {
+                if (pa.returnColumnTypes().ContainsKey(name.ToString()))
+                {
+                    int index = names.IndexOf(name.ToString());
+                    insertRow.Add(row[index]);
+                }
+            }
+
+            //DatabaseFunctions.insert(pa, insertRow);
+            insertRow.RemoveAll(x => x != null);
+        }
+        catch (Exception ex)
+        {
+            // Missing database cleanup - required Delete method.
+            Console.WriteLine(ex.ToString());
+            return 400;
+        }
+
+        return 200;
+    }
 }
+

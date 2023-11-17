@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections;
-using System.Collections.Generic;
-using System.Data.Entity.Core.Mapping;
 using System.Data.SQLite;
-using System.Security.Cryptography.X509Certificates;
 
 namespace MP7_progi.Models
 {
@@ -325,6 +322,40 @@ namespace MP7_progi.Models
             }
         }
 
+        public static Dictionary<string, List<object>> ConvertJsonToDictionary(string jsonString)
+        {
+            // Deserialize JSON string to a dynamic object
+            dynamic jsonData = JsonConvert.DeserializeObject(jsonString);
+
+            // Extract data from dynamic object
+            var resultDictionary = new Dictionary<string, List<object>>();
+            var names = new List<object>();
+            var values = new List<Object>();
+
+            // Extract column names
+            foreach (var property in jsonData.Data[0].Properties())
+            {
+                names.Add(property.Name);
+            }
+
+            // Extract data rows
+            foreach (var dataRow in jsonData.Data)
+            {
+                var row = new List<object>();
+                foreach (var property in dataRow.Properties())
+                {
+                    row.Add(property.Value.ToObject<object>());
+                }
+                values.Add(row);
+            }
+
+            // Populate the result dictionary
+            resultDictionary["Names"] = names;
+            resultDictionary["Values"] = values;
+
+            return resultDictionary;
+        }
+
         /*
         insert(Table, List<ArrayList> method for inserting rows into database
 
@@ -430,9 +461,9 @@ namespace MP7_progi.Models
                 string query = "SELECT userID FROM User WHERE userName = @username AND psw = @password";
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    
+
                     command.Parameters.AddWithValue("@username", username);
-                    command.Parameters.AddWithValue("@password", password); 
+                    command.Parameters.AddWithValue("@password", password);
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
@@ -467,12 +498,12 @@ namespace MP7_progi.Models
         {
             Dictionary<string, List<Object>> ids = new Dictionary<string, List<Object>>();
             ids = read(table, null, null, null);
-           
+
             List<Object> list = new List<Object>();
             List<Object> valuesList = new List<Object>();
-            List<int> idList = new List<int>(); 
+            List<int> idList = new List<int>();
 
-            bool check = ids.TryGetValue("Values", out valuesList) ;
+            bool check = ids.TryGetValue("Values", out valuesList);
             if (!check)
             {
                 Console.WriteLine("Couldnt get values!");
@@ -484,20 +515,20 @@ namespace MP7_progi.Models
                 list = (List<object>)valuesList.ElementAt(i);
 
                 Object id = list.ElementAt(0);
-      
+
                 idList.Add((int)id);
                 Console.WriteLine((int)id);
             }
             idList.Sort();
 
-            for(int i = 0;i < idList.Count; i++)
+            for (int i = 0; i < idList.Count; i++)
             {
                 if (idList.ElementAt(i) != i + 1)
                 {
                     return (i + 1);
                 }
             }
-           
+
             return idList.Count + 1;
         }
 
@@ -525,7 +556,7 @@ namespace MP7_progi.Models
                 return;
             }
 
-            
+
 
 
             /*
