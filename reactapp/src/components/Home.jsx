@@ -24,7 +24,6 @@ function Home() {
                     }
                 })
                 setAds(update_ads);
-                console.log(update_ads);
             })
     }, []);
         

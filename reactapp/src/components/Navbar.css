@@ -28,7 +28,7 @@
     position: relative;
     box-shadow: 0px 6px 5px 0px rgba(0, 0, 0, 0.34);
     padding: 15px;
-    min-width: 100vw;
+    width: 100vw;
 }
 
 .navbar-popup-menu {

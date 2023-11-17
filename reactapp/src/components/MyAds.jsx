@@ -8,20 +8,36 @@ function MyAds() {
 
     const { user, updateUser } = useContext(AuthContext)
     const [ads, setAds] = useState()
-  
-    
+
+    useEffect(() => {
+        fetch('main/frontpagedata')
+            .then(res => {
+                return res.json();
+            })
+            .then(data => {
+                const update_ads = [];
+                const ad_ids = []
+                data.Data.map((ad) => {
+                    if (!(ad_ids.includes(ad.adID)) && (user.userID == ad.userID)) { 
+                        update_ads.push(ad);
+                        ad_ids.push(ad.adID);
+                    }
+                })
+                setAds(update_ads);
+            })
+    }, []);
 
   return (
     <div className="myads-container">
       <br />
-      {ads.map((ad) => (
+      {ads && ads.map((ad) => (
         <MyAd_card
-          key={ad.id}
-          image={ad.image}
-          petname={ad.petname}
-          datehour={ad.datehour}
+          key={ad.adID}
+          image={ad.photo}
+          petname={ad.namePet}
+          datehour={ad.dateHourMis}
           age={ad.age}
-          kategorija={ad.kategorija}
+          kategorija={ad.catAd}
         />
       ))}
       <Link to="/newAd">
