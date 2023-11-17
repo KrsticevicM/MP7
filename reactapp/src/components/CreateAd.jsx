@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { Form } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { Form, Navigate, redirect, useNavigate } from 'react-router-dom'
 import "./CreateAd.css"
+import { AuthContext } from './AuthenticationContext'
 
 export const NewAd = () => {
 
   const [files,setFiles]=useState()
   const [preview,setPreview]=useState()
+  const {user,updateUser}= useContext(AuthContext)
+  const [images,setImages]=useState("")
+  const navigate=useNavigate()
+  const [error,setError]=useState("")
+
+  
 
   const species = [
     "Pas",
@@ -24,11 +31,16 @@ export const NewAd = () => {
     "crvena",
     "žuta",
     "narančasta",
-    "ostalo",
+    "ljubičasta",
+    "plava",
+    "bijela",
+    "šarena",
   ];
 
   const age = [
-    "< 1 god.",
+    "<1 mj.",
+    "1-6 mj.",
+    "6-11 mj.",
     "1 god.",
     "2 god.",
     "3 god.",
@@ -39,6 +51,8 @@ export const NewAd = () => {
 
 
   useEffect(()=>{
+
+    
     if(!files) return;
 
     let tmp=[]
@@ -53,25 +67,84 @@ export const NewAd = () => {
       }
     }
 
+    
   },[files])
+
+  
+  
+  const getBase64=(file)=> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        resolve(reader.result)
+      }
+      reader.onerror = reject
+    })
+  }
+  
+  // usage
+  
+
+
+
 
   const createAdSubmit=async(event)=>{
     event.preventDefault()
     //getting form data and turning it into object
     const data = new FormData(event.target)
+    let images2=""
+    setError("")
+    if(!files){
+      setError("Stavite barem jednu sliku")
+      return
+    }
+    if(files.length>3){
+      setError("Maksimalno 3 slike su dopuštene")
+      return
+    }
+    
+
+    const base64=await getBase64(files[0]) // `file` your img file
+    images2=base64.split(",").pop()
+
+    if(files.length>=2){
+      const base6423=await getBase64(files[1]) // `file` your img file
+      images2=images2+","+base6423.split(",").pop()
+    }
+
+    if(files.length==3){
+      const base6424=await getBase64(files[2]) // `file` your img file
+      images2=images2+","+base6424.split(",").pop()
+    }
+    
+
+
     const submission={
-        ime: data.get('ime'),
-        vrsta: data.get('vrsta'),
-        boja: data.get('boja'),
-        godine: data.get('age'),
-        datum: data.get('datum'),
-        vrijeme: data.get('vrijeme'),
-        opis: data.get('opis'),
-        img: data.get("img")
+        namePet: data.get('ime'),
+        species: data.get('vrsta'),
+        color: data.get('boja'),
+        age: data.get('age'),
+        description: data.get('opis'),
+        catAd:"u potrazi",
+        location:"Zagreb",
+        userID: user.userID,
+        dateHourMis: data.get('datum') + " "+data.get('vrijeme'),
+        img: images2 
     }
     console.log(submission)
+    /* fetch("main/newAd",{
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(submission)
+    }).then(()=>{
+      console.log(submission)
+      //setIsPending(false)
+        
+    }) */
+    navigate("/moji-oglasi")
   }
-
+  
   return (
 
     <div className='createAd-container'>
@@ -90,7 +163,7 @@ export const NewAd = () => {
                 }}
             />
             {preview && preview.map((pic)=>(
-                <img src={pic} className='createAd-img' />
+                <img src={pic} key={pic} className='createAd-img' />
             ))}
           </div>
 
@@ -100,6 +173,7 @@ export const NewAd = () => {
             className="form-control" 
             id="ime" 
             name="ime" 
+            required
             placeholder="Ime na koje se odziva"/>
           </div>
 
@@ -127,7 +201,7 @@ export const NewAd = () => {
 
           <div className="form-group">
               <label htmlFor="age">Starost</label>
-              <select className="form-control" id="age" name='age'>
+              <select className="form-control" id="age" name='age' maxmenuheight={20} menuplacement="auto" >
               {age.map((specie) => (
               <option key={specie} value={specie}>
                   {specie}
@@ -141,7 +215,9 @@ export const NewAd = () => {
               type="date" 
               className="form-control" 
               id="datum-nestanka" 
-              name='datum'></input>
+              name='datum'
+              required
+              ></input>
           </div>
           <div className="form-group">
               <label htmlFor="vrijeme-nestanka">Vrijeme nestanka</label>
@@ -149,7 +225,9 @@ export const NewAd = () => {
               type="time" 
               className="form-control" 
               id="vrijeme-nestanka" 
-              name='vrijeme'></input>
+              name='vrijeme'
+              required
+              ></input>
           </div>
           <div className="form-group">
               <label htmlFor="opis">Opis</label>
@@ -157,11 +235,16 @@ export const NewAd = () => {
               className="form-control" 
               id="opis" 
               rows="2"
-              name='opis'></textarea>
+              name='opis'
+              required></textarea>
           </div>
           <div className="adbutton">
               <button className='btn btn-primary'>Stvori oglas</button>
           </div>
+          
+          {error.length!=0 && <div className='form-group'>
+            <p className='error-message'>{error}</p>
+            </div>}
             
         
         </Form>

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Form, Link, Navigate, redirect, useActionData} from "react-router-dom";
+import { Form, Link, Navigate, redirect, useActionData, useNavigate} from "react-router-dom";
 import './Registration.css'
 import { AuthContext } from "./AuthenticationContext";
 
@@ -13,6 +13,7 @@ function Registration(){
     const [typeOfuser,setTypeOfUser]=useState("Regular")
     const [error,setError]=useState("")
     const {user,updateUser}=useContext(AuthContext)
+    const navigate=useNavigate()
 
     const registrationAction= async (event)=>{
 
@@ -80,6 +81,7 @@ function Registration(){
         updateUser({firstName:"FRAN",lastName:"KUFRIN",isAuth:true,userID:32321})
         console.log(submission)
         //redirect to homepage if successful
+        navigate("/")
     }
     if(user.isAuth){
         return <Navigate to="/"/>

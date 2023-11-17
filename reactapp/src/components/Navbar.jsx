@@ -1,12 +1,13 @@
 import { useContext, useEffect } from "react";
 import "./Navbar.css";
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { AuthContext } from "./AuthenticationContext";
 import { Button } from "bootstrap";
 import { useState } from "react";
 function Navbar() {
 
-    const [menuState, setMenuState] = useState(false);
+  const [menuState, setMenuState] = useState(false);
+  const navigate=useNavigate()
 
   const {user,updateUser}=useContext(AuthContext)
     const eventHandler = () => {
@@ -17,7 +18,7 @@ function Navbar() {
       firstName: '',
       lastName: '',
     })
-      window.location.href = '/'
+      navigate("/")
   }
 
     return (

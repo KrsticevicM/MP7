@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import './Login.css'
-import {Form, Link, Navigate, useActionData} from 'react-router-dom'
+import {Form, Link, Navigate, useActionData, useNavigate} from 'react-router-dom'
 import { redirect } from "react-router-dom";
 import { AuthContext } from './AuthenticationContext';
 
@@ -13,6 +13,7 @@ function Login(){
     
     const {user,updateUser}=useContext(AuthContext)
     const [error,setError]=useState("")
+    const navigate=useNavigate()
 
     const loginAction = async(event)=>{
         event.preventDefault()
@@ -47,13 +48,7 @@ function Login(){
                 updateUser({userID: text,isAuth:true, firstName: "Fran", lastName: "Kufrin"})
             }
         })
-        return
-       
-        
-        console.log(submission)
-        
-        updateUser({firstName:"FRAN",lastName:"KUFRIN",isAuth:true,userID:32321})
-        //redirect to homepage if successful
+        navigate("/")
     }
 
     if(user.isAuth){

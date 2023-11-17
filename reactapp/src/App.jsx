@@ -10,6 +10,7 @@ import Shelter from './components/Shelter'
 import { AuthContext } from './components/AuthenticationContext'
 import { useState } from 'react'
 import MyAds from './components/MyAds'
+import { NewAd } from './components/CreateAd'
 
 
 const router=createBrowserRouter(
@@ -19,15 +20,17 @@ const router=createBrowserRouter(
 
             <Route index element={<Home />} />
 
-            <Route path='login' element={<Login />}/>
-
-            <Route path=":id" element={<Ad_detail />}></Route>
+            <Route path='login' element={<Login />}/>            
 
             <Route path="/sklonista" element={<Shelter />} />
 
-            <Route path="/moji-oglasi" element={<MyAds />} />
+            <Route path="/moji-oglasi" element={<MyAds />}/>
+
+            <Route path="newAd" element={<NewAd/>} />
 
             <Route path='registration' element={<Registration/>}/>
+
+            <Route path=":id" element={<Ad_detail />}></Route>
 
             <Route path="*" element={<NotFound/>}/> {/*error page */}
             
