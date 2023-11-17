@@ -108,7 +108,7 @@ public class MainController : ControllerBase
 
     [HttpPost(Name = "PostAd")]
     [Route("postAd")]
-    public int PostAd([FromQuery] string insertJSON)
+    public int PostAd([FromBody] string insertJSON)
     {
         Dictionary<string, List<Object>> insertDictionary;
 
