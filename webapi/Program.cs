@@ -9,23 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 //Database tester - perform basic tests on tables
 
-//**testing data**
 
-List<Object> red1 = new List<Object>();
-
-red1.Add(102);
-red1.Add("jozic3");
-red1.Add("zg");
-red1.Add("0123312313");
-red1.Add("323");
-
-
-//int c = DatabaseFunctions.insert(new User(), red1);
-//Console.WriteLine(c);
-//DatabaseFunctions.databaseTester(new Ad());
-DatabaseFunctions.getNextAvailableID(new Shelter()) ;
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
