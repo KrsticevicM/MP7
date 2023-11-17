@@ -46,7 +46,7 @@ public class MainController : ControllerBase
     [Route("register")]
     public int Register([FromQuery] string usrname,[FromQuery] string password, [FromQuery] string email, [FromQuery] string phoneNum, [FromQuery] string name, [FromQuery] string surname)
     {
-        ArrayList userRow = new ArrayList();
+        List<Object> userRow = new List<Object>();
 
         userRow.Add(DatabaseFunctions.getNextAvailableID(new User()));
         userRow.Add(usrname);
@@ -54,19 +54,15 @@ public class MainController : ControllerBase
         userRow.Add(email);
         userRow.Add(phoneNum);
 
-        List<ArrayList> userData = new List<ArrayList>();
-        userData.Add(userRow); 
-        int code1 = DatabaseFunctions.insert(new User(), userData);
 
-        ArrayList regularRow = new ArrayList();
+        int code1 = DatabaseFunctions.insert(new User(), userRow);
+
+        List<Object> regularRow = new List<Object>();
         regularRow.Add(DatabaseFunctions.getNextAvailableID(new Regular()));
         regularRow.Add(name);
         regularRow.Add(surname);
 
-        List<ArrayList> regularData = new List<ArrayList>();
-        regularData.Add(regularRow);
-
-        int code2 = DatabaseFunctions.insert(new Regular(), regularData);
+        int code2 = DatabaseFunctions.insert(new Regular(), regularRow);
         
         if(code1 == 200 && code2 == 200)
         {
