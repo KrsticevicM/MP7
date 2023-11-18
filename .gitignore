@@ -25,3 +25,4 @@
 _ReSharper/
 *.sln.DotSettings.user
 /secrets.json
+*.vs/
