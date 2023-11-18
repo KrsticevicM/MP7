@@ -19,16 +19,6 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "http": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": false,
-      "launchUrl": "https://localhost:5173",
-      "applicationUrl": "http://localhost:5064",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
