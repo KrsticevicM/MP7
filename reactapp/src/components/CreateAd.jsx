@@ -242,7 +242,7 @@ export const NewAd = () => {
               name='opis'
               required></textarea>
           </div>
-          <div className="adbutton">
+          <div className="text-center">
               <button className='btn btn-primary'>Stvori oglas</button>
           </div>
           
