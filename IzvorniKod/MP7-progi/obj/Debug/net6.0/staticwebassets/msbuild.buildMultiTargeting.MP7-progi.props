@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\MP7-progi.props" />
-</Project>

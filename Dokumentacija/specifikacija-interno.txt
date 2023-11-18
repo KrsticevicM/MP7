@@ -1,0 +1,76 @@
++---------------------------------------------------------------+
+| Specifikacija sučelja za interakciju Model, View i Controller |
++---------------------------------------------------------------+
+
+Općenito:
+=================================================================
+Model mora sadržavati odgovarajuće veze prema bazi podataka. Za
+početak bilo bi poželjno omogućiti osnovu interakciju sa bazom 
+podataka, a to je:
+
+    > mogućnost ulogiranja u susta
+    > mogućnost unosa osnovnih podataka u sustav čime se omogućuje
+      stvaranje objave
+
+Kako bi se korisnik mogao ulogirati potrebno je omogućiti i regi-
+straciju istog. Dakle potrebne tablice baze podataka kojima se
+mora osigurati pristup su:
+
+    > korisnik
+    > Oglas
+    > Ljubimac
+
+Po potrebi prilagoditi bazu podataka i tablice ako su uočeni prop-
+usti prilikom njihovog stavaranja.
+
+Controller mora imati ostvarene odgovarajuće metode za potrebne 
+akcije i osigurati integritet primljenih podataka, a View mora
+imati mogućnost komunikacije sa Controllerom, preuzimanje i
+prosljeđivanje podataka između sebe i Controllera.
+
+Baza podataka:
+=================================================================
+Za bazu podataka važno je da ispravno zadovoljava uvjete opisa
+podataka koji se pohranjuju i obrađuju. Iako će se podaci pregle-
+davati u Controller dijelu, bitno je zajamčiti sigurnost i
+integritet podataka maksimalnim ograničenjima na same atribute
+koja u isto vrijeme dopuštaju uspješan unos i čitanje semantički
+ispravnih podataka.
+
+Model:
+=================================================================
+Model mora pružati pristup svim podacima Controlleru kroz
+pripadajuće klase, metode i objekte po potrebi. Sučelja koja se
+planiraju koristiti u Controlleru moraju biti precizno dokumenti-
+rana u Model datoteci izvornog koda u obliku komentara (iako je
+poželjno da se sve dokumentira sa komentarima). 
+
+Za dodatne informacije o preporučljivom pisanju komentara:
+https://swimm.io/learn/code-collaboration/comments-in-code-best-practices-and-mistakes-to-avoid
+
+Controller:
+=================================================================
+Controller mora sadržavati mogućnost prikaza stranice, točnije
+Viewa, kao i metode akcija koje su pobuđene od strane logike
+u Viewu s kojim interaktira korisnik. 
+
+Controller mora osigurati sigurnost i integritet podataka prilikom
+svake transakcije.
+
+Također, kao i u Model datoteci izvornog koda, i sa Controller 
+izvornim kodom moraju doći komentari opisa korištenja akcijskih
+metoda koje poziva logika na View strani.
+
+View:
+=================================================================
+View sadržava prikaz i logiku prikaza koja mora biti dinamička
+kako bi se mogao prilagoditi raspoloživim podacima. Također
+mora imati mogućnost prihvaćanja podataka od Controllera i
+prosljeđivanja podataka istom kroz najprikladniju metodu.
+
+Dodatno:
+=================================================================
+Preporučljivo je, ali ne i neophodno, da se prije slanja obrasca
+koji sadržava lozinku korisnika, podatak logike šifrira unaprijed
+odabranom metodom, a da se na Controller strani dešifrira i pohrani
+u bazu podataka.
