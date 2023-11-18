@@ -17,4 +17,10 @@
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\reactapp\reactapp.esproj" >
+        <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+
 </Project>
