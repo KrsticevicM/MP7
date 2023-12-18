@@ -38,41 +38,35 @@ namespace MP7_progi.Models
                     string createUserTableQuery = @"
                           CREATE TABLE IF NOT EXISTS User(
                           userID INT NOT NULL,
-                          userName INT NOT NULL,
-                          email INT NOT NULL,
-                          phoneNum INT NOT NULL,
-                          psw INT NOT NULL,
+                          userName TEXT NOT NULL,
+                          email TEXT NOT NULL,
+                          phoneNum TEXT NOT NULL,
+                          psw TEXT NOT NULL,
+                          userType TEXT NOT NULL,
                           PRIMARY KEY (userID)
                      );";
 
                     string createRegularTableQuery = @"
                           CREATE TABLE IF NOT EXISTS Regular(
-                            firstName INT NOT NULL,
-                            lastName INT NOT NULL,
+                            firstName TEXT NOT NULL,
+                            lastName TEXT NOT NULL,
                             userID INT NOT NULL,
                             FOREIGN KEY (userID) REFERENCES User(userID)
                      );";
 
                     string createShelterTableQuery = @"
                           CREATE TABLE IF NOT EXISTS Shelter(
-                            nameShelter INT NOT NULL,
+                            nameShelter TEXT NOT NULL,
                             userID INT NOT NULL,
                             FOREIGN KEY (userID) REFERENCES User(userID)
-                    );";
-
-                    string createTypeOfUserTableQuery = @"
-                          CREATE TABLE IF NOT EXISTS TypeOfUser(
-                          userType INT NOT NULL,
-                          userID INT NOT NULL,
-                          FOREIGN KEY (userID) REFERENCES User(userID)
                     );";
 
                     string createCommunicationTableQuery = @"
                         CREATE TABLE IF NOT EXISTS Communication(
                         textID INT NOT NULL,
-                        photoCom INT NOT NULL,
-                        textCom INT NOT NULL,
-                        locCom INT NOT NULL,
+                        photoCom BLOB NOT NULL,
+                        textCom TEXT NOT NULL,
+                        locCom TEXT NOT NULL,
                         adID INT NOT NULL,
                         userID INT NOT NULL,
                         PRIMARY KEY (textID),
@@ -83,12 +77,10 @@ namespace MP7_progi.Models
                     string createPetTableQuery = @"
                         CREATE TABLE IF NOT EXISTS Pet(
                         petID INT NOT NULL,
-                        namePet INT NOT NULL,
-                        dateHourMis INT NOT NULL,
-                        location INT NOT NULL,
-                        species INT NOT NULL,
-                        age INT NOT NULL,
-                        description INT NOT NULL,
+                        namePet TEXT NOT NULL,
+                        species TEXT NOT NULL,
+                        age TEXT NOT NULL,
+                        description TEXT NOT NULL,
                         adID INT NOT NULL,
                         PRIMARY KEY (petID),
                         FOREIGN KEY (adID) REFERENCES Ad(adID)
@@ -99,6 +91,8 @@ namespace MP7_progi.Models
                         adID INT NOT NULL,
                         catAd INT NOT NULL CHECK ((catAd IN ('u potrazi', 'sretno pronađen', 'nije pronađen', 'pronađen uz nesretne okolnosti', 'u skloništu'))),
                         userID INT NOT NULL,
+                        dateHourMis TEXT NOT NULL,
+                        location TEXT NOT NULL,
                         PRIMARY KEY (adID),
                         FOREIGN KEY (userID) REFERENCES User (userID)
                      );";
@@ -108,7 +102,7 @@ namespace MP7_progi.Models
                     string createPhotoAdTableQuery = @"
                         CREATE TABLE IF NOT EXISTS PhotoAd(
                         photoID INT NOT NULL,
-                        photo INT NOT NULL,
+                        photo BLOB NOT NULL,
                         adID INT NOT NULL,
                         PRIMARY KEY (photoID),
                         FOREIGN KEY (adID) REFERENCES Ad(adID)
@@ -116,7 +110,7 @@ namespace MP7_progi.Models
 
                     string createColorPetTableQuery = @"
                         CREATE TABLE IF NOT EXISTS ColorPet(
-                        color INT NOT NULL,
+                        color TEXT NOT NULL,
                         colorID INT NOT NULL,
                         PRIMARY KEY (colorID)
                     );";
@@ -149,9 +143,6 @@ namespace MP7_progi.Models
                         command.ExecuteNonQuery();
 
                         command.CommandText = createShelterTableQuery;
-                        command.ExecuteNonQuery();
-
-                        command.CommandText = createTypeOfUserTableQuery;
                         command.ExecuteNonQuery();
 
                         command.CommandText = createCommunicationTableQuery;

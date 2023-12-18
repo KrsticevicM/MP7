@@ -11,7 +11,8 @@ namespace MP7_progi.Models
             userName,
             email,
             phoneNum,
-            psw
+            psw,
+            userType
         }
         private Dictionary<string, string> types = new Dictionary<string, string>()
         {
@@ -19,7 +20,8 @@ namespace MP7_progi.Models
             {"userName", "string"},
             {"email", "string"},
             {"phoneNum", "string"},
-            {"psw", "string"}
+            {"psw", "string"},
+            {"userType", "string" }
         };
         private readonly string _id = "User";
         public int userID { get; set; }
@@ -28,6 +30,8 @@ namespace MP7_progi.Models
 
         public string phoneNum { get; set; }
         public string psw { get; set; }
+
+        public string? userType { get; set; }
 
         public User() {}
 

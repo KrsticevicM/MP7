@@ -50,14 +50,14 @@ public class MainController : ControllerBase
 
         where.addElement((Object)"userID", Expression.OP.EQUAL);
         where.addElement((Object)userID, Expression.OP.None);
-        result = DatabaseFunctions.read(new User(), new List<Table> { new Regular(), new typeOfUser() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural, DatabaseFunctions.joinType.Natural }, where);
+        result = DatabaseFunctions.read(new User(), new List<Table> { new Regular() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural, DatabaseFunctions.joinType.Natural }, where);
 
         if (result["Values"].Count != 0){
             Console.WriteLine(result.Values.Count);
             return DatabaseFunctions.ConvertDictionaryToJson(result);
         }
 
-        result = DatabaseFunctions.read(new User(), new List<Table> { new Shelter(), new typeOfUser() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural, DatabaseFunctions.joinType.Natural }, where);
+        result = DatabaseFunctions.read(new User(), new List<Table> { new Shelter() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural, DatabaseFunctions.joinType.Natural }, where);
         return DatabaseFunctions.ConvertDictionaryToJson(result);
     }
 
@@ -72,6 +72,7 @@ public class MainController : ControllerBase
         userRow.Add(email);
         userRow.Add(phoneNum);
         userRow.Add(password);
+        userRow.Add("regular");
 
 
         int code1 = DatabaseFunctions.insert(new User(), userRow);
@@ -83,13 +84,7 @@ public class MainController : ControllerBase
 
         int code2 = DatabaseFunctions.insert(new Regular(), regularRow);
 
-        List<Object> typeOfUserRow = new List<Object>();
-        typeOfUserRow.Add(newId);
-        typeOfUserRow.Add("regular");
-
-        int code3 = DatabaseFunctions.insert(new typeOfUser(), typeOfUserRow);
-
-        if (code1 == 200 && code2 == 200 && code3 == 200)
+        if (code1 == 200 && code2 == 200)
         {
             return code1;
         }
@@ -97,11 +92,7 @@ public class MainController : ControllerBase
         {
             return code1;
         }
-        else if (code2 != 200)
-        {
-            return code2;
-        }
-        return code3;
+        return code2;
     }
 
     [HttpPost(Name = "RegisterShelter")]
@@ -116,6 +107,7 @@ public class MainController : ControllerBase
         userRow.Add(email);
         userRow.Add(phoneNum);
         userRow.Add(password);
+        userRow.Add("shelter");
 
         int code1 = DatabaseFunctions.insert(new User(), userRow);
 
@@ -125,13 +117,7 @@ public class MainController : ControllerBase
 
         int code2 = DatabaseFunctions.insert(new Shelter(), shelterRow);
 
-        List<Object> typeOfUserRow = new List<Object>();
-        typeOfUserRow.Add(newId);
-        typeOfUserRow.Add("shelter");
-
-        int code3 = DatabaseFunctions.insert(new typeOfUser(), typeOfUserRow);
-
-        if (code1 == 200 && code2 == 200 && code3 == 200)
+        if (code1 == 200 && code2 == 200)
         {
             return code1;
         }
@@ -139,11 +125,7 @@ public class MainController : ControllerBase
         {
             return code1;
         }
-        else if (code2 != 200)
-        {
-            return code2;
-        }
-        return code3;
+        return code2;
     }
 
     [HttpPost(Name = "PostAd")]
