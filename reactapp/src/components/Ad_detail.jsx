@@ -2,14 +2,20 @@ import { useEffect, useState } from "react";
 import "./Ad_detail.css";
 import ListGroup from "./ListGroup";
 import { useParams } from "react-router-dom";
+import Map from './Map.jsx';
+  
 
 function Ad_detail() {
     const params = useParams();
-    console.log(params);
 
     const [colors, setColors] = useState('');
     const [images, setImages] = useState([]);
     const [firstImage, setFirstImage] = useState('');
+    const [location, setLocation] = useState({
+        latitude: 0,
+        longitude: 0,
+        display_name: "",
+    });
 
     const [the_ad, setTheAd] = useState([
         {
@@ -61,7 +67,26 @@ function Ad_detail() {
                 setColors(color_string);
                 setImages(images_arr);
                 window.scrollTo(0, 0);
-            })
+                return findAd[0];
+            }).then(data => {
+                let url = `https://nominatim.openstreetmap.org/search?city='${data.location}'&format=json&limit=1`;
+                fetch(url, {
+                    method: "GET",
+                    mode: "cors",
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                    })
+                    .then((data) => {
+                        setLocation({
+                            latitude: data[0].lat,
+                            longitude: data[0].lon,
+                            display_name: data[0].display_name,
+                        })
+                    }).catch(() => alert("Please Check your input"));
+            });
     }, []);
 
     return (
@@ -128,12 +153,7 @@ function Ad_detail() {
                         <p>
                             <i className="category-style">Lokacija nestanka:</i>
                         </p>
-                        <iframe
-                            width="250"
-                            height="200"
-                            src="https://www.openstreetmap.org/export/embed.html?bbox=15.191345214843752%2C45.45627757127799%2C16.476745605468754%2C46.12560451043768&amp;layer=mapnik"
-                            style={{ border: "0" }}
-                        ></iframe>
+                        <Map latitude={location.latitude} longitude={location.longitude} display_name={location.display_name} />
                         <p>
                             <i className="category-style">Kontakt</i>
                         </p>

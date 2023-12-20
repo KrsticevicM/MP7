@@ -19,7 +19,6 @@ function Home() {
                 return res.json();
             })
             .then(data => {
-                console.log(data.Data);
                 const update_ads = [];
                 const ad_ids = []
                 data.Data.map((ad) => {
@@ -35,7 +34,7 @@ function Home() {
   return (
       <div className="home-container">
           <button className="filter-button" onClick={() => setFilter(!filter)}>Filter  <i className="bi bi-funnel"></i></button>
-          {(filter || screenSize.width>1024) && <div className="left-categories">
+          {(filter  || screenSize.width>1024) && <div className="left-categories">
               <h1 className="search-heading">Pretraživanje</h1>
               <div className="categories-container">
                   <ListGroup />

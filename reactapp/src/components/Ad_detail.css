@@ -163,3 +163,9 @@
     font-weight: bold;
     color: #7F5539;
 }
+
+.leaflet-container {
+    width: 15rem;
+    height: 12.5rem;
+    margin-bottom: 1rem;
+}
