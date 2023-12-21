@@ -27,6 +27,8 @@ function Ad_detail() {
             dateHourMis: "",
             description: "",
             location: "",
+            lat: "",
+            lon: "",
             namePet: "",
             petID: "",
             photo: "",
@@ -80,6 +82,7 @@ function Ad_detail() {
                         }
                     })
                     .then((data) => {
+
                         setLocation({
                             latitude: data[0].lat,
                             longitude: data[0].lon,
@@ -153,7 +156,7 @@ function Ad_detail() {
                         <p>
                             <i className="category-style">Lokacija nestanka:</i>
                         </p>
-                        <Map latitude={location.latitude} longitude={location.longitude} display_name={location.display_name} />
+                        <Map latitude={the_ad.lat} longitude={the_ad.lon} display_name={the_ad.location} />
                         <p>
                             <i className="category-style">Kontakt</i>
                         </p>

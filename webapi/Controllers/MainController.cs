@@ -52,7 +52,9 @@ public class MainController : ControllerBase
         where.addElement((Object)userID, Expression.OP.None);
         result = DatabaseFunctions.read(new User(), new List<Table> { new Regular() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural, DatabaseFunctions.joinType.Natural }, where);
 
-        if (result["Values"].Count != 0){
+        if (result["Values"].Count != 0)
+        {
+
             Console.WriteLine(result.Values.Count);
             return DatabaseFunctions.ConvertDictionaryToJson(result);
         }
@@ -216,5 +218,4 @@ public class MainController : ControllerBase
     }
 
 }
-
 

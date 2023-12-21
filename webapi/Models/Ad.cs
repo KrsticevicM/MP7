@@ -9,16 +9,20 @@ namespace MP7_progi.Models
             adID,
             catAd,
             userID,
+            location,
             dateHourMis,
-            location
+            lat,
+            lon
         }
         private Dictionary<string, string> types = new Dictionary<string, string>()
         {
             {"adID", "int"},
             {"catAd", "string" },
             {"userID", "int" },
+            {"location", "string"},
             {"dateHourMis", "DateTime"},
-            {"location", "string"}
+            {"lat", "string"},
+            {"lon", "string"}
         };
         private readonly string _id = "Ad";
         public int adID { get; set; }
@@ -28,6 +32,8 @@ namespace MP7_progi.Models
         [DataType(DataType.Date)]
         public DateTime dateHourMis { get; set; }
         public string location { get; set; }
+        public string lat { get; set; }
+        public string lon { get; set; }
         public Ad() { }
 
         override

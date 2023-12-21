@@ -2,6 +2,10 @@ import { TileLayer, MapContainer, Marker, Popup } from "react-leaflet"
 import "leaflet/dist/leaflet.css";
 
 function Map(props) {
+    if (props.latitude === undefined || props.longitude === undefined) {
+        // Handle undefined latitude or longitude, or display an error message
+        return <div>Error: Invalid location coordinates</div>;
+    }
     return (
         <MapContainer center={[44.515399, 16]} zoom={5.4} scrollWheelZoom={false}>
 
