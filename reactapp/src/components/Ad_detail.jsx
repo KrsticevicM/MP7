@@ -35,6 +35,8 @@ function Ad_detail() {
             photoID: "",
             species: "",
             userID: "",
+            email: "",
+            phoneNum: ""
         },
     ]);
 
@@ -162,11 +164,11 @@ function Ad_detail() {
                         </p>
                         <p>
                             <i className="category-style">email: </i>
-                            filip.smolic.zadar@gmail.com
+                            {the_ad.email}
                         </p>
                         <p>
-                            <i className="category-style">mob: </i>
-                            0989175125
+                            <i className="category-style">Broj mobitela: </i>
+                            {the_ad.phoneNum}
                         </p>
                     </div>
                 </div>

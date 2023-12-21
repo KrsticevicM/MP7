@@ -46,7 +46,7 @@
         grid-column: 3 / span 4;
         border-top-right-radius: 15px;
         border-bottom-right-radius: 15px;
-        height: 52.5vh;
+        height: 61.5vh;
     }
 
     .pet-info-container-left {
@@ -99,7 +99,7 @@
 }
 
 .pet-image-container {
-    height: 52.5vh;
+    height: 61.5vh;
     overflow: hidden;
     background-color: #E6CCB2;
     display: flex;
