@@ -11,6 +11,7 @@ import { AuthContext } from './components/AuthenticationContext'
 import { useState } from 'react'
 import MyAds from './components/MyAds'
 import { NewAd } from './components/CreateAd'
+import ShelterDetail from './components/ShelterDetail'
 
 
 const router=createBrowserRouter(
@@ -23,6 +24,8 @@ const router=createBrowserRouter(
             <Route path='login' element={<Login />}/>            
 
             <Route path="/sklonista" element={<Shelter />} />
+
+            <Route path="/sklonista/:id" element={<ShelterDetail />}/>
 
             <Route path="/moji-oglasi" element={<MyAds />}/>
 

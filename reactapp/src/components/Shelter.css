@@ -1,11 +1,11 @@
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 450px) {
     .left-shelter-categories {
         width: 100%;
         grid-column: 1 / span 4; 
     }
 }
 
-@media only screen and (min-width: 1025px) {
+@media only screen and (min-width: 450px) {
     .left-shelter-categories {
         grid-column: 1;
     }
@@ -47,6 +47,7 @@
     flex-wrap: wrap;
     background-color: white;
     padding: 0px;
+    
 }
 
 .search-heading {
@@ -60,4 +61,29 @@
     justify-content: center;
     margin-top: 15px;
     padding-right: 15px;
+}
+
+
+.shelter-display{
+    background-color: white;
+    margin: 3%;
+    outline: auto;
+    width: 40vh;
+    min-height: 20vh;
+    margin-bottom: 2%;
+    justify-content: center;
+}
+
+.shelter-display:hover{
+    background-color: rgb(186, 185, 185)  ;
+    transition-duration: 0.75s;
+    cursor: pointer;
+}
+
+.shelter-text-name{
+    text-align: center;
+    padding-left: 2%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-top: 5%;
 }

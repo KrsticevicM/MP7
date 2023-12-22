@@ -24,11 +24,11 @@ function Navbar() {
     return (
       <>
     <div className="navbar-container">
-      <img
+      <Link to="/"><img
         alt="logo"
         src="images\Dog_Paw_Print.png"
         className="logo-img"
-      />
+      /></Link>
                 <div className="navbar-inner-container">
                     <button className="navbar-menu-button" onClick={() => setMenuState(!menuState)}><i className="bi bi-list"></i></button>
               <Link to='/'><div className="element-container">POČETNA</div></Link>
