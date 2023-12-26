@@ -1,12 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import "./Ad_detail.css";
 import ListGroup from "./ListGroup";
 import { useParams } from "react-router-dom";
 import Map from './Map.jsx';
+import { AuthContext } from "./AuthenticationContext";
+import {useNavigate } from 'react-router-dom'
   
 
 function Ad_detail() {
     const params = useParams();
+
+    const navigate = useNavigate()
+
+    const { user, updateUser } = useContext(AuthContext)
+    const eventHandler = () => {
+        updateUser({
+            isAuth: false,
+            userID: null,
+            firstName: '',
+            lastName: '',
+        })
+        navigate("/")
+    }
 
     const [colors, setColors] = useState('');
     const [images, setImages] = useState([]);
@@ -46,6 +61,7 @@ function Ad_detail() {
                 return res.json();
             })
             .then(data => {
+                console.log(data.Data);
                 const colors_arr = [];
                 const images_arr = [];
                 var color_string = '';
@@ -71,6 +87,7 @@ function Ad_detail() {
                 setColors(color_string);
                 setImages(images_arr);
                 window.scrollTo(0, 0);
+                console.log(findAd[0]);
                 return findAd[0];
             }).then(data => {
                 let url = `https://nominatim.openstreetmap.org/search?city='${data.location}'&format=json&limit=1`;
@@ -176,6 +193,9 @@ function Ad_detail() {
                     <h1>Komentari</h1>
                     <hr />
                     <p>Nema komentara</p>
+                    {user.isAuth && <button className="btn btn-light" id="add-button">
+                        Dodaj komentar <i className="bi bi-plus-lg"></i>
+                    </button>}
                 </div>
             </div>
         </div>
