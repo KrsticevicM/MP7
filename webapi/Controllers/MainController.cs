@@ -64,6 +64,14 @@ public class MainController : ControllerBase
         return DatabaseFunctions.ConvertDictionaryToJson(result);
     }
 
+
+    [HttpGet(Name = "ShelterData")]
+    [Route("shelter_data")]
+    public string getShelterData()
+    {
+        return DatabaseFunctions.getShelterData();
+    }
+
     [HttpPost(Name = "RegisterUser")]
     [Route("register_user")]
     public int RegisterUser([FromQuery] string usrname, [FromQuery] string password, [FromQuery] string email, [FromQuery] string phoneNum, [FromQuery] string name, [FromQuery] string surname)

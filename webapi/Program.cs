@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 //DatabaseFunctions.InitializeDB();
 
 //Database tester - perform basic tests on tables
-
+DatabaseFunctions.getShelterData();
 
 // Add services to the container.
 builder.Services.AddControllers();
