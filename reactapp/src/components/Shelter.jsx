@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import './Shelter.css'
 
 function Shelter() {
@@ -23,7 +23,8 @@ function Shelter() {
     email: "sklonisteMarija@gmail.com",
     phonenum: "0991834523"}
     ]
-
+    const data=useLoaderData()
+    console.log(data)
 
 
   return (
@@ -53,17 +54,17 @@ function Shelter() {
       <div className="ads-shelter-container">
         <div className="ads-shelter-container2">
 
-          {shelterNames.map((shelter)=>(
-            <Link to="/sklonista/5" key={shelter.name} className='shelter-display'>
+          {data.map((shelter)=>(
+            <Link to={`/sklonista/${shelter.userID}`} key={shelter.nameShelter} className='shelter-display'>
               
               <h2 className='shelter-text-name'>
-                {shelter.name}
+                {shelter.nameShelter}
               </h2>
               <div className='shelter-text-email'>
                 Email: {shelter.email}
               </div>
               <div className='shelter-text-phoneNum'>
-                Broj telefona: {shelter.phonenum}
+                Broj telefona: {shelter.phoneNum}
               </div>
                 
               
@@ -74,6 +75,11 @@ function Shelter() {
       </div>
     </div>
   );
+}
+
+export const ShelterLoader = async () =>{
+  const res= await fetch("main/shelter_data")
+  return res.json()
 }
 
 export default Shelter;

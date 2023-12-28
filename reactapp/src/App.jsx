@@ -6,12 +6,12 @@ import Registration from './components/Registration'
 import { RootLayout } from './layouts/RootLayout'
 import { NotFound } from './components/NotFound'
 import Ad_detail from './components/Ad_detail'
-import Shelter from './components/Shelter'
+import Shelter, { ShelterLoader } from './components/Shelter'
 import { AuthContext } from './components/AuthenticationContext'
 import { useState } from 'react'
 import MyAds from './components/MyAds'
 import { NewAd } from './components/CreateAd'
-import ShelterDetail from './components/ShelterDetail'
+import ShelterDetail, { DetailLoader } from './components/ShelterDetail'
 
 
 const router=createBrowserRouter(
@@ -23,9 +23,9 @@ const router=createBrowserRouter(
 
             <Route path='login' element={<Login />}/>            
 
-            <Route path="/sklonista" element={<Shelter />} />
+            <Route path="/sklonista" element={<Shelter />} loader={ShelterLoader}/>
 
-            <Route path="/sklonista/:id" element={<ShelterDetail />}/>
+            <Route path="/sklonista/:id" element={<ShelterDetail loader={DetailLoader}/>}/>
 
             <Route path="/moji-oglasi" element={<MyAds />}/>
 
