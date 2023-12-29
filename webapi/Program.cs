@@ -10,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 //Database tester - perform basic tests on tables
 DatabaseFunctions.getShelterData();
 
+DatabaseFunctions.getCommentData();
+
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

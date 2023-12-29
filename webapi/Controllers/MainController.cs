@@ -72,6 +72,13 @@ public class MainController : ControllerBase
         return DatabaseFunctions.getShelterData();
     }
 
+    [HttpGet(Name = "CommentData")]
+    [Route("comment_data")]
+    public string getCommentData()
+    {
+        return DatabaseFunctions.getCommentData();
+    }
+
     [HttpPost(Name = "RegisterUser")]
     [Route("register_user")]
     public int RegisterUser([FromQuery] string usrname, [FromQuery] string password, [FromQuery] string email, [FromQuery] string phoneNum, [FromQuery] string name, [FromQuery] string surname)

@@ -540,21 +540,79 @@ namespace MP7_progi.Models
                     }
                 }
             }
-        
-            /*
 
-            getNextAvailableID(Table) - method to get an ID for new User/Ad/Pet/...
+        /*
 
-            Params in:
+       getCommentData() - method for returning userID, photoCom, textCom and locCom in that order for all comments in JSON format
 
-               @ [Table]         - table from which ID is being requested, REQ
 
-            Params out:
+       Params out:
 
-                @ [int]          - ID of new User/Ad/Pet/...
+           @ [string]          - JSON file format of specified data
 
-             */
-            public static int getNextAvailableID(Table table)
+        */
+
+        public static string getCommentData()
+        {
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT userID, userName, email, phoneNum, textID, photoCom, textCom, locCom, adID FROM User NATURAL JOIN Communication;";
+                List<Dictionary<string, object>> resultList = new List<Dictionary<string, object>>();
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                Dictionary<string, object> row = new Dictionary<string, object>();
+
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    string columnName = reader.GetName(i);
+                                    object columnValue = reader.GetValue(i);
+                                    row[columnName] = columnValue;
+                                }
+
+                                resultList.Add(row);
+                            }
+
+                            string jsonResult = System.Text.Json.JsonSerializer.Serialize(resultList, new JsonSerializerOptions
+                            {
+                                WriteIndented = true // Optional: This makes the JSON more readable with indentation
+                            });
+                            Console.WriteLine(jsonResult);
+                            return jsonResult;
+                        }
+
+                        return "";
+                    }
+                }
+            }
+        }
+
+
+
+        /*
+
+        getNextAvailableID(Table) - method to get an ID for new User/Ad/Pet/...
+
+        Params in:
+
+           @ [Table]         - table from which ID is being requested, REQ
+
+        Params out:
+
+            @ [int]          - ID of new User/Ad/Pet/...
+
+         */
+        public static int getNextAvailableID(Table table)
         {
             Dictionary<string, List<Object>> ids = new Dictionary<string, List<Object>>();
             ids = read(table, null, null, null);
