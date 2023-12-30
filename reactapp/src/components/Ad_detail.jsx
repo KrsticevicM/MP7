@@ -4,10 +4,12 @@ import ListGroup from "./ListGroup";
 import { useParams } from "react-router-dom";
 import Map from './Map.jsx';
 import { AuthContext } from "./AuthenticationContext";
-import {useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import NewComment from './NewComment.jsx'
   
 
 function Ad_detail() {
+
     const params = useParams();
 
     const navigate = useNavigate()
@@ -23,6 +25,8 @@ function Ad_detail() {
         navigate("/")
     }
 
+    const [addButton, setAddButton] = useState(true);
+    const [addComment, setAddComment] = useState(false);
     const [colors, setColors] = useState('');
     const [images, setImages] = useState([]);
     const [firstImage, setFirstImage] = useState('');
@@ -61,7 +65,6 @@ function Ad_detail() {
                 return res.json();
             })
             .then(data => {
-                console.log(data.Data);
                 const colors_arr = [];
                 const images_arr = [];
                 var color_string = '';
@@ -87,7 +90,6 @@ function Ad_detail() {
                 setColors(color_string);
                 setImages(images_arr);
                 window.scrollTo(0, 0);
-                console.log(findAd[0]);
                 return findAd[0];
             }).then(data => {
                 let url = `https://nominatim.openstreetmap.org/search?city='${data.location}'&format=json&limit=1`;
@@ -110,6 +112,16 @@ function Ad_detail() {
                     }).catch(() => alert("Please Check your input"));
             });
     }, []);
+
+    function changeCommentState() {
+        setAddButton(true);
+        setAddComment(false);
+    }
+    function checkUserAuth() {
+        if (!user.isAuth) {
+            navigate("/login")
+        }
+    }
 
     return (
         <div className="home-detail-container">
@@ -192,10 +204,10 @@ function Ad_detail() {
                 <div className="comment-section-container">
                     <h1>Komentari</h1>
                     <hr />
-                    <p>Nema komentara</p>
-                    {user.isAuth && <button className="btn btn-light" id="add-button">
+                    {addButton && <button className="btn btn-light" id="add-button" onClick={() => { setAddComment(true); setAddButton(false); checkUserAuth(); }}>
                         Dodaj komentar <i className="bi bi-plus-lg"></i>
                     </button>}
+                    {(addComment && user.isAuth) && < NewComment username={user.firstName + ' ' + user.lastName} change={changeCommentState} />}
                 </div>
             </div>
         </div>

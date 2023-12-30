@@ -1,0 +1,56 @@
+.comment-user {
+    font-weight: bolder;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.comment-container {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 2fr;
+    padding-left:1em;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+#comment-text {
+    grid-column: 1 / span 2;
+    margin: 0px;
+    margin-right: 2em;
+}
+
+.comment-location {
+    grid-column: 3;
+}
+
+#comment-location-city {
+    margin: 0px;
+}
+
+#floatingTextarea2 {
+    min-height: 133px
+}
+
+.comment-commands {
+    display: flex;
+    flex-direction: column;
+    grid-column: 4;
+    margin-left: 2em
+}
+
+.comment-commands button {
+    border: none;
+    background-color: #b08968;
+    border-radius: 10px;
+    width: 3.5rem;
+    height: 3.5rem;
+    transition: opacity 0.2s;
+    color: white;
+}
+
+#comment-cancel-button {
+    margin-top: 20px;
+}
+
+.comment-commands button:hover {
+    opacity: 0.8;
+}

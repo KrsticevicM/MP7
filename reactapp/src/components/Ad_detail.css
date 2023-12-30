@@ -119,7 +119,6 @@
 
 .comment-section-container {
     grid-column: 1 / span 6;
-    height: 50vh;
     background-color: #EDE0D4;
     border-radius: 15px;
     text-align: left;
