@@ -3,29 +3,7 @@ import './Shelter.css'
 
 function Shelter() {
 
-  const shelterNames=[
-    {name:"Skloniste Marija",
-    email: "sklonisteMarija@gmail.com",
-    phonenum: "0991834523"}
-    ,{name:"Skloniste Zagreb",
-    email: "sklonisteZagreb@gmail.com",
-    phonenum: "0994932523"}
-    , {name:"PetSmart",
-    email: "petsmart@gmail.com",
-    phonenum: "091234023"}
-    ,{name:"Skloniste Zagreb2",
-    email: "sklonisteZagreb@gmail.com",
-    phonenum: "0994932523"}
-    , {name:"PetSmart2",
-    email: "petsmart@gmail.com",
-    phonenum: "091234023"},
-    {name:"Skloniste Marija2",
-    email: "sklonisteMarija@gmail.com",
-    phonenum: "0991834523"}
-    ]
-    const data=useLoaderData()
-    console.log(data)
-
+  const data=useLoaderData()
 
   return (
     <div className="home-shelter-container">
@@ -55,7 +33,7 @@ function Shelter() {
         <div className="ads-shelter-container2">
 
           {data.map((shelter)=>(
-            <Link to={`/sklonista/${shelter.userID}`} key={shelter.nameShelter} className='shelter-display'>
+            <Link to={`/skloniste/${shelter.userID}`} key={shelter.nameShelter} className='shelter-display'>
               
               <h2 className='shelter-text-name'>
                 {shelter.nameShelter}
@@ -66,8 +44,7 @@ function Shelter() {
               <div className='shelter-text-phoneNum'>
                 Broj telefona: {shelter.phoneNum}
               </div>
-                
-              
+    
             </Link>
           ))}
 
