@@ -50,7 +50,12 @@ function Login(){
             if (!text.lastName){
                 text.lastName = ""
             }
-            updateUser({userID: text.userID,isAuth:true, firstName: text.firstName.toUpperCase(), lastName: text.lastName.toUpperCase()})
+            updateUser({
+                userID: text.userID,
+                isAuth:true, 
+                firstName: text.firstName.toUpperCase(), 
+                lastName: text.lastName.toUpperCase()
+            })
         }).catch(ex => {
             console.log(ex)
             setError("Nevaljani username ili password")
