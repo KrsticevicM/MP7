@@ -561,22 +561,38 @@ namespace MP7_progi.Models
 
                 string query = "SELECT userID, userName, email, phoneNum, textID, photoCom, textCom, locCom, adID FROM User NATURAL JOIN Communication WHERE adID = @adID;";
 
+                List<Dictionary<string, object>> resultList = new List<Dictionary<string, object>>();
+
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-
                     command.Parameters.AddWithValue("@adID", adID);
-
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
+                        
                         if (reader.HasRows)
                         {
-                            reader.Read();
-                            object id = reader.GetValue(0);
-                            Console.WriteLine("AdID: " + id.ToString());
-                            return id.ToString();
+                            while (reader.Read())
+                            {
+                                Dictionary<string, object> row = new Dictionary<string, object>();
+
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    string columnName = reader.GetName(i);
+                                    object columnValue = reader.GetValue(i);
+                                    row[columnName] = columnValue;
+                                }
+
+                                resultList.Add(row);
+                            }
+
+                            string jsonResult = System.Text.Json.JsonSerializer.Serialize(resultList, new JsonSerializerOptions
+                            {
+                                WriteIndented = true // Optional: This makes the JSON more readable with indentation
+                            });
+                            Console.WriteLine(jsonResult);
+                            return jsonResult;
                         }
 
-                        Console.WriteLine("Wrong adID entered");
                         return "";
                     }
                 }
