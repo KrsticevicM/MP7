@@ -6,35 +6,27 @@ import Map from './Map.jsx';
 import { AuthContext } from "./AuthenticationContext";
 import { useNavigate } from 'react-router-dom'
 import NewComment from './NewComment.jsx'
+import Comment from './Comment.jsx'
   
 
 function Ad_detail() {
+
+    let keyCounter = 0;
 
     const params = useParams();
 
     const navigate = useNavigate()
 
     const { user, updateUser } = useContext(AuthContext)
-    const eventHandler = () => {
-        updateUser({
-            isAuth: false,
-            userID: null,
-            firstName: '',
-            lastName: '',
-        })
-        navigate("/")
-    }
 
     const [addButton, setAddButton] = useState(true);
     const [addComment, setAddComment] = useState(false);
     const [colors, setColors] = useState('');
     const [images, setImages] = useState([]);
     const [firstImage, setFirstImage] = useState('');
-    const [location, setLocation] = useState({
-        latitude: 0,
-        longitude: 0,
-        display_name: "",
-    });
+
+    const [comments, setComments] = useState(false);
+    const [locations, setLocations] = useState([]);
 
     const [the_ad, setTheAd] = useState([
         {
@@ -91,26 +83,21 @@ function Ad_detail() {
                 setImages(images_arr);
                 window.scrollTo(0, 0);
                 return findAd[0];
-            }).then(data => {
-                let url = `https://nominatim.openstreetmap.org/search?city='${data.location}'&format=json&limit=1`;
-                fetch(url, {
-                    method: "GET",
-                    mode: "cors",
+            }).then(() => {
+                fetch('main/comment_data?adID='+params.id).then(res => {
+                    return res.json();
+                }).then(data => {
+                    console.log(data.Data);
+                    const find = data.filter((ad) => ad.adID == params.id);
+                    if (find.length == 0) {
+                        setComments(false);
+                    } else {
+                        setComments(find);
+                        console.log(find);
+                    }
                 })
-                    .then((response) => {
-                        if (response.ok) {
-                            return response.json();
-                        }
-                    })
-                    .then((data) => {
-
-                        setLocation({
-                            latitude: data[0].lat,
-                            longitude: data[0].lon,
-                            display_name: data[0].display_name,
-                        })
-                    }).catch(() => alert("Please Check your input"));
-            });
+                return find;
+            })
     }, []);
 
     function changeCommentState() {
@@ -135,11 +122,11 @@ function Ad_detail() {
                 <div className="pet-image-container">
                     <div id="carouselExample" className="carousel slide">
                         <div className="carousel-inner">
-                            <div className="carousel-item active" key="image">
+                            <div className="carousel-item active" key={keyCounter}>
                                 <img src={"data:image/png;base64," + firstImage} className="d-block w-100" alt="..." />
                             </div>
-                            {images && images.map((image) => (
-                                <div className="carousel-item" key="image">
+                            {images && images.map((image, keyCounter) => (
+                                <div className="carousel-item" key={keyCounter+1}>
                                     <img src={"data:image/png;base64,"+image} className="d-block w-100" alt="..." />
                                 </div>
                             ))}
@@ -204,10 +191,21 @@ function Ad_detail() {
                 <div className="comment-section-container">
                     <h1>Komentari</h1>
                     <hr />
+                    {!comments && <p>Nema komentara</p>}
                     {addButton && <button className="btn btn-light" id="add-button" onClick={() => { setAddComment(true); setAddButton(false); checkUserAuth(); }}>
                         Dodaj komentar <i className="bi bi-plus-lg"></i>
                     </button>}
                     {(addComment && user.isAuth) && < NewComment username={user.firstName + ' ' + user.lastName} change={changeCommentState} />}
+                    {comments && comments.map((comment) => (
+                        <Comment
+                            userName={comment.userName}
+                            textCom={comment.textCom}
+                            photoCom={comment.photoCom}
+                            phoneNum={comment.phoneNum}
+                            email={comment.email}
+                            key={keyCounter + 1}
+                        />
+                    ))}
                 </div>
             </div>
         </div>

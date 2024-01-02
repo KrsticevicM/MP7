@@ -1,15 +1,14 @@
 .comment-user {
     font-weight: bolder;
-    padding-top: 1em;
-    padding-bottom: 1em;
+    color: #7F5539;
+    margin-left:1rem;
+    margin-bottom:1rem;
 }
 
-.comment-container {
+.newcomment-container {
     display: grid;
     grid-template-columns: 2fr 2fr 2fr 2fr;
-    padding-left:1em;
-    border: 1px solid black;
-    border-radius: 5px;
+    margin-left: 2rem;
 }
 
 #comment-text {
@@ -34,7 +33,7 @@
     display: flex;
     flex-direction: column;
     grid-column: 4;
-    margin-left: 2em
+    margin-left: 2em;
 }
 
 .comment-commands button {

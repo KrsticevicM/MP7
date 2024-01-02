@@ -24,7 +24,7 @@ function Home() {
                 data.Data.map((ad) => {
                     if (!(ad_ids.includes(ad.adID))) {
                         update_ads.push(ad);
-                        ad_ids.push(ad.adID);   
+                        ad_ids.push(ad.adID);  
                     }
                 })
                 setAds(update_ads);
