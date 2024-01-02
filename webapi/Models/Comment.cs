@@ -13,14 +13,14 @@
         }
         private Dictionary<string, string> types = new Dictionary<string, string>()
         {
-            {"textID", "string"},
+            {"textID", "int"},
             {"photoCom", "string"},
             {"textCom", "string"},
-            {"locCon", "string"},
+            {"locCom", "string"},
             {"adID", "int"},
             {"userID", "int"}
         };
-        private readonly string _id = "Comment";
+        private readonly string _id = "Communication";
         public int textID { get; set; }
         public string? photoCom{ get; set; }
         public string? textCom { get; set; }

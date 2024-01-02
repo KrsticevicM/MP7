@@ -88,15 +88,15 @@ function Ad_detail() {
                     return res.json();
                 }).then(data => {
                     console.log(data.Data);
-                    const find = data.filter((ad) => ad.adID == params.id);
-                    if (find.length == 0) {
+                    //const find = data.filter((ad) => ad.adID == params.id);
+                    if (data.Data.length == 0) {
                         setComments(false);
                     } else {
-                        setComments(find);
-                        console.log(find);
+                        setComments(data.Data);
+                        console.log(data.Data);
                     }
                 })
-                return find;
+                return data.Data;
             })
     }, []);
 
