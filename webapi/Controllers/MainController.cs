@@ -74,9 +74,9 @@ public class MainController : ControllerBase
 
     [HttpGet(Name = "CommentData")]
     [Route("comment_data")]
-    public string getCommentData()
+    public string getCommentData(int adID)
     {
-        return DatabaseFunctions.getCommentData();
+        return DatabaseFunctions.getCommentData(adID);
     }
 
     [HttpPost(Name = "RegisterUser")]
