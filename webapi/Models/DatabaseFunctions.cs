@@ -261,7 +261,7 @@ namespace MP7_progi.Models
                                     {
                                         row.Add(reader.GetValue(i));
                                     }
-                                    else if (mergedDataTypes[reader.GetName(i)] == "string" || mergedDataTypes[reader.GetName(i)] == "DateTime")
+                                    else if (mergedDataTypes[reader.GetName(i)] == "string" || mergedDataTypes[reader.GetName(i)] == "DateTime" || mergedDataTypes[reader.GetName(i)] == "DateTime")
                                     {
                                         row.Add(reader.GetString(i));
                                     }
@@ -554,49 +554,24 @@ namespace MP7_progi.Models
 
         public static string getCommentData(int adID)
         {
+            Dictionary<string, List<Object>> data = new Dictionary<string, List<Object>>();
+            Expression where = new Expression();
 
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-            {
-                connection.Open();
+            where.addElement((Object)"adID", Expression.OP.EQUAL);
+            where.addElement((Object)adID, Expression.OP.None);
 
-                string query = "SELECT userID, userName, email, phoneNum, textID, photoCom, textCom, locCom, adID FROM User NATURAL JOIN Communication WHERE adID = @adID;";
+            try{
+                data = DatabaseFunctions.read(new User(), new List<Table> { new Comment() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural }, where);
+               
+                return DatabaseFunctions.ConvertDictionaryToJson(data);
 
-                List<Dictionary<string, object>> resultList = new List<Dictionary<string, object>>();
+            } catch (Exception ex) {
 
-                using (SQLiteCommand command = new SQLiteCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@adID", adID);
-                    using (SQLiteDataReader reader = command.ExecuteReader())
-                    {
-                        
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                Dictionary<string, object> row = new Dictionary<string, object>();
+                Console.WriteLine(ex.Message);
+                return "";
 
-                                for (int i = 0; i < reader.FieldCount; i++)
-                                {
-                                    string columnName = reader.GetName(i);
-                                    object columnValue = reader.GetValue(i);
-                                    row[columnName] = columnValue;
-                                }
-
-                                resultList.Add(row);
-                            }
-
-                            string jsonResult = System.Text.Json.JsonSerializer.Serialize(resultList, new JsonSerializerOptions
-                            {
-                                WriteIndented = true // Optional: This makes the JSON more readable with indentation
-                            });
-                            Console.WriteLine(jsonResult);
-                            return jsonResult;
-                        }
-
-                        return "";
-                    }
-                }
             }
+
         }
 
 

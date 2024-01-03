@@ -2,8 +2,9 @@ import './NewComment.css'
 
 function NewComment(props) {
     return (
-        <div className="comment-container">
-            <span className="comment-user">{props.username}</span>
+        <>
+        <h4 className="comment-user">{props.username.toLowerCase()}</h4>
+        <div className="newcomment-container">
                 <div className="form-floating" id="comment-text">
                     <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{ height: '100px' }}></textarea>
                     <label htmlFor="floatingTextarea2">Novi komentar</label>
@@ -39,6 +40,7 @@ function NewComment(props) {
                     </button>
                 </div>
             </div>
+        </>
     );
 }
 
