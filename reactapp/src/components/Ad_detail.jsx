@@ -82,6 +82,7 @@ function Ad_detail() {
                 setImages(images_arr);
                 window.scrollTo(0, 0);
                 return findAd[0];
+<<<<<<< HEAD
             }).then(() => fetch('main/comment_data?adID=' + params.id)).then(res => {
                 return res.json();
             }).then(data => {
@@ -120,7 +121,6 @@ function Ad_detail() {
                         setComments(locationsComment);
                     }).catch(() => alert("Please Check your input"));
                 })
-            })
     }, []);
 
     function changeCommentState() {

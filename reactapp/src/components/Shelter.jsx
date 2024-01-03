@@ -55,7 +55,7 @@ function Shelter() {
 }
 
 export const ShelterLoader = async () =>{
-  const res= await fetch("main/shelter_data")
+  const res= await fetch("/main/shelter_data")
   return res.json()
 }
 
