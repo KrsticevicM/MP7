@@ -25,7 +25,7 @@ const router=createBrowserRouter(
 
             <Route path="/sklonista" element={<Shelter />} loader={ShelterLoader}/>
 
-            <Route path="/skloniste/:id" element={<ShelterDetail/>} loader={DetailLoader}/>
+            <Route exact path="/skloniste/:id" element={<ShelterDetail/>} loader={DetailLoader}/>
 
             <Route path="/moji-oglasi" element={<MyAds />}/>
 

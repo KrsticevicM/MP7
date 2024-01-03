@@ -53,12 +53,12 @@ function ShelterDetail() {
 }
 export const DetailLoader = async () =>{
   
-  const shelter= await fetch("main/shelter_data")
+  const shelter= await fetch("/main/shelter_data")
   .then(res=>{
     return res.json()
   })
 
-  const AdData= await fetch("main/frontpagedata")
+  const AdData= await fetch("/main/frontpagedata")
   .then(res=>{
     return res.json()
   })
