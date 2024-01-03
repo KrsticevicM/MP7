@@ -1,4 +1,5 @@
 import './Comment.css'
+import Map from './map.jsx'
 
 function Comment(props) {
     return (
@@ -10,7 +11,9 @@ function Comment(props) {
                 <div className="comment-image-div">
                     <img className="comment-image" src={"data:image/png;base64," + props.photoCom} />
                 </div>
-                <div className="comment-location-div"></div>
+                <div className="comment-location-div">
+                    <Map latitude={props.lat} longitude={props.lon} display_name={props.locName} />
+                </div>
                 <div className="comment-info-div">
                     <p className="user-info">Kontakt informacije:</p>
                     <p >{props.phoneNum}</p>

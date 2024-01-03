@@ -26,7 +26,6 @@ function Ad_detail() {
     const [firstImage, setFirstImage] = useState('');
 
     const [comments, setComments] = useState(false);
-    const [locations, setLocations] = useState([]);
 
     const [the_ad, setTheAd] = useState([
         {
@@ -83,20 +82,44 @@ function Ad_detail() {
                 setImages(images_arr);
                 window.scrollTo(0, 0);
                 return findAd[0];
-            }).then(() => {
-                fetch('main/comment_data?adID='+params.id).then(res => {
-                    return res.json();
-                }).then(data => {
-                    console.log(data.Data);
-                    const find = data.filter((ad) => ad.adID == params.id);
-                    if (find.length == 0) {
-                        setComments(false);
-                    } else {
-                        setComments(find);
-                        console.log(find);
-                    }
+            }).then(() => fetch('main/comment_data?adID=' + params.id)).then(res => {
+                return res.json();
+            }).then(data => {
+                if (data.length == 0) {
+                    Promise.reject();
+                } else {
+                    Promise.resolve(data);
+                    return data;
+                }
+            }).then(data => {
+                let locationsComment = [{}];
+                locationsComment.pop();
+                let locationsObject;
+                data.map((comment) => {
+                    let url = `https://nominatim.openstreetmap.org/search?city='${comment.locCom}'&format=json&limit=1`;
+                    fetch(url, {
+                        method: "GET",
+                        mode: "cors",
+                    }).then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                    }).then((data) => {
+                        locationsObject = {
+                            adID: comment.adID,
+                            email: comment.email,
+                            locCom: comment.locCom,
+                            phoneNum: comment.phoneNum,
+                            photoCom: comment.photoCom,
+                            textCom: comment.textCom,
+                            userName: comment.userName,
+                            latitude: data[0].lat,
+                            longitude: data[0].lon,
+                        };
+                        locationsComment.push(locationsObject);
+                        setComments(locationsComment);
+                    }).catch(() => alert("Please Check your input"));
                 })
-                return find;
             })
     }, []);
 
@@ -203,8 +226,11 @@ function Ad_detail() {
                             photoCom={comment.photoCom}
                             phoneNum={comment.phoneNum}
                             email={comment.email}
+                            lat={comment.latitude}
+                            lon={comment.longitude}
+                            locName={comment.locCom}
                             key={keyCounter + 1}
-                        />
+                            />
                     ))}
                 </div>
             </div>
