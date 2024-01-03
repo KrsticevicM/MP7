@@ -561,9 +561,11 @@ namespace MP7_progi.Models
             where.addElement((Object)adID, Expression.OP.None);
 
             try{
-                data = DatabaseFunctions.read(new User(), new List<Table> { new Comment() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural }, where);
-               
-                return DatabaseFunctions.ConvertDictionaryToJson(data);
+                data = read(new User(), new List<Table> { new Comment() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural }, where);
+
+                //Console.WriteLine(ConvertDictionaryToJson(data));
+                
+                return ConvertDictionaryToJson(data);
 
             } catch (Exception ex) {
 

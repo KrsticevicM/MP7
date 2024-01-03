@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Database tester - perform basic tests on tables
 DatabaseFunctions.getShelterData();
 
-//DatabaseFunctions.getCommentData(28);
+DatabaseFunctions.getCommentData(16);
 
 // Add services to the container.
 builder.Services.AddControllers();

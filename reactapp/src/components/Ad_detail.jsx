@@ -25,7 +25,7 @@ function Ad_detail() {
     const [images, setImages] = useState([]);
     const [firstImage, setFirstImage] = useState('');
 
-    const [comments, setComments] = useState(false);
+    const [comments, setComments] = useState()
 
     const [the_ad, setTheAd] = useState([
         {
@@ -118,6 +118,7 @@ function Ad_detail() {
                             longitude: data[0].lon,
                         };
                         locationsComment.push(locationsObject);
+                        console.log(locationsComment);
                         setComments(locationsComment);
                     }).catch(() => alert("Please Check your input"));
                 })

@@ -146,6 +146,27 @@ public class MainController : ControllerBase
         return code2;
     }
 
+    [HttpPost(Name = "postComment")]
+    [Route("postComment")]
+    public static int postComment(int userID, int adID, string photoCom, string textCom, string locCom)
+    {
+        List<Object> newRow = new List<Object>();
+        int newTextId = DatabaseFunctions.getNextAvailableID(new Comment());
+
+        newRow.Add(newTextId);
+        newRow.Add(photoCom);
+        newRow.Add(textCom);
+        newRow.Add(locCom);
+        newRow.Add(adID);
+        newRow.Add(userID);
+
+        int code1 = DatabaseFunctions.insert(new Comment(), newRow);
+
+
+        return code1;
+    }
+
+
     [HttpPost(Name = "PostAd")]
     [Route("postAd")]
     public int PostAd([FromBody] string insertJSON)
