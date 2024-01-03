@@ -6,7 +6,6 @@ function Comment(props) {
         <div>
             <hr/>
             <h4 className="comment-username">{props.userName}</h4>
-            <p className="comment-text">{props.textCom}</p>
             <div className="comment-container">
                 <div className="comment-image-div">
                     <img className="comment-image" src={"data:image/png;base64," + props.photoCom} />
@@ -15,6 +14,8 @@ function Comment(props) {
                     <Map latitude={props.lat} longitude={props.lon} display_name={props.locName} />
                 </div>
                 <div className="comment-info-div">
+                    <p className="user-info">Komentar:</p>
+                    <p className="comment-text">{props.textCom}</p>
                     <p className="user-info">Kontakt informacije:</p>
                     <p >{props.phoneNum}</p>
                     <p >{props.email}</p>

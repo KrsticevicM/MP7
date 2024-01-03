@@ -82,7 +82,6 @@ function Ad_detail() {
                 setImages(images_arr);
                 window.scrollTo(0, 0);
                 return findAd[0];
-<<<<<<< HEAD
             }).then(() => fetch('main/comment_data?adID=' + params.id)).then(res => {
                 return res.json();
             }).then(data => {
@@ -90,12 +89,13 @@ function Ad_detail() {
                     Promise.reject();
                 } else {
                     Promise.resolve(data);
-                    return data;
+                    return data.Data;
                 }
             }).then(data => {
                 let locationsComment = [{}];
                 locationsComment.pop();
                 let locationsObject;
+                console.log(data);
                 data.map((comment) => {
                     let url = `https://nominatim.openstreetmap.org/search?city='${comment.locCom}'&format=json&limit=1`;
                     fetch(url, {
@@ -121,6 +121,7 @@ function Ad_detail() {
                         setComments(locationsComment);
                     }).catch(() => alert("Please Check your input"));
                 })
+            })
     }, []);
 
     function changeCommentState() {

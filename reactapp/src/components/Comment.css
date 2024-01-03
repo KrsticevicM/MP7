@@ -3,28 +3,25 @@
     font-weight: bold;
     color: #7F5539;
     margin-left:1rem;
-}
-
-.comment-text {
-    margin-left: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .comment-container {
     margin-left:2rem;
-    display: grid;
-    grid-template-columns: 2fr 2fr 2fr;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
-.comment-image-div {
-    grid-column:1;
-}
-
-.comment-location-div {
-    grid-column: 2;
+.comment-image {
+    width: 15rem;
+    height: 12.5rem;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 .comment-info-div {
-    grid-column: 3;
+    margin-left: 3rem;
 }
 
 .user-info {
