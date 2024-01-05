@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections;
+using System.Data.Entity.Core.Mapping;
 using System.Data.SQLite;
 using System.Text.Json;
 
@@ -576,6 +578,132 @@ namespace MP7_progi.Models
 
         }
 
+        /*
+
+      searchAd() - method for returning JSON of needed data for all ads that match every given parameter 
+
+        Params in:
+
+          @ [string]          - JSON file format of inserted parameter data when searching ads
+
+       
+        Params out:
+
+          @ [string]          - JSON file format of data needed
+
+       */
+        public static string searchAd(string searchParameters)
+        {
+            //Parsing json Ad data
+            dynamic data = JObject.Parse(searchParameters);
+            string species = data.Data[0].species;
+            species = "'" + species + "'";
+
+            string namePet = data.Data[0].namePet;
+            if (namePet != "")
+                namePet = "'" + namePet + "'";
+
+            string dateHourMis = data.Data[0].dateHourMis;
+            if (dateHourMis != "") { 
+                dateHourMis = dateHourMis.Split('T')[0];
+                dateHourMis = "'" + dateHourMis + "'";
+            }
+
+            string location = data.Data[0].location;
+            if(location != "")
+                location = "'" + location + "'";
+
+            string age = data.Data[0].age;
+            if(age != "")
+                age = "'" + age + "'";
+
+            string colors = data.Data[0].color;
+            string[] colorList = colors.Split(',');
+            for (int i = 0; i < colorList.Length; i++)
+            {
+                if (colorList[i]!="")
+                    colorList[i] = "'" + colorList[i] + "'";
+            }
+
+            Dictionary<string, List<Object>> res = new Dictionary<string, List<Object>>();
+            Expression where = new Expression();
+
+
+            where.addElement("species", Expression.OP.EQUAL);
+            where.addElement(species, Expression.OP.None);
+
+            if (namePet != "")
+            {
+                where.addElement(null, Expression.OP.AND);
+                where.addElement("namePet", Expression.OP.EQUAL);
+                where.addElement(namePet, Expression.OP.None);
+            }
+
+            if (dateHourMis != "")
+            {
+                where.addElement(null, Expression.OP.AND);
+                where.addElement("dateHourMis", Expression.OP.EQUAL);
+                where.addElement(dateHourMis, Expression.OP.None);
+
+            }
+
+            if (location != "")
+            {
+                where.addElement(null, Expression.OP.AND);
+                where.addElement("location", Expression.OP.EQUAL);
+                where.addElement(location, Expression.OP.None);
+
+            }
+
+            if (age != "" ) {
+                where.addElement(null, Expression.OP.AND);
+                where.addElement("age", Expression.OP.EQUAL);
+                where.addElement(age, Expression.OP.None);
+
+            }
+
+
+            foreach (string c in colorList)
+            {
+                Console.WriteLine(c); ;
+            }
+
+
+            foreach (string c in colorList)
+            {
+                if (c != "") {
+                    where.addElement(null, Expression.OP.AND);
+                    where.addElement("color", Expression.OP.EQUAL);
+                    where.addElement(c, Expression.OP.None);              
+                }
+            }
+            
+            Console.WriteLine(where.returnExpression());
+
+            try
+            {
+                res = read(new Ad(),
+                    new List<Table> { new Pet(), new ColorPet(), new hasColor(), new photoAd(), new User() },
+                    new List<DatabaseFunctions.joinType> {
+                        DatabaseFunctions.joinType.Natural,
+                        DatabaseFunctions.joinType.Natural,
+                        DatabaseFunctions.joinType.Natural,
+                        DatabaseFunctions.joinType.Natural,
+                        DatabaseFunctions.joinType.Natural,
+                    }, where);
+               
+
+                return ConvertDictionaryToJson(res);
+
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+                return "";
+
+            }
+        }
 
 
         /*

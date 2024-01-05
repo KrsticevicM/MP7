@@ -166,6 +166,12 @@ public class MainController : ControllerBase
         return code1;
     }
 
+    [HttpPost(Name = "searchAd")]
+    [Route("search_ad")]
+    public string searchAd(string searchParameters)
+    {
+        return DatabaseFunctions.searchAd(searchParameters);
+    }
 
     [HttpPost(Name = "PostAd")]
     [Route("postAd")]
