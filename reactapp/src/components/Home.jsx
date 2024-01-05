@@ -9,6 +9,7 @@ function Home() {
 
     const screenSize = useScreenSize();
 
+    const [isPending, setPending] = useState(true);
     const [filter, setFilter] = useState(false)
 
     const [ads, setAds] = useState()
@@ -28,6 +29,7 @@ function Home() {
                     }
                 })
                 setAds(update_ads);
+                setPending(false);
             })
     }, []);
         
@@ -42,6 +44,7 @@ function Home() {
           </div>}
           <div className="ads-container">
               <div className="ads-container2">
+                  {isPending && <h3>Učitavanje oglasa...</h3> }
                   {ads && ads.map((ad) => (
                       <Link to={'/'+ad.adID} key={ad.adID}>
               <Ad_card

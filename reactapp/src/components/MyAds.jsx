@@ -8,6 +8,7 @@ function MyAds() {
 
     const { user, updateUser } = useContext(AuthContext)
     const [ads, setAds] = useState()
+    const [isPending, setPending] = useState(true)
 
     useEffect(() => {
         fetch('main/frontpagedata')
@@ -24,21 +25,24 @@ function MyAds() {
                     }
                 })
                 setAds(update_ads);
+                setPending(false);
             })
     }, []);
 
   return (
     <div className="myads-container">
           <br />
-          {!ads && <h1>Nemate postavljenih oglasa</h1> }
+          {isPending && <p className="loading">Loading...</p> }
+          {(!ads && !isPending) && <h1>Nemate postavljenih oglasa</h1> }
       {ads && ads.map((ad) => (
         <MyAd_card
-          key={ad.adID}
-          image={ad.photo}
-          petname={ad.namePet}
-          datehour={ad.dateHourMis}
-          age={ad.age}
-          kategorija={ad.catAd}
+              key={ad.adID}
+              image={ad.photo}
+              petname={ad.namePet}
+              datehour={ad.dateHourMis}
+              age={ad.age}
+              kategorija={ad.catAd}
+              adID={ad.adID }
         />
       ))}
       <Link to="/newAd">

@@ -1,7 +1,19 @@
 import "./MyAd_card.css";
-
+import { useNavigate } from 'react-router-dom'
 
 function MyAd_card(props) {
+
+    const navigate = useNavigate();
+
+    const handleDelete = (event, id) => {
+        fetch('main/deleteAd?' + id, { method: 'DELETE' })
+            .then((res) => {
+                if (res.ok) {
+                    navigate("/moji-oglasi");
+                }
+            }) 
+    };
+
   return (
     <div className="myad-card-container">
       <div className="myad-img">
@@ -26,7 +38,7 @@ function MyAd_card(props) {
         <button>
           <i className="bi bi-pencil-fill" title="Uredi oglas"></i>
         </button>
-        <button>
+              <button onClick={event => handleDelete(event, props.adID)}>
           <i className="bi bi-trash3-fill" title="Obriši oglas"></i>
         </button>
       </div>

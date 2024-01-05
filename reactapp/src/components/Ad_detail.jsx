@@ -19,6 +19,7 @@ function Ad_detail() {
 
     const { user, updateUser } = useContext(AuthContext)
 
+    const [isPending, setPending] = useState(true);
     const [addButton, setAddButton] = useState(true);
     const [addComment, setAddComment] = useState(false);
     const [colors, setColors] = useState('');
@@ -87,7 +88,10 @@ function Ad_detail() {
             }).then(data => {
                 if (data.Data.length != 0) {
                     asyncSet(data.Data);
-                } 
+                } else {
+                    setPending(false);
+                }
+                
             })
     }, []);
 
@@ -131,6 +135,7 @@ function Ad_detail() {
             }
         });
         await Promise.all(promises);
+        setPending(false);
         return locationsComment;
     }
 
@@ -225,7 +230,8 @@ function Ad_detail() {
                 <div className="comment-section-container">
                     <h1>Komentari</h1>
                     <hr />
-                    {!comments && <p>Nema komentara</p>}
+                    {isPending && <p>Učitavanje komentara...</p> }
+                    {(!comments && !isPending) && <p>Nema komentara</p>}
                     {addButton && <button className="btn btn-light" id="add-button" onClick={() => { setAddComment(true); setAddButton(false); checkUserAuth(); }}>
                         Dodaj komentar <i className="bi bi-plus-lg"></i>
                     </button>}

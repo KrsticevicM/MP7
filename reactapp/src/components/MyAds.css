@@ -41,3 +41,7 @@
 #add-button:hover {
     opacity: 0.8;
 }
+
+.loading {
+    font-family: Arial, Helvetica, sans-serif;
+}
