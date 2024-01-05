@@ -1,6 +1,12 @@
 import "./Listgroup.css";
+import { useState } from 'react'
+import { Form, useNavigate, useParams } from 'react-router-dom'
 
 function ListGroup() {
+
+    const params = useParams();
+    const navigate = useNavigate();
+
   const species = [
     "Pas",
     "Mačka",
@@ -30,11 +36,57 @@ function ListGroup() {
     "4-5 god.",
     "6-10 god.",
     "> 10 god.",
-  ];
+    ];
+
+    const searchAds = async (event) => {
+        event.preventDefault()
+        //getting form data and turning it into object
+        const data = new FormData(event.target)
+
+        let colorString = '';
+
+        for (let i = 0; i < colors.length; i++) {
+            if (data.get(colors[i]) != null) {
+                colorString = colorString + data.get(colors[i]) + ',';
+            }
+        }
+        colorString = colorString.substr(0, colorString.length-1);
+        console.log(colorString);
+
+        let petAge = data.get('pet-age')
+
+        if (petAge == null) {
+            petAge = "";
+        }
+
+        const submission = {
+            "Data": [{
+                "species": data.get('pet-species'),
+                "namePet": data.get('pet-name'),
+                "dateHourMis": data.get('date-time'),
+                "location": data.get('location-city'),
+                "color": colorString,
+                "age": petAge,
+            }]
+        }
+        console.log(submission)
+        fetch(`main/searchAds`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(submission)
+        }).then((res) => {
+            console.log(JSON.stringify(submission))
+            //setIsPending(false)
+            if (res.ok) {
+                navigate("/" + params.id);
+            }
+        })
+
+    }
 
   return (
     <>
-      <form>
+        <Form onSubmit={searchAds}>
         <div className="pet-species-container">
           <label htmlFor="pet-species">Vrsta:</label>
           <select className="pet-species" name="pet-species" id="pet-species">
@@ -94,7 +146,7 @@ function ListGroup() {
                   className="form-check-input me-1"
                   type="checkbox"
                   value={color}
-                  name="pet-color"
+                  name={color }
                   id={color}
                 />
                 <label
@@ -134,7 +186,7 @@ function ListGroup() {
             Pretraži
           </button>
         </div>
-      </form>
+      </Form>
     </>
   );
 }

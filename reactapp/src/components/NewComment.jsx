@@ -1,6 +1,7 @@
 import './NewComment.css'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Form, useNavigate, useParams } from 'react-router-dom'
+import { AuthContext } from "./AuthenticationContext";
 
 
 function NewComment(props) {
@@ -9,6 +10,7 @@ function NewComment(props) {
 
     const navigate = useNavigate();
 
+    const { user, updateUser } = useContext(AuthContext);
     const [preview, setPreview] = useState()
     const [file, setFile] = useState()
     const [error, setError] = useState("")
@@ -49,10 +51,11 @@ function NewComment(props) {
 
         const submission = {
             "Data": [{
+                "userID": user.userID,
+                "adID": params.id,
+                "photoCom": images2,
                 "textCom": data.get('comment-text'),
-                "locCom": data.get('location-city'),
-                "locComStreet": data.get('location-street'),
-                "photoCom": images2
+                "locCom": data.get('location-city')
             }]
         }
         console.log(submission)
