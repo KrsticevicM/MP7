@@ -545,8 +545,11 @@ namespace MP7_progi.Models
 
         /*
 
-       getCommentData() - method for returning userID, photoCom, textCom and locCom in that order for all comments in JSON format
+       getCommentData(int adID) - method for returning userID, photoCom, textCom and locCom in that order for all comments in JSON format
 
+       Params in:
+
+            @ [int]            - ad ID, REQ
 
        Params out:
 

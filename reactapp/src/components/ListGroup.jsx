@@ -70,7 +70,8 @@ function ListGroup() {
             }]
         }
         console.log(submission)
-        fetch(`main/searchAds`, {
+
+        fetch(`main/searchAd`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(submission)

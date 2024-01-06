@@ -8,9 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 //DatabaseFunctions.InitializeDB();
 
 //Database tester - perform basic tests on tables
-string adTestData = "{\"Data\":[{\"species\":\"pas\",\"namePet\":\"Smeki\",\"dateHourMis\":\"\",\"location\":\"\",\"color\":\"\",\"age\":\"\"}]}";
+string adTestData = "{\"Data\":[{\"species\":\"Pas\",\"namePet\":\"Marli\",\"dateHourMis\":\"\",\"location\":\"\",\"color\":\"\",\"age\":\"\"}]}";
 
-Console.WriteLine(DatabaseFunctions.searchAd(adTestData));
+//Console.WriteLine(DatabaseFunctions.searchAd(adTestData));
 
 // Add services to the container.
 builder.Services.AddControllers();

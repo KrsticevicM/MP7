@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MP7_progi.Models;
+using Newtonsoft.Json.Linq;
 
 namespace webapi.Controllers;
 
@@ -148,8 +149,16 @@ public class MainController : ControllerBase
 
     [HttpPost(Name = "postComment")]
     [Route("postComment")]
-    public static int postComment(int userID, int adID, string photoCom, string textCom, string locCom)
+    public static int postComment([FromBody] string parameters)
     {
+        //Parsing json Ad data
+        dynamic data = JObject.Parse(parameters);
+        string photoCom = data.Data[0].photoCom;
+        string textCom = data.Data[0].textCom;
+        string locCom = data.Data[0].locCom;
+        string adID = data.Data[0].adID;
+        string userID = data.Data[0].userID;
+
         List<Object> newRow = new List<Object>();
         int newTextId = DatabaseFunctions.getNextAvailableID(new Comment());
 
@@ -160,6 +169,7 @@ public class MainController : ControllerBase
         newRow.Add(adID);
         newRow.Add(userID);
 
+
         int code1 = DatabaseFunctions.insert(new Comment(), newRow);
 
 
@@ -168,8 +178,9 @@ public class MainController : ControllerBase
 
     [HttpPost(Name = "searchAd")]
     [Route("search_ad")]
-    public string searchAd(string searchParameters)
+    public string searchAd([FromBody] string searchParameters)
     {
+        Console.WriteLine(searchParameters);
         return DatabaseFunctions.searchAd(searchParameters);
     }
 
