@@ -2,6 +2,7 @@
 @media only screen and (max-width: 1024px) {
     .home-container {
         align-items:start;
+        padding-left: 0px;
     }
 
     .left-categories {
@@ -10,12 +11,18 @@
     }
 
     .ads-container {
+        margin:0px;
+        margin-left: -5px;
+        padding:0px;
         margin: 15px;
         grid-column: 1 / span 4;
         text-align: center;
+        width:95vw;
+        
     }
 
     .ads-container2 {
+        width:95vw;
         display: flex;
         flex-wrap: wrap;
         align-items: center;

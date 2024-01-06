@@ -5,11 +5,11 @@
     }
 
     .ads-detail-container {
-        grid-column: 1 / span 4;
+        grid-column: 1 / span 7;
     }
 
     .pet-image-container {
-        grid-column: 1 / span 6;
+        grid-column: 1 / span 7;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
     }
@@ -30,11 +30,8 @@
 }    
 
 @media only screen and (min-width: 1025px) {
-    .left-detail-categories {
-        grid-column: 1;
-    }
     .ads-detail-container {
-        grid-column: 2 / span 3;
+        grid-column: 2 / span 5;
     }
     .pet-image-container {
         grid-column: 1 / span 2;
@@ -64,7 +61,7 @@
     margin: 0px;
     z-index: 2;
     display: grid;
-    grid-template-columns: 2fr 2fr 2fr 2fr;
+    grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
     background-color: white;
     width: 100vw;
     font-family: "Josefin Sans", sans-serif;

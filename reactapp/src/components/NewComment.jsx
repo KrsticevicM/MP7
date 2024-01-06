@@ -66,7 +66,6 @@ function NewComment(props) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(JSON.stringify(submission))
         }).then((res) => {
-            console.log(JSON.stringify(submission))
             //setIsPending(false)
             if (res.ok) {
                 navigate("/" + params.id);

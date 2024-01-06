@@ -151,12 +151,6 @@ function Ad_detail() {
 
     return (
         <div className="home-detail-container">
-            <div className="left-detail-categories">
-                <h1 className="search-heading">Pretraživanje</h1>
-                <div className="categories-detail-container">
-                    <ListGroup />
-                </div>
-            </div>
             <div className="ads-detail-container">
                 <div className="pet-image-container">
                     <div id="carouselExample" className="carousel slide">

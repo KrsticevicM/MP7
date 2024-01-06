@@ -14,6 +14,8 @@ function Home() {
 
     const [ads, setAds] = useState()
 
+    let screen = useScreenSize();
+
 
     const searchAds = (childData) => {
 
@@ -39,6 +41,9 @@ function Home() {
                 setAds(false);
             } else {
                 setAds(update_ads);
+            }
+            if (screen.width <= 1024) {
+                setFilter(false);
             }
             window.scrollTo(0, 0);
         })
@@ -78,16 +83,16 @@ function Home() {
                   {(!ads && !isPending) && <h2>Nema oglasa</h2> }
                   {ads && ads.map((ad) => (
                       <Link to={'/'+ad.adID} key={ad.adID}>
-              <Ad_card
-                petname={ad.namePet}
-                image={ad.photo}
-                description={ad.description}
-              />
-            </Link>
-          ))}
-        </div>
+                        <Ad_card
+                            petname={ad.namePet}
+                            image={ad.photo}
+                            description={ad.description}
+                        />
+                      </Link>
+                  ))}
+              </div>
+          </div>
       </div>
-    </div>
   );
 }
 
