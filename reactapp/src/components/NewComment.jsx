@@ -59,11 +59,12 @@ function NewComment(props) {
                 "locCom": data.get('location-city')
             }]
         }
-        console.log(submission)
-        fetch('main/postComment', {
+       
+        
+        fetch(`main/post_comment`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ submission })
+            body: JSON.stringify(JSON.stringify(submission))
         }).then((res) => {
             console.log(JSON.stringify(submission))
             //setIsPending(false)

@@ -148,32 +148,11 @@ public class MainController : ControllerBase
     }
 
     [HttpPost(Name = "postComment")]
-    [Route("postComment")]
-    public static int postComment([FromBody] string parameters)
+    [Route("post_comment")]
+    public string postComment([FromBody] string parameters)
     {
-        //Parsing json Ad data
-        dynamic data = JObject.Parse(parameters);
-        string photoCom = data.Data[0].photoCom;
-        string textCom = data.Data[0].textCom;
-        string locCom = data.Data[0].locCom;
-        string adID = data.Data[0].adID;
-        string userID = data.Data[0].userID;
-
-        List<Object> newRow = new List<Object>();
-        int newTextId = DatabaseFunctions.getNextAvailableID(new Comment());
-
-        newRow.Add(newTextId);
-        newRow.Add(photoCom);
-        newRow.Add(textCom);
-        newRow.Add(locCom);
-        newRow.Add(adID);
-        newRow.Add(userID);
-
-
-        int code1 = DatabaseFunctions.insert(new Comment(), newRow);
-
-
-        return code1;
+        Console.WriteLine(parameters);
+        return DatabaseFunctions.postComment(parameters);
     }
 
     [HttpPost(Name = "searchAd")]
