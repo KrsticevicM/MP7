@@ -24,7 +24,11 @@ function MyAds() {
                         ad_ids.push(ad.adID);
                     }
                 })
-                setAds(update_ads);
+                if (update_ads.length == 0) {
+                    setAds(false);
+                } else {
+                    setAds(update_ads);
+                }
                 setPending(false);
             })
     }, []);

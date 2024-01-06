@@ -22,6 +22,7 @@ function NewComment(props) {
 
     function removeImage() {
         setPreview();
+        setFile();
     }
 
     const getBase64 = (file) => {
@@ -59,12 +60,12 @@ function NewComment(props) {
             }]
         }
         console.log(submission)
-        fetch(`main/postComment`, {
+        fetch('main/postComment', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(submission)
+            body: JSON.stringify({ submission })
         }).then((res) => {
-            console.log(submission)
+            console.log(JSON.stringify(submission))
             //setIsPending(false)
             if (res.ok) {
                 navigate("/" + params.id);

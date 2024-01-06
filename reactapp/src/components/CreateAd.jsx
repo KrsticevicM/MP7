@@ -138,7 +138,7 @@ export const NewAd = () => {
      fetch(`main/postAd`,{
       method: "POST",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(submission)
+         body: JSON.stringify(JSON.stringify(submission))
     }).then((res)=>{
       console.log(submission)
       //setIsPending(false)
