@@ -148,32 +148,11 @@ public class MainController : ControllerBase
     }
 
     [HttpPost(Name = "postComment")]
-    [Route("postComment")]
-    public static int postComment([FromBody] string parameters)
+    [Route("post_comment")]
+    public string postComment([FromBody] string parameters)
     {
-        //Parsing json Ad data
-        dynamic data = JObject.Parse(parameters);
-        string photoCom = data.Data[0].photoCom;
-        string textCom = data.Data[0].textCom;
-        string locCom = data.Data[0].locCom;
-        string adID = data.Data[0].adID;
-        string userID = data.Data[0].userID;
-
-        List<Object> newRow = new List<Object>();
-        int newTextId = DatabaseFunctions.getNextAvailableID(new Comment());
-
-        newRow.Add(newTextId);
-        newRow.Add(photoCom);
-        newRow.Add(textCom);
-        newRow.Add(locCom);
-        newRow.Add(adID);
-        newRow.Add(userID);
-
-
-        int code1 = DatabaseFunctions.insert(new Comment(), newRow);
-
-
-        return code1;
+        Console.WriteLine(parameters);
+        return DatabaseFunctions.postComment(parameters);
     }
 
     [HttpPost(Name = "searchAd")]
@@ -191,8 +170,10 @@ public class MainController : ControllerBase
         /* Convert the received JSON string to a specified format dictionary */
         Dictionary<string, List<Object>> insertDictionary;
 
+        Console.WriteLine("Attempt converson...");
         try
         {
+
             insertDictionary = DatabaseFunctions.ConvertJsonToDictionary(insertJSON);
         }
         catch
@@ -205,6 +186,14 @@ public class MainController : ControllerBase
         List<Object> names = insertDictionary["Names"];
         List<Object> values = insertDictionary["Values"];
         List<Object> row = new List<Object>();
+
+        /* Frontend sent 'img' but correct is 'photo' */
+        names[names.IndexOf("img")] = "photo";
+
+        foreach (string name in names)
+        {
+            Console.WriteLine(name);
+        }
 
         /* Set order specific index dictionaries for interfacing the Insert method */
         /* These indexes correspond to the indexes of attributes in the tables */
@@ -242,6 +231,21 @@ public class MainController : ControllerBase
             { "adID", 2 }
         };
 
+        Dictionary<string, int> colorPet = new Dictionary<string, int>()
+        {
+            { "crna", 1 },
+            { "smeda", 2 },
+            { "siva", 3 },
+            { "zuta", 4 },
+            { "zelena", 5 },
+            { "crvena", 6 },
+            { "narancasta", 7 },
+            { "ljubicasta", 8 },
+            { "plava", 9 },
+            { "bijela", 10 },
+            { "šarena", 11 }
+        };
+
         /* Set table objects for interfacing the Insert method */
         /* Holds table names */
         Ad ad = new Ad();
@@ -249,66 +253,164 @@ public class MainController : ControllerBase
         hasColor hc = new hasColor();
         photoAd pa = new photoAd();
 
+        int adID;
+        int petID;
+        int photoID;
+        int userID;
+
+        /* Inserting only one row */
         row = (List<Object>)values[0];
+
+        List<Object> insertRowAd = new List<Object>(new Object[7]);
+        List<Object> insertRowPet = new List<Object>(new Object[6]);
+        List<Object> insertRowHC = new List<Object>(new Object[2]);
+        List<Object> insertRowPA = new List<Object>(new Object[3]);
 
         try
         {
             /* Insert into Ad */
-            List<Object> insertRowAd = new List<Object>();
-            foreach (var name in names)
+            foreach (string name in names)
             {
-                if (ad.returnColumnTypes().ContainsKey(name.ToString()))
+                if (ad.returnColumnTypes().ContainsKey(name))
                 {
-                    int index = names.IndexOf(name.ToString());
-                    insertRowAd[adIndex[name.ToString()]] = row[index];
+                    int index;
+                    if ((index = names.IndexOf(name)) != -1)
+
+                        insertRowAd[adIndex[name]] = row[index];
+
+                    else throw new Exception("Insert Ad: Index of " + name + " not found!");
                 }
             }
-            DatabaseFunctions.insert(ad, insertRowAd);
+
+            adID = DatabaseFunctions.getNextAvailableID(ad);
+            userID = Int32.Parse(insertRowAd[2].ToString());
+            
+            insertRowAd[0] = adID;
+            insertRowAd[5] = "N/A";
+            insertRowAd[6] = "N/A";
+
+            /* Force parse to Int32 from Int64 */
+            /* and to DateTime from string for compatibility with Insert method */
+            insertRowAd[2] = System.Int32.Parse(insertRowAd[2].ToString());
+            insertRowAd[4] = (DateTime)System.DateTime.Parse(insertRowAd[4].ToString());
 
             /* Insert into Pet */
-            List<Object> insertRowPet = new List<Object>();
-            foreach (var name in names)
+            foreach (string name in names)
             {
                 if (pet.returnColumnTypes().ContainsKey(name.ToString()))
                 {
-                    int index = names.IndexOf(name.ToString());
-                    insertRowPet[petIndex[name.ToString()]] = row[index];
+                    int index;
+                    if ((index = names.IndexOf(name)) != -1)
+
+                        insertRowPet[petIndex[name]] = row[index];
+
+                    else throw new Exception("Insert Pet: Index of " + name + " not found!");
                 }
             }
-            DatabaseFunctions.insert(pet, insertRowPet);
+
+            petID = DatabaseFunctions.getNextAvailableID(pet);
+
+            insertRowPet[0] = petID;
+            insertRowPet[5] = adID;
 
             /* Insert into hasColor */
-            List<Object> insertRowHC = new List<Object>();
-            foreach (var name in names)
+            foreach (string name in names)
             {
                 if (hc.returnColumnTypes().ContainsKey(name.ToString()))
                 {
-                    int index = names.IndexOf(name.ToString());
-                    insertRowHC[hasColorIndex[name.ToString()]] = row[index];
+                    int index;
+                    if ((index = names.IndexOf(name)) != -1)
+
+                        insertRowHC[hasColorIndex[name]] = row[index];
+
+                    else throw new Exception("Insert hasColor: Index of " + name + " not found!");
                 }
             }
-            DatabaseFunctions.insert(hc, insertRowHC);
+            insertRowHC[0] = petID;
+            insertRowHC[1] = colorPet[row[names.IndexOf("color")].ToString()];
 
             /* Insert into photoAd */
-            List<Object> insertRowPA = new List<Object>();
-            foreach (var name in names)
+            foreach (string name in names)
             {
                 if (pa.returnColumnTypes().ContainsKey(name.ToString()))
                 {
-                    int index = names.IndexOf(name.ToString());
-                    insertRowPA[photoAdIndex[name.ToString()]] = row[index];
+                    int index;
+                    if ((index = names.IndexOf(name)) != -1)
+
+                        insertRowPA[photoAdIndex[name]] = row[index];
+
+                    else throw new Exception("Insert photoAd: Index of " + name + " not found!");
                 }
             }
-            DatabaseFunctions.insert(pa, insertRowPA);
+
+            photoID = DatabaseFunctions.getNextAvailableID(pa);
+
+            insertRowPA[0] = photoID;
+            insertRowPA[2] = adID;
         }
         catch (Exception ex)
         {
-            // Missing database cleanup - required Delete method.
+            /* Fail to organise collected data */
             Console.WriteLine(ex.ToString());
             return 400;
         }
 
+
+        /* Log new entry insertion attempt */
+        Console.WriteLine("-------------------------------------------------------");
+        Console.WriteLine("For userID: " + userID.ToString() + " attempt POST AD: ");
+        Console.WriteLine("-------------------------------------------------------");
+        logNewInsertion(ad, insertRowAd);
+        logNewInsertion(pet,insertRowPet);
+        logNewInsertion(hc, insertRowHC);
+        logNewInsertion(pa, insertRowPA);
+        Console.WriteLine("-------------------------------------------------------");
+        Console.WriteLine("Result:");
+
+        try { DatabaseFunctions.insert(ad, insertRowAd); }
+        catch (Exception ex) { Console.WriteLine(ex.ToString()); return recovery(); }
+
+        try { DatabaseFunctions.insert(pet, insertRowPet); }
+        catch (Exception ex) { Console.WriteLine(ex.ToString()); return recovery(); }
+
+        try { DatabaseFunctions.insert(hc, insertRowHC); }
+        catch (Exception ex) { Console.WriteLine(ex.ToString()); return recovery(); }
+
+        try { DatabaseFunctions.insert(pa, insertRowPA); }
+        catch (Exception ex) { Console.WriteLine(ex.ToString()); return recovery(); }
+
         return 200;
+    }
+
+    /* Insertion failure mechanism - possible automation in the future */
+    int recovery()
+    {
+        Console.WriteLine("WARNING: Error during database insertion, " +
+            "please check the logs above and manually delete garbage records!");
+        return 400;
+    }
+
+    /* Method for logging new insertion into the database */
+    void logNewInsertion(Table table, List<Object> list)
+    {
+        Console.WriteLine("Table: " + table.returnTable());
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i] != null)
+            {
+                if (!(table.returnTable() == "photoAd" && i == 1))
+                    Console.Write(list[i].ToString() + "\t");
+                else
+                    Console.Write(". . .\t");
+            }
+            else
+            {
+                Console.Write("NULL\t");
+            }
+        }
+
+        Console.WriteLine();
     }
 
 }
