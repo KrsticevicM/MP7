@@ -63,9 +63,8 @@ function NewComment(props) {
         fetch('main/postComment', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ submission })
+            body: JSON.stringify(JSON.stringify(submission))
         }).then((res) => {
-            console.log(JSON.stringify(submission))
             //setIsPending(false)
             if (res.ok) {
                 navigate("/" + params.id);
