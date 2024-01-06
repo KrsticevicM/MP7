@@ -1,11 +1,10 @@
 import "./Listgroup.css";
 import { useState } from 'react'
-import { Form, useNavigate, useParams } from 'react-router-dom'
+import { Form, useParams } from 'react-router-dom'
 
-function ListGroup() {
+function ListGroup(props) {
 
     const params = useParams();
-    const navigate = useNavigate();
 
   const species = [
     "Pas",
@@ -38,9 +37,8 @@ function ListGroup() {
     "> 10 god.",
     ];
 
-    const searchAds = async (event) => {
-        event.preventDefault()
-        //getting form data and turning it into object
+    const onTrigger = (event) => {
+        event.preventDefault();
         const data = new FormData(event.target)
 
         let colorString = '';
@@ -50,7 +48,7 @@ function ListGroup() {
                 colorString = colorString + data.get(colors[i]) + ',';
             }
         }
-        colorString = colorString.substr(0, colorString.length-1);
+        colorString = colorString.substr(0, colorString.length - 1);
         console.log(colorString);
 
         let petAge = data.get('pet-age')
@@ -69,25 +67,14 @@ function ListGroup() {
                 "age": petAge,
             }]
         }
-        console.log(submission)
-
-        fetch(`main/searchAd`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(submission)
-        }).then((res) => {
-            console.log(JSON.stringify(submission))
-            //setIsPending(false)
-            if (res.ok) {
-                navigate("/" + params.id);
-            }
-        })
-
-    }
+        props.parentCallback(
+            submission  
+        );
+    };
 
   return (
     <>
-        <Form onSubmit={searchAds}>
+          <Form onSubmit={onTrigger}>
         <div className="pet-species-container">
           <label htmlFor="pet-species">Vrsta:</label>
           <select className="pet-species" name="pet-species" id="pet-species">

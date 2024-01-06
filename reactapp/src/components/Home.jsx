@@ -14,6 +14,36 @@ function Home() {
 
     const [ads, setAds] = useState()
 
+
+    const searchAds = (childData) => {
+
+        console.log(childData)
+
+        fetch(`main/search_ad`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(JSON.stringify(childData))
+        }).then(res => {
+            return res.json();
+        }).then(data => {
+            console.log(data);
+            const update_ads = [];
+            const ad_ids = []
+            data.Data.map((ad) => {
+                if (!(ad_ids.includes(ad.adID))) {
+                    update_ads.push(ad);
+                    ad_ids.push(ad.adID);
+                }
+            })
+            if (update_ads.length == 0) {
+                setAds(false);
+            } else {
+                setAds(update_ads);
+            }
+            window.scrollTo(0, 0);
+        })
+    }
+
     useEffect(() => {
         fetch('main/frontpagedata')
             .then(res => {
@@ -39,12 +69,13 @@ function Home() {
           {(filter  || screenSize.width>1024) && <div className="left-categories">
               <h1 className="search-heading">Pretraživanje</h1>
               <div className="categories-container">
-                  <ListGroup />
+                  <ListGroup parentCallback={searchAds} />
               </div>
           </div>}
           <div className="ads-container">
               <div className="ads-container2">
-                  {isPending && <h3>Učitavanje oglasa...</h3> }
+                  {isPending && <h3>Učitavanje oglasa...</h3>}
+                  {(!ads && !isPending) && <h2>Nema oglasa</h2> }
                   {ads && ads.map((ad) => (
                       <Link to={'/'+ad.adID} key={ad.adID}>
               <Ad_card
