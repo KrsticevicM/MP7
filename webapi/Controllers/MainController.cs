@@ -188,6 +188,7 @@ public class MainController : ControllerBase
     [Route("postAd")]
     public int PostAd([FromBody] string insertJSON)
     {
+        /* Convert the received JSON string to a specified format dictionary */
         Dictionary<string, List<Object>> insertDictionary;
 
         try
@@ -200,10 +201,49 @@ public class MainController : ControllerBase
             return 400;
         }
 
+        /* Split the received data dictionary into attribute names and values lists */
         List<Object> names = insertDictionary["Names"];
         List<Object> values = insertDictionary["Values"];
         List<Object> row = new List<Object>();
 
+        /* Set order specific index dictionaries for interfacing the Insert method */
+        /* These indexes correspond to the indexes of attributes in the tables */
+        Dictionary<string, int> adIndex = new Dictionary<string, int>()
+        {
+            { "adID", 0 },
+            { "catAd", 1 },
+            { "userID", 2 },
+            { "location", 3 },
+            { "dateHourMis", 4 },
+            { "lat", 5 },
+            { "lon", 6 }
+        };
+
+        Dictionary<string, int> petIndex = new Dictionary<string, int>()
+        {
+            { "petID", 0 },
+            { "namePet", 1 },
+            { "species", 2 },
+            { "age", 3 },
+            { "description", 4 },
+            { "adID", 5 }
+        };
+
+        Dictionary<string, int> hasColorIndex = new Dictionary<string, int>()
+        {
+            { "petID", 0 },
+            { "colorID", 1 }
+        };
+
+        Dictionary<string, int> photoAdIndex = new Dictionary<string, int>()
+        {
+            { "photoID", 0 },
+            { "photo", 1 },
+            { "adID", 2 }
+        };
+
+        /* Set table objects for interfacing the Insert method */
+        /* Holds table names */
         Ad ad = new Ad();
         Pet pet = new Pet();
         hasColor hc = new hasColor();
@@ -220,7 +260,7 @@ public class MainController : ControllerBase
                 if (ad.returnColumnTypes().ContainsKey(name.ToString()))
                 {
                     int index = names.IndexOf(name.ToString());
-                    insertRowAd[ad.returnColumnTypes().Keys.ToList().IndexOf(name.ToString())] = row[index];
+                    insertRowAd[adIndex[name.ToString()]] = row[index];
                 }
             }
             DatabaseFunctions.insert(ad, insertRowAd);
@@ -232,7 +272,7 @@ public class MainController : ControllerBase
                 if (pet.returnColumnTypes().ContainsKey(name.ToString()))
                 {
                     int index = names.IndexOf(name.ToString());
-                    insertRowPet[pet.returnColumnTypes().Keys.ToList().IndexOf(name.ToString())] = row[index];
+                    insertRowPet[petIndex[name.ToString()]] = row[index];
                 }
             }
             DatabaseFunctions.insert(pet, insertRowPet);
@@ -244,7 +284,7 @@ public class MainController : ControllerBase
                 if (hc.returnColumnTypes().ContainsKey(name.ToString()))
                 {
                     int index = names.IndexOf(name.ToString());
-                    insertRowHC[hc.returnColumnTypes().Keys.ToList().IndexOf(name.ToString())] = row[index];
+                    insertRowHC[hasColorIndex[name.ToString()]] = row[index];
                 }
             }
             DatabaseFunctions.insert(hc, insertRowHC);
@@ -256,7 +296,7 @@ public class MainController : ControllerBase
                 if (pa.returnColumnTypes().ContainsKey(name.ToString()))
                 {
                     int index = names.IndexOf(name.ToString());
-                    insertRowPA[pa.returnColumnTypes().Keys.ToList().IndexOf(name.ToString())] = row[index];
+                    insertRowPA[photoAdIndex[name.ToString()]] = row[index];
                 }
             }
             DatabaseFunctions.insert(pa, insertRowPA);
