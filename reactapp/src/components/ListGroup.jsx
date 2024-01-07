@@ -115,16 +115,7 @@ function ListGroup(props) {
           />
           <label htmlFor="location-city">Grad nestanka</label>
         </div>
-        <div className="form-floating mb-3">
-          <input
-            type="name"
-            className="form-control"
-            id="location-street"
-            name="location-street"
-            placeholder="Ulica nestanka"
-          />
-          <label htmlFor="location-street">Ulica nestanka</label>
-        </div>
+
         <div className="pet-color">
           <h1 className="pet-color-header">Boja ljubimca</h1>
           <ul className="list-group">

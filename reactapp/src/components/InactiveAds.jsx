@@ -34,7 +34,7 @@ function MyAds() {
     }, []);
 
     return (
-        <div className="ads-container">
+        <div className="inactive-ads-container">
                 
             {isPending && <p className="loading">Loading...</p>}
             {(!ads && !isPending) && <h1>Nema neaktivnih oglasa</h1>}

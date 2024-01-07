@@ -1,6 +1,6 @@
 @media only screen and (max-width: 1024px) {
 
-    .ads-container {
+    .inactive-ads-container {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -14,7 +14,7 @@
 
 @media only screen and (min-width: 1025px) {
 
-    .ads-container {
+    .inactive-ads-container {
         display: flex;
         flex-wrap: wrap;
         background-color: white;
@@ -25,22 +25,11 @@
 }
 
 
-.ads-container {
+.inactive-ads-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-}
-
-.header-container {
-    width: 50rem;
-    display: flex;
-    justify-content: baseline;
-}
-
-.myads-header {
     margin-top: 20px;
-    margin-bottom: 15px;
-    font-weight: normal;
 }
 
 .loading {
