@@ -42,6 +42,7 @@ function Navbar() {
             {menuState && < div className="navbar-popup-menu">
                 <Link to='/'><div className="element-container-menu" onClick={() => setMenuState(false)}>POČETNA</div></Link>
                 <Link to='/sklonista'><div className="element-container-menu" onClick={() => setMenuState(false)}>SKLONIŠTA</div></Link>
+                {user.isAuth && < Link to='/neaktivni_oglasi'><div className="element-container-menu" onClick={() => setMenuState(false)}>NEAKTIVNI OGLASI</div></Link>}
                 {!user.isAuth && <Link to='/login'><div className="element-container-menu" onClick={() => setMenuState(false)}>PRIJAVI SE</div></Link>}
                 {user.isAuth && <Link to='/moji-oglasi'><div className="element-container-menu" onClick={() => setMenuState(false)}>{user.firstName} {user.lastName}</div></Link>}
                 {user.isAuth && <button className="odjava-button-menu" onClick={eventHandler}>ODJAVA</button>}
