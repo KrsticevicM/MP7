@@ -1,5 +1,5 @@
-import MyAd_card from "./MyAd_card";
-import "./MyAds.css";
+import Ad_card from "./Ad_card";
+import "./InactiveAds.css";
 import { Link, Navigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "./AuthenticationContext";
@@ -19,7 +19,7 @@ function MyAds() {
                 const update_ads = [];
                 const ad_ids = []
                 data.Data.map((ad) => {
-                    if (!(ad_ids.includes(ad.adID)) && (user.userID == ad.userID)) { 
+                    if (!(ad_ids.includes(ad.adID)) && (ad.catAd != 'u potrazi')) {
                         update_ads.push(ad);
                         ad_ids.push(ad.adID);
                     }
@@ -33,29 +33,25 @@ function MyAds() {
             })
     }, []);
 
-  return (
-    <div className="myads-container">
-          <br />
-          {isPending && <p className="loading">Loading...</p> }
-          {(!ads && !isPending) && <h1>Nemate postavljenih oglasa</h1> }
-      {ads && ads.map((ad) => (
-        <MyAd_card
-              key={ad.adID}
-              image={ad.photo}
-              petname={ad.namePet}
-              datehour={ad.dateHourMis}
-              age={ad.age}
-              kategorija={ad.catAd}
-              adID={ad.adID }
-        />
-      ))}
-      <Link to="/newAd">
-        <button className="btn btn-light" id="add-button">
-          Dodaj oglas <i className="bi bi-plus-lg"></i>
-        </button>
-      </Link>
-    </div>
-  );
+    return (
+        <div className="ads-container">
+                
+            {isPending && <p className="loading">Loading...</p>}
+            {(!ads && !isPending) && <h1>Nema neaktivnih oglasa</h1>}
+            {ads && ads.map((ad) => (
+                <Link to={'/' + ad.adID} key={ad.adID}>
+                    <Ad_card
+                        petname={ad.namePet}
+                        image={ad.photo}
+                        description={ad.description}
+                    />
+                </Link>
+            ))}
+ 
+               
+        </div>
+
+    );
 }
 
 export default MyAds;

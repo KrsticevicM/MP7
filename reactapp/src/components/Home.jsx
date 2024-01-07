@@ -14,6 +14,8 @@ function Home() {
 
     const [ads, setAds] = useState()
 
+    let screen = useScreenSize();
+
 
     const searchAds = (childData) => {
 
@@ -40,6 +42,9 @@ function Home() {
             } else {
                 setAds(update_ads);
             }
+            if (screen.width <= 1024) {
+                setFilter(false);
+            }
             window.scrollTo(0, 0);
         })
     }
@@ -53,7 +58,7 @@ function Home() {
                 const update_ads = [];
                 const ad_ids = []
                 data.Data.map((ad) => {
-                    if (!(ad_ids.includes(ad.adID))) {
+                    if (!(ad_ids.includes(ad.adID)) && (ad.catAd == 'u potrazi')) {
                         update_ads.push(ad);
                         ad_ids.push(ad.adID);  
                     }
@@ -78,16 +83,16 @@ function Home() {
                   {(!ads && !isPending) && <h2>Nema oglasa</h2> }
                   {ads && ads.map((ad) => (
                       <Link to={'/'+ad.adID} key={ad.adID}>
-              <Ad_card
-                petname={ad.namePet}
-                image={ad.photo}
-                description={ad.description}
-              />
-            </Link>
-          ))}
-        </div>
+                        <Ad_card
+                            petname={ad.namePet}
+                            image={ad.photo}
+                            description={ad.description}
+                        />
+                      </Link>
+                  ))}
+              </div>
+          </div>
       </div>
-    </div>
   );
 }
 

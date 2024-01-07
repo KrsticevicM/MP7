@@ -10,7 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 //Database tester - perform basic tests on tables
 string adTestData = "{\"Data\":[{\"species\":\"Pas\",\"namePet\":\"Marli\",\"dateHourMis\":\"\",\"location\":\"\",\"color\":\"\",\"age\":\"\"}]}";
 
+string CommentTestData = "{\"Data\":[{\"userID\":\"18\",\"adID\":\"24\",\"photoCom\":\"\",\"textCom\":\"resii\",\"locCom\":\"Zadar\"}]}";
+
 //Console.WriteLine(DatabaseFunctions.searchAd(adTestData));
+
+//Console.WriteLine(DatabaseFunctions.postComment(CommentTestData));
 
 // Add services to the container.
 builder.Services.AddControllers();

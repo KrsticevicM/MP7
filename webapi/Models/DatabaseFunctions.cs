@@ -581,6 +581,45 @@ namespace MP7_progi.Models
 
         }
 
+        public static string postComment(string parameters)
+        {
+            //Parsing json data
+            dynamic data = JObject.Parse(parameters);
+            //Console.WriteLine(data);
+
+            string photoCom = data.Data[0].photoCom;
+            string textCom = data.Data[0].textCom;
+            string locCom = data.Data[0].locCom;
+            int adID = data.Data[0].adID;
+            int userID = data.Data[0].userID;
+
+            List<Object> newRow = new List<Object>();
+            int newTextId = DatabaseFunctions.getNextAvailableID(new Comment());
+
+            newRow.Add(newTextId);
+            newRow.Add(photoCom);
+            newRow.Add(textCom);
+            newRow.Add(locCom);
+            newRow.Add(adID);
+            newRow.Add(userID);
+
+            int code;
+            try
+            {
+                code = DatabaseFunctions.insert(new Comment(), newRow);
+               
+            }
+            catch (Exception e)
+            {
+                // Handle the exception
+                Console.WriteLine("Error during insert operation: " + e.Message);
+
+            }
+            
+
+
+            return "resi";
+        }
         /*
 
       searchAd() - method for returning JSON of needed data for all ads that match every given parameter 

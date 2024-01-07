@@ -7,6 +7,7 @@ import { RootLayout } from './layouts/RootLayout'
 import { NotFound } from './components/NotFound'
 import Ad_detail from './components/Ad_detail'
 import Shelter, { ShelterLoader } from './components/Shelter'
+import InactiveAds from './components/InactiveAds'
 import { AuthContext } from './components/AuthenticationContext'
 import { useState } from 'react'
 import MyAds from './components/MyAds'
@@ -23,7 +24,9 @@ const router=createBrowserRouter(
 
             <Route path='login' element={<Login />}/>            
 
-            <Route path="/sklonista" element={<Shelter />} loader={ShelterLoader}/>
+            <Route path="/sklonista" element={<Shelter />} loader={ShelterLoader} />
+
+            <Route path="/neaktivni_oglasi" element={<InactiveAds />} />
 
             <Route exact path="/skloniste/:id" element={<ShelterDetail/>} loader={DetailLoader}/>
 

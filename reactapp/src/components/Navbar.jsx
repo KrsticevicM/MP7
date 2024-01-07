@@ -33,6 +33,7 @@ function Navbar() {
                     <button className="navbar-menu-button" onClick={() => setMenuState(!menuState)}><i className="bi bi-list"></i></button>
               <Link to='/'><div className="element-container">POČETNA</div></Link>
               <Link to='/sklonista'><div className="element-container">SKLONIŠTA</div></Link>
+              {user.isAuth && < Link to='/neaktivni_oglasi'><div className="element-container">NEAKTIVNI OGLASI</div></Link>}
               {!user.isAuth && <Link to='/login'><div className="element-container">PRIJAVI SE</div></Link>}
               {user.isAuth && <Link to='/moji-oglasi'><div className="element-container">{user.firstName} {user.lastName}</div></Link>}
               {user.isAuth && <button className="odjava-button" onClick={eventHandler}>ODJAVA</button>}

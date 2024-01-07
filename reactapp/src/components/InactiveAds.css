@@ -1,0 +1,48 @@
+@media only screen and (max-width: 1024px) {
+
+    .ads-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-evenly;
+        background-color: white;
+        padding: 0px;
+    }
+
+    
+}
+
+@media only screen and (min-width: 1025px) {
+
+    .ads-container {
+        display: flex;
+        flex-wrap: wrap;
+        background-color: white;
+        padding: 0px;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+}
+
+
+.ads-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.header-container {
+    width: 50rem;
+    display: flex;
+    justify-content: baseline;
+}
+
+.myads-header {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-weight: normal;
+}
+
+.loading {
+    font-family: Arial, Helvetica, sans-serif;
+}
