@@ -234,13 +234,13 @@ public class MainController : ControllerBase
         Dictionary<string, int> colorPet = new Dictionary<string, int>()
         {
             { "crna", 1 },
-            { "smeda", 2 },
+            { "sme?a", 2 },
             { "siva", 3 },
-            { "zuta", 4 },
+            { "žuta", 4 },
             { "zelena", 5 },
             { "crvena", 6 },
-            { "narancasta", 7 },
-            { "ljubicasta", 8 },
+            { "naran?asta", 7 },
+            { "ljubi?asta", 8 },
             { "plava", 9 },
             { "bijela", 10 },
             { "šarena", 11 }

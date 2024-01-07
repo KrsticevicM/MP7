@@ -369,11 +369,12 @@ namespace MP7_progi.Models
                     string suffix = "";
                     if (table.returnColumnTypes().ElementAt(j).Value == "int")
                     {
-                        suffix += "32";
+                        string typeSize = row.ElementAt(j).GetType().ToString().ToLower().Split('t').Last();
+                        suffix += typeSize;
                     }
                 try
                 {
-                    if (("system." + table.returnColumnTypes().ElementAt(j).Value + suffix) != row.ElementAt(j).GetType().ToString().ToLower())
+                    if (("system." + table.returnColumnTypes().ElementAt(j).Value + suffix).ToLower() != row.ElementAt(j).GetType().ToString().ToLower())
                     {
                         throw new InvalidOperationException("ERROR: Tried to enter type that doesn't match that in the table")
                         {
@@ -393,7 +394,6 @@ namespace MP7_progi.Models
 
                     return 400; 
                 }
-
             }
 
             Console.WriteLine("All provided data is matching type");
@@ -408,7 +408,7 @@ namespace MP7_progi.Models
                     for (int j = 0; j < table.returnColumnTypes().Count; j++)
                     {
 
-                        if (row.ElementAt(j).GetType().ToString() == "System.String")
+                        if (row.ElementAt(j).GetType().ToString() == "System.String" || row.ElementAt(j).GetType().ToString() == "System.DateTime")
                         {
                             query += "'" + row.ElementAt(j) + "'";
                         }
