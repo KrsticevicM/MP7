@@ -814,6 +814,43 @@ namespace MP7_progi.Models
             return idList.Count + 1;
         }
 
+        /*
+        delete(Table, Expression) - delete method for rows of a Table based on the where Expression
+
+        Params in:
+            
+            @ [Table]        - table from which to delete entry/entries
+            @ [Expression]   - a where expression for the SQL DELETE query
+
+        Params out:
+
+            @ [int]          - affected rows
+         */
+
+        static int delete(Table table, Expression where)
+        {
+            int affected = 0;
+            string query = "DELETE FROM " + table.returnTable() + " WHERE " + where.returnExpression();
+
+            try
+            {
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                    {
+                        affected = command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR: Delete method error occured!\n" + ex.ToString());
+            }
+
+            return affected;
+        }
+
         public static void databaseTester(Table table)
         {
             Dictionary<string, List<Object>>? tableOut;
