@@ -799,7 +799,6 @@ namespace MP7_progi.Models
                 Object id = list.ElementAt(0);
 
                 idList.Add((int)id);
-                Console.WriteLine((int)id);
             }
             idList.Sort();
 
