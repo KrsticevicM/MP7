@@ -827,7 +827,7 @@ namespace MP7_progi.Models
             @ [int]          - affected rows
          */
 
-        static int delete(Table table, Expression where)
+        public static int delete(Table table, Expression where)
         {
             int affected = 0;
             string query = "DELETE FROM " + table.returnTable() + " WHERE " + where.returnExpression();

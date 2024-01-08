@@ -415,5 +415,36 @@ public class MainController : ControllerBase
         Console.WriteLine();
     }
 
+    [HttpPost(Name = "DeleteAd")]
+    [Route("deleteAd")]
+    public int deleteAd([FromBody] string adID, [FromBody] string petID)
+    {
+        Expression where = new Expression();
+        int affected = 0;
+
+        where.addElement("adID", Expression.OP.EQUAL);
+        where.addElement(Int32.Parse(adID), Expression.OP.None);
+
+
+        if (DatabaseFunctions.delete(new Ad(), where) == 0)
+            Console.WriteLine("WARNING: deletion attempt for table Ad returned 0 affected rows!");
+
+        if (DatabaseFunctions.delete(new Pet(), where) == 0)
+            Console.WriteLine("WARNING: deletion attempt for table Pet returned 0 affected rows!");
+
+        if (DatabaseFunctions.delete(new photoAd(), where) == 0)
+            Console.WriteLine("WARNING: deletion attempt for table photoAd returned 0 affected rows!");
+
+        where = new Expression();
+        where.addElement("petID", Expression.OP.EQUAL);
+        where.addElement(Int32.Parse(petID), Expression.OP.None);
+
+        if (DatabaseFunctions.delete(new hasColor(), where) == 0)
+            Console.WriteLine("WARNING: deletion attempt for table hasColor returned 0 affected rows!");
+
+        return 200;
+    }
+
+
 }
 
