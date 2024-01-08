@@ -710,16 +710,31 @@ namespace MP7_progi.Models
                 Console.WriteLine(c); ;
             }
 
+            if (colorList.Length != 0)
+            {
+                where.addElement(null, Expression.OP.AND);
+                where.addElement(null, Expression.OP.OPEN_B);
+            }
+           
 
             foreach (string c in colorList)
             {
+                if (colorList[0] != c)
+                {
+                    where.addElement(null, Expression.OP.OR);
+                }
                 if (c != "") {
-                    where.addElement(null, Expression.OP.AND);
                     where.addElement("color", Expression.OP.EQUAL);
                     where.addElement(c, Expression.OP.None);              
                 }
             }
+
+            if (colorList.Length != 0)
+            {
+                where.addElement(null, Expression.OP.CLOSE_B);
+            }
             
+
             Console.WriteLine(where.returnExpression());
 
             try
