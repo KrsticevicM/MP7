@@ -53,6 +53,7 @@ function App() {
     
     const [user, setUser] = useState({
         isAuth: false,
+        isShelter: false,
         userID: null,
         firstName: '',
         lastName: '',

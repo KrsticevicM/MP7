@@ -46,6 +46,7 @@ function Login(){
             console.log(text)
             if (!text.firstName){
                 text.firstName = text.nameShelter
+                updateUser({isShelter: true})
             }
             if (!text.lastName){
                 text.lastName = ""

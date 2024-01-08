@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Form, Navigate, redirect, useNavigate } from 'react-router-dom'
 import "./CreateAd.css"
 import { AuthContext } from './AuthenticationContext'
+import Map from './Map.jsx';
+import { MapContainer, useMapEvents } from 'react-leaflet';
+import AddMarkerToClick from './AddMarkerToClick.jsx';
 
 export const NewAd = () => {
 
@@ -11,6 +14,8 @@ export const NewAd = () => {
   const [images,setImages]=useState("")
   const navigate=useNavigate()
   const [error,setError]=useState("")
+  const [lat,setLat]=useState()
+  const [lng,setLng]=useState()
 
   
 
@@ -38,16 +43,19 @@ export const NewAd = () => {
   ];
 
   const age = [
-    "<1 mj.",
-    "1-6 mj.",
-    "6-11 mj.",
+    "<1 god.",
     "1 god.",
     "2 god.",
     "3 god.",
     "4-5 god.",
     "6-10 god.",
-    "> 10 god.",
+    ">10 god.",
   ];
+
+  const getLatLng=(data)=>{
+    setLat(data.lat)
+    setLng(data.lng)
+  }
 
 
   useEffect(()=>{
@@ -117,7 +125,15 @@ export const NewAd = () => {
       const base6424=await getBase64(files[2]) // `file` your img file
       images2=images2+","+base6424.split(",").pop()
     }
+    const date=data.get('datum')
+    const y = date.slice(0,4)
+    const  m = date.slice(5,7)
+    const  d = date.slice(8,10)
+    let kategorija=data.get("kategorija-oglasa")
     
+    if(kategorija==null){
+      kategorija="u potrazi"
+    }
 
 
     const submission={
@@ -127,11 +143,13 @@ export const NewAd = () => {
         "color": data.get('boja'),
         "age": data.get('age'),
         "description": data.get('opis'),
-        "catAd":"u potrazi",
-        "location":"Zagreb",
+        "catAd":kategorija, 
         "userID": user.userID,
-        "dateHourMis": data.get('datum') + " "+data.get('vrijeme'),
-        "img": images2 
+        "dateHourMis": d+"."+m+"."+y+"." + " "+data.get('vrijeme'),
+        "img": images2,
+        "lat": lat,
+        "lon": lng,
+        "location":data.get("grad-nestanka") 
       }] 
     }
     console.log(submission)
@@ -192,6 +210,20 @@ export const NewAd = () => {
               </select>
           </div>
 
+          {user.isShelter && <div className="form-group">
+              <label htmlFor="kategorija-oglasa">Kategorija oglasa</label>
+              <select className="form-control" id="kategorija-oglasa" name='kategorija-oglasa'>
+              
+              <option value="u potrazi">
+                  u potrazi
+              </option>
+              <option value="u skloništu">
+                  u skloništu
+              </option>
+              
+              </select>
+          </div>}
+
           <div className="form-group">
               <label htmlFor="boja">Boja</label>
               <select className="form-control" id="boja" name='boja'>
@@ -233,6 +265,20 @@ export const NewAd = () => {
               required
               ></input>
           </div>
+          <div className="form-group">
+            <label htmlFor="grad-nestanka">Grad nestanka</label>
+            <input type="text" 
+            className="form-control" 
+            id="grad-nestanka" 
+            name="grad-nestanka" 
+            required
+            placeholder="Ime grada nestanka"/>
+          </div>
+
+          <MapContainer center={[44.515399, 16]} zoom={5.4} scrollWheelZoom={true} > {/* omit onClick */}
+            <AddMarkerToClick onClick={getLatLng}/>
+          </MapContainer>
+
           <div className="form-group">
               <label htmlFor="opis">Opis</label>
               <textarea 

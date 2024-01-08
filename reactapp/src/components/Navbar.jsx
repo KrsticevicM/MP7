@@ -14,6 +14,7 @@ function Navbar() {
         setMenuState(false)
     updateUser({
       isAuth: false,
+      isShelter: false,
       userID: null,
       firstName: '',
       lastName: '',
