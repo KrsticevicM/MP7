@@ -170,7 +170,6 @@ public class MainController : ControllerBase
         /* Convert the received JSON string to a specified format dictionary */
         Dictionary<string, List<Object>> insertDictionary;
 
-        Console.WriteLine("Attempt converson...");
         try
         {
 
@@ -189,11 +188,6 @@ public class MainController : ControllerBase
 
         /* Frontend sent 'img' but correct is 'photo' */
         names[names.IndexOf("img")] = "photo";
-
-        foreach (string name in names)
-        {
-            Console.WriteLine(name);
-        }
 
         /* Set order specific index dictionaries for interfacing the Insert method */
         /* These indexes correspond to the indexes of attributes in the tables */
@@ -234,13 +228,13 @@ public class MainController : ControllerBase
         Dictionary<string, int> colorPet = new Dictionary<string, int>()
         {
             { "crna", 1 },
-            { "sme?a", 2 },
+            { "smeda", 2 },
             { "siva", 3 },
-            { "žuta", 4 },
+            { "zuta", 4 },
             { "zelena", 5 },
             { "crvena", 6 },
-            { "naran?asta", 7 },
-            { "ljubi?asta", 8 },
+            { "narancasta", 7 },
+            { "ljubicasta", 8 },
             { "plava", 9 },
             { "bijela", 10 },
             { "šarena", 11 }
@@ -286,8 +280,16 @@ public class MainController : ControllerBase
             userID = Int32.Parse(insertRowAd[2].ToString());
             
             insertRowAd[0] = adID;
-            insertRowAd[5] = "N/A";
-            insertRowAd[6] = "N/A";
+            try
+            {
+                insertRowAd[5] = insertRowAd[5].ToString().Replace(',', '.');
+                insertRowAd[6] = insertRowAd[6].ToString().Replace(',', '.');
+            } 
+            catch 
+            {
+                insertRowAd[5] = insertRowAd[5].ToString();
+                insertRowAd[6] = insertRowAd[6].ToString();
+            }
 
             /* Force parse to Int32 from Int64 */
             /* and to DateTime from string for compatibility with Insert method */
