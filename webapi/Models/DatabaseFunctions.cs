@@ -710,7 +710,7 @@ namespace MP7_progi.Models
                 Console.WriteLine(c); ;
             }
 
-            if (colorList.Length != 0)
+            if (colorList[0] != "")
             {
                 where.addElement(null, Expression.OP.AND);
                 where.addElement(null, Expression.OP.OPEN_B);
@@ -729,7 +729,7 @@ namespace MP7_progi.Models
                 }
             }
 
-            if (colorList.Length != 0)
+            if (colorList[0] != "")
             {
                 where.addElement(null, Expression.OP.CLOSE_B);
             }
