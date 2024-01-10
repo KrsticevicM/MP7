@@ -418,33 +418,32 @@ public class MainController : ControllerBase
     [HttpPost(Name = "DeleteAd")]
     [Route("deleteAd")]
     public int deleteAd([FromBody] string adID)
-    { //napravila sam izmjenu makla petID jer je bacalo Exception
+    {
+        Expression set = new Expression();
         Expression where = new Expression();
+
         int affected = 0;
+
+        Console.WriteLine("INFO: Attempting to set Ad to status: deleted");
+
+        set.addElement("catAd", Expression.OP.EQUAL);
+        set.addElement("'obrisan'", Expression.OP.None);
 
         where.addElement("adID", Expression.OP.EQUAL);
         where.addElement(Int32.Parse(adID), Expression.OP.None);
 
+        affected = DatabaseFunctions.update(new Ad(), set, where);
 
-        if (DatabaseFunctions.delete(new Ad(), where) == 0)
-            Console.WriteLine("WARNING: deletion attempt for table Ad returned 0 affected rows!");
-
-        if (DatabaseFunctions.delete(new Pet(), where) == 0)
-            Console.WriteLine("WARNING: deletion attempt for table Pet returned 0 affected rows!");
-
-        if (DatabaseFunctions.delete(new photoAd(), where) == 0)
-            Console.WriteLine("WARNING: deletion attempt for table photoAd returned 0 affected rows!");
-
-        where = new Expression();
-        where.addElement("petID", Expression.OP.EQUAL);
-        where.addElement(Int32.Parse(adID), Expression.OP.None);
-
-        if (DatabaseFunctions.delete(new hasColor(), where) == 0)
-            Console.WriteLine("WARNING: deletion attempt for table hasColor returned 0 affected rows!");
-
-        return 200;
+        if(affected == 0)
+        {
+            Console.WriteLine("WARNING: No changes made!");
+            return 199;
+        }
+        else
+        {
+            Console.WriteLine("Success!");
+            return 200;
+        }
     }
-
-
 }
 

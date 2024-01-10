@@ -850,61 +850,45 @@ namespace MP7_progi.Models
             return affected;
         }
 
-        public static void databaseTester(Table table)
+        public static int update(Table table, Expression set, Expression where)
         {
-            Dictionary<string, List<Object>>? tableOut;
-            List<Object> attributes = new();
-            List<Object> values = new();
-            Expression exp = new Expression();
-
-            exp.addElement(Pet.names.petID, Expression.OP.EQUAL);
-            exp.addElement("24", Expression.OP.None);
-
-
-            Console.WriteLine("Attempting read operation from the database...");
+            int affected = 0;
+            string query = "UPDATE " + table.returnTable() + " SET " + set.returnExpression() +
+                " WHERE " + where.returnExpression();
 
             try
             {
-                tableOut = DatabaseFunctions.read(table, new List<Table> { new Pet(), new hasColor(), new ColorPet(), new photoAd() }, new List<joinType> { joinType.Natural, joinType.Natural, joinType.Natural, joinType.Natural }, null);
-                Console.WriteLine(ConvertDictionaryToJson(tableOut));
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                    {
+                        affected = command.ExecuteNonQuery();
+                    }
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                return;
+                Console.WriteLine("ERROR: Update method error occured!\n" + ex.ToString());
             }
+
+            return affected;
+        }
+
+        public static void databaseTester()
+        {
+            Ad table = new Ad();
             Expression where = new Expression();
-            int userID = 24;
-
-            where.addElement((Object)"userID", Expression.OP.EQUAL);
-            where.addElement((Object)userID, Expression.OP.None);
-
-            Dictionary<string, List<Object>> result = DatabaseFunctions.read(new User(), new List<Table> { new Regular() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural }, where);
-            Console.WriteLine(ConvertDictionaryToJson(result));
+            Expression set = new Expression();
 
 
-            
-            result.TryGetValue("Names", out attributes);
-            result.TryGetValue("Values", out values);
+            set.addElement("catAd", Expression.OP.EQUAL);
+            set.addElement("'obrisan'", Expression.OP.None);
 
-            Console.WriteLine("Performing test for database: " + table);
+            where.addElement("adID", Expression.OP.EQUAL);
+            where.addElement(18, Expression.OP.None);
 
-            foreach (string attrib in attributes.ToArray())
-            {
-                Console.Write(attrib + "\t\t");
-            }
-
-            foreach (List<Object> row in values)
-            {
-                Console.WriteLine();
-
-                foreach (Object rowItem in row)
-                {
-                    Console.Write(rowItem + "\t\t");
-                }
-            }
-            Console.WriteLine();
-           
+            update(table, set, where);
         }
     }
 }
