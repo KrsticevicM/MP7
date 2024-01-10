@@ -417,8 +417,8 @@ public class MainController : ControllerBase
 
     [HttpPost(Name = "DeleteAd")]
     [Route("deleteAd")]
-    public int deleteAd([FromBody] string adID, [FromBody] string petID)
-    {
+    public int deleteAd([FromBody] string adID)
+    { //napravila sam izmjenu makla petID jer je bacalo Exception
         Expression where = new Expression();
         int affected = 0;
 
@@ -437,7 +437,7 @@ public class MainController : ControllerBase
 
         where = new Expression();
         where.addElement("petID", Expression.OP.EQUAL);
-        where.addElement(Int32.Parse(petID), Expression.OP.None);
+        where.addElement(Int32.Parse(adID), Expression.OP.None);
 
         if (DatabaseFunctions.delete(new hasColor(), where) == 0)
             Console.WriteLine("WARNING: deletion attempt for table hasColor returned 0 affected rows!");

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 function MyAd_card(props) {
 
     const navigate = useNavigate();
-
+    /*
     const handleDelete = (event, id) => {
         fetch('main/deleteAd?' + id, { method: 'DELETE' })
             .then((res) => {
@@ -13,6 +13,7 @@ function MyAd_card(props) {
                 }
             }) 
     };
+    */
 
   return (
     <div className="myad-card-container">
