@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using MP7_progi.Models;
 using Newtonsoft.Json.Linq;
+using System.Linq.Expressions;
+using Expression = MP7_progi.Models.Expression;
 
 namespace webapi.Controllers;
 
@@ -417,7 +419,7 @@ public class MainController : ControllerBase
 
     [HttpPost(Name = "DeleteAd")]
     [Route("deleteAd")]
-    public int deleteAd([FromBody] string adID)
+    public int DeleteAd([FromBody] string adID)
     {
         Expression set = new Expression();
         Expression where = new Expression();
@@ -444,6 +446,111 @@ public class MainController : ControllerBase
             Console.WriteLine("Success!");
             return 200;
         }
+    }
+
+    [HttpPost(Name = "ModifyAd")]
+    [Route("modifyAd")]
+    public int ModifyAd([FromBody] string modifyJSON)
+    {
+        Dictionary<string, List<Object>> modifyDictionary = new Dictionary<string, List<object>>();
+
+        try
+        {
+
+            modifyDictionary = DatabaseFunctions.ConvertJsonToDictionary(modifyJSON);
+        }
+        catch
+        {
+            Console.WriteLine("Incorrect JSON format!");
+            return 400;
+        }
+
+        List<Object> names = modifyDictionary["Names"];
+        List<Object> values = modifyDictionary["Values"];
+        List<Object> row = new List<Object>();
+
+        names[names.IndexOf("img")] = "photo";
+
+        row = (List<Object>) values[0];
+
+        Ad ad = new Ad();
+        Pet pet = new Pet();
+        hasColor hc = new hasColor();
+        photoAd pa = new photoAd();
+
+        List<Table> table = new List<Table>();
+        List<Expression> set_list = new List<Expression>();
+        List<Expression> where_list = new List<Expression>();
+        
+        table.Add(ad);
+        table.Add(pet);
+        table.Add(hc);
+        table.Add(pa);
+
+        int i = 0;
+
+        Console.WriteLine("INFO: Attempting database update...");
+
+        try
+        {
+            foreach(Table t in table)
+            {
+                where_list.Add(new Expression());
+                set_list.Add(new Expression()); 
+
+                foreach (string name in names)
+                {
+                    if (t.returnColumnTypes().ContainsKey(name))
+                    {
+                        Object value = row[names.IndexOf(name)];
+                        if (name.Contains("ID"))
+                        {
+                            where_list[i].addElement(name, Expression.OP.EQUAL);
+                            where_list[i].addElement(value.ToString(), Expression.OP.None);
+                        }
+                        else
+                        {
+                            if (set_list[i].returnExpression() != "") set_list[i].addElement(", ", Expression.OP.None);
+                            set_list[i].addElement(name, Expression.OP.EQUAL);
+
+                            if (value is string)
+                            {
+                                set_list[i].addElement("'" + value.ToString() + "'", Expression.OP.None);
+                            }
+                            else
+                            {
+                                set_list[i].addElement("'" + value.ToString() + "'", Expression.OP.None);
+                            }
+                        }
+                    }
+                }
+                i++;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("ERROR: Parsing list to UPDATE expression failed!");
+            Console.WriteLine(ex.Message);
+            return 400;
+        }
+
+        try
+        {
+            for(i = 0; i < where_list.Count; i++)
+            {
+                DatabaseFunctions.update(table[i], set_list[i], where_list[i]);
+            }
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine("ERROR: Updating database failed!");
+            Console.WriteLine(ex.Message);
+            return 400;
+        }
+
+        Console.WriteLine("INFO: Success!");
+
+        return 200;
     }
 }
 
