@@ -1,10 +1,14 @@
 import { Form, Link, useLoaderData } from 'react-router-dom';
 import './Shelter.css'
 import { useState } from 'react';
+import useScreenSize from './screenSizeHook';
 
 function Shelter() {
 
   const data=useLoaderData()
+  const screenSize = useScreenSize();
+  let screen = useScreenSize();
+  const [filter, setFilter] = useState(false)
 
   const [filtername,setFilterName] = useState("")
 
@@ -17,7 +21,11 @@ function Shelter() {
 
   return (
     <div className="home-shelter-container">
-      <div className="left-shelter-categories">
+      
+      <button className="filter-button-2" onClick={() => setFilter(!filter)}>Filter  <i className="bi bi-funnel"></i></button>
+          {(filter  || screenSize.width>600) && 
+          
+          <div className="left-shelter-categories">
         <h1 className="search-heading">Pretraživanje</h1>
         <div className="categories-shelter-container">
           <Form onSubmit={handleSubmit}>
@@ -38,7 +46,8 @@ function Shelter() {
             </div>
           </Form>
         </div>
-      </div>
+        
+      </div>}
       <div className="ads-shelter-container">
         <div className="ads-shelter-container2">
 
