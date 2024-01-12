@@ -19,7 +19,7 @@ function MyAds() {
                 const update_ads = [];
                 const ad_ids = []
                 data.Data.map((ad) => {
-                    if (!(ad_ids.includes(ad.adID)) && (user.userID == ad.userID)) { 
+                    if (!(ad_ids.includes(ad.adID)) && (user.userID == ad.userID) && ad.catAd=='u potrazi') { 
                         update_ads.push(ad);
                         ad_ids.push(ad.adID);
                     }
