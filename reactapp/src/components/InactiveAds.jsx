@@ -1,4 +1,4 @@
-import Ad_card from "./Ad_card";
+﻿import Ad_card from "./Ad_card";
 import "./InactiveAds.css";
 import { Link, Navigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
@@ -31,7 +31,7 @@ function MyAds() {
             const update_ads = [];
             const ad_ids = []
             data.Data.map((ad) => {
-                if (!(ad_ids.includes(ad.adID)) && (ad.catAd != 'u potrazi')) {
+                if (!(ad_ids.includes(ad.adID)) && (ad.catAd != 'u potrazi' && ad.catAd != 'obrisano')) {
                     update_ads.push(ad);
                     ad_ids.push(ad.adID);
                 }
@@ -54,10 +54,11 @@ function MyAds() {
                 return res.json();
             })
             .then(data => {
+                console.log(data.Data);
                 const update_ads = [];
                 const ad_ids = []
                 data.Data.map((ad) => {
-                    if (!(ad_ids.includes(ad.adID)) && (ad.catAd != 'u potrazi')) {
+                    if (!(ad_ids.includes(ad.adID)) && (ad.catAd != 'u potrazi' && ad.catAd != 'obrisano')) {
                         update_ads.push(ad);
                         ad_ids.push(ad.adID);
                     }
@@ -75,7 +76,7 @@ function MyAds() {
         <div className="home-container">
             <button className="filter-button" onClick={() => setFilter(!filter)}>Filter  <i className="bi bi-funnel"></i></button>
             {(filter || screenSize.width > 1024) && <div className="left-categories">
-                <h1 className="search-heading">Pretra�ivanje</h1>
+                <h1 className="search-heading">Pretraživanje</h1>
                 <div className="categories-container">
                     <ListGroup parentCallback={searchAds} />
                 </div>

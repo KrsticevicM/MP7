@@ -4,16 +4,20 @@ import { useNavigate } from 'react-router-dom'
 function MyAd_card(props) {
 
     const navigate = useNavigate();
-    /*
+    
     const handleDelete = (event, id) => {
-        fetch('main/deleteAd?' + id, { method: 'DELETE' })
+        fetch('main/deleteAd', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(JSON.stringify(id))
+        })
             .then((res) => {
                 if (res.ok) {
                     navigate("/moji-oglasi");
                 }
             }) 
     };
-    */
+    
 
   return (
     <div className="myad-card-container">
