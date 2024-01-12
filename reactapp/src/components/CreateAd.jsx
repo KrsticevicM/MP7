@@ -16,6 +16,7 @@ export const NewAd = () => {
   const [error,setError]=useState("")
   const [lat,setLat]=useState()
   const [lng,setLng]=useState()
+  const [color,setColor]=useState("")
 
   
 
@@ -135,12 +136,21 @@ export const NewAd = () => {
       kategorija="u potrazi"
     }
 
+    const boja=[data.get(colors[0]+'-boja'),data.get(colors[1]+'-boja'),data.get(colors[2]+'-boja'),
+    data.get(colors[3]+'-boja'),data.get(colors[4]+'-boja'),data.get(colors[5]+'-boja'),data.get(colors[6]+'-boja'),
+    data.get(colors[7]+'-boja'),data.get(colors[8]+'-boja'),data.get(colors[9]+'-boja'),data.get(colors[10]+'-boja')]
+
+    
+    const boje=boja.filter(boja=>{
+      return boja!=null
+    }).join(",")
+
 
     const submission={
       "Data":[{
         "namePet": data.get('ime'),
         "species": data.get('vrsta'),
-        "color": data.get('boja'),
+        "color": boje,
         "age": data.get('age'),
         "description": data.get('opis'),
         "catAd":kategorija, 
@@ -184,8 +194,11 @@ export const NewAd = () => {
                 setFiles(e.target.files)
                 }}
             />
+            
+          </div>
+          <div className="form-group">
             {preview && preview.map((pic)=>(
-                <img src={pic} key={pic} className='createAd-img' />
+              <img src={pic} key={pic} className='createAd-img' />
             ))}
           </div>
 
@@ -224,7 +237,7 @@ export const NewAd = () => {
               </select>
           </div>}
 
-          <div className="form-group">
+          {/* <div className="form-group">
               <label htmlFor="boja">Boja</label>
               <select className="form-control" id="boja" name='boja'>
               {colors.map((specie) => (
@@ -233,7 +246,46 @@ export const NewAd = () => {
               </option>
               ))}
               </select>
+          </div> */}
+          <label htmlFor="color-block">Boja</label>
+          <div className='color-block'>
+            <div className='myrow'>
+            <input type="checkbox" className="btn-check" id="btn-check-0-outlined" autoComplete="off" name={colors[0]+'-boja'} value={colors[0]}/>
+            <label className="btn btn-outline-dark" htmlFor="btn-check-0-outlined">{colors[0]}</label>
+
+            <input type="checkbox" className="btn-check" id="btn-check-1-outlined" autoComplete="off" name={colors[1]+'-boja'} value={colors[1]}/>
+            <label className="btn btn-outline-dark" htmlFor="btn-check-1-outlined">{colors[1]}</label>
+
+            <input type="checkbox" className="btn-check" id="btn-check-2-outlined" autoComplete="off" name={colors[2]+'-boja'} value={colors[2]}/>
+            <label className="btn btn-outline-dark" htmlFor="btn-check-2-outlined">{colors[2]}</label>
+
+            <input type="checkbox" className="btn-check" id="btn-check-3-outlined" autoComplete="off" name={colors[3]+'-boja'} value={colors[3]}/>
+            <label className="btn btn-outline-dark" htmlFor="btn-check-3-outlined">{colors[3]}</label>
+
+            <input type="checkbox" className="btn-check" id="btn-check-4-outlined" autoComplete="off" name={colors[4]+'-boja'} value={colors[4]}/>
+            <label className="btn btn-outline-dark" htmlFor="btn-check-4-outlined">{colors[4]}</label>
+
+            <input type="checkbox" className="btn-check" id="btn-check-5-outlined" autoComplete="off" name={colors[5]+'-boja'} value={colors[5]}/>
+            <label className="btn btn-outline-dark" htmlFor="btn-check-5-outlined">{colors[5]}</label>
+            </div>
+            <div className='myrow'>
+            <input type="checkbox" className="btn-check" id="btn-check-6-outlined" autoComplete="off" name={colors[6]+'-boja'} value={colors[6]}/>
+            <label className="btn btn-outline-dark" htmlFor="btn-check-6-outlined">{colors[6]}</label>
+
+            <input type="checkbox" className="btn-check" id="btn-check-7-outlined" autoComplete="off" name={colors[7]+'-boja'} value={colors[7]}/>
+            <label className="btn btn-outline-dark" htmlFor="btn-check-7-outlined">{colors[7]}</label>
+
+            <input type="checkbox" className="btn-check" id="btn-check-8-outlined" autoComplete="off" name={colors[8]+'-boja'} value={colors[8]}/>
+            <label className="btn btn-outline-dark" htmlFor="btn-check-8-outlined">{colors[8]}</label>
+
+            <input type="checkbox" className="btn-check" id="btn-check-9-outlined" autoComplete="off" name={colors[9]+'-boja'} value={colors[9]}/>
+            <label className="btn btn-outline-dark" htmlFor="btn-check-9-outlined">{colors[9]}</label>
+
+            <input type="checkbox" className="btn-check" id="btn-check-10-outlined" autoComplete="off" name={colors[10]+'-boja'} value={colors[10]}/>
+            <label className="btn btn-outline-dark" htmlFor="btn-check-10-outlined">{colors[10]}</label>
+            </div>
           </div>
+          
 
           <div className="form-group">
               <label htmlFor="age">Starost</label>
@@ -244,7 +296,9 @@ export const NewAd = () => {
               </option>
               ))}
               </select>
-          </div>
+          </div> 
+
+          
           <div className="form-group">
               <label htmlFor="datum-nestanka">Datum nestanka</label>
               <input 
@@ -274,10 +328,11 @@ export const NewAd = () => {
             required
             placeholder="Ime grada nestanka"/>
           </div>
-
-          <MapContainer center={[44.515399, 16]} zoom={5.4} scrollWheelZoom={true} > {/* omit onClick */}
-            <AddMarkerToClick onClick={getLatLng}/>
-          </MapContainer>
+          <div className="map-container">
+            <MapContainer center={[44.515399, 16]} zoom={5.4} scrollWheelZoom={true} > {/* omit onClick */}
+              <AddMarkerToClick onClick={getLatLng}/>
+            </MapContainer>
+          </div>
 
           <div className="form-group">
               <label htmlFor="opis">Opis</label>
