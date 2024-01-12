@@ -429,7 +429,7 @@ public class MainController : ControllerBase
         Console.WriteLine("INFO: Attempting to set Ad to status: deleted");
 
         set.addElement("catAd", Expression.OP.EQUAL);
-        set.addElement("'obrisan'", Expression.OP.None);
+        set.addElement("'obrisano'", Expression.OP.None);
 
         where.addElement("adID", Expression.OP.EQUAL);
         where.addElement(Int32.Parse(adID), Expression.OP.None);
