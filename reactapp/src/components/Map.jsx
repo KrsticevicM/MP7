@@ -7,7 +7,7 @@ function Map(props) {
         return <div>Error: Invalid location coordinates</div>;
     }
     return (
-        <MapContainer center={[44.515399, 16]} zoom={5.4} scrollWheelZoom={false}>
+        <MapContainer center={[44.515399, 16]} zoom={5.4} scrollWheelZoom={true}>
 
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
