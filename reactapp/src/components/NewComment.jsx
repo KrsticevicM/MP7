@@ -69,10 +69,7 @@ function NewComment(props) {
                 "lon": lng,
             }]
         }
-
-        console.log(submission);
-       
-        
+               
         fetch(`main/post_comment`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -80,7 +77,7 @@ function NewComment(props) {
         }).then((res) => {
             //setIsPending(false)
             if (res.ok) {
-                navigate("/" + params.id);
+                window.location.reload(false);
             }
         })
 

@@ -54,7 +54,6 @@ function MyAds() {
                 return res.json();
             })
             .then(data => {
-                console.log(data.Data);
                 const update_ads = [];
                 const ad_ids = []
                 data.Data.map((ad) => {
