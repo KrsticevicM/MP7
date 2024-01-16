@@ -648,10 +648,8 @@ namespace MP7_progi.Models
                 namePet = "'" + namePet + "'";
 
             string dateHourMis = data.Data[0].dateHourMis;
-            if (dateHourMis != "") { 
-                dateHourMis = dateHourMis.Split('T')[0];
-                dateHourMis = "'" + dateHourMis + "'";
-            }
+            if (dateHourMis != "") 
+                dateHourMis = "'" + dateHourMis + "'";           
 
             string location = data.Data[0].location;
             if(location != "")
