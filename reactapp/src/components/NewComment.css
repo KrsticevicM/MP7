@@ -1,3 +1,76 @@
+
+@media only screen and (max-width: 1024px) {
+    .newcomment-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .comment-commands {
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #floatingTextarea2 {
+        height: 150px;
+        width: 240px;
+    }
+
+    .image-upload-button {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .new-comment-image {
+        margin-bottom: 2rem;
+    }
+
+}
+
+@media only screen and (min-width: 1025px) {
+    .newcomment-container {
+        display: grid;
+        grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
+        margin-left: 2rem;
+    }
+
+    .comment-location {
+        grid-column: 3;
+    }
+
+    #comment-text {
+        grid-column: 1 / span 2;
+        margin: 0px;
+        margin-right: 2em;
+    }
+
+    .comment-commands {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        grid-column: 5;
+        margin-left: 2em;
+    }
+
+    #comment-cancel-button {
+        margin-top: 20px;
+    }
+
+    #floatingTextarea2 {
+        min-height: 200px;
+    }
+
+    .comment-image-upload {
+        margin-left: 2rem;
+    }
+
+    #trashcan {
+        opacity: 0;
+    }
+
+}
+
 .comment-user {
     font-weight: bolder;
     color: #7F5539;
@@ -5,28 +78,8 @@
     margin-bottom:1rem;
 }
 
-.newcomment-container {
-    display: grid;
-    grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
-    margin-left: 2rem;
-}
-
 #comment-text {
-    grid-column: 1 / span 2;
     margin: 0px;
-    margin-right: 2em;
-}
-
-.comment-location {
-    grid-column: 3;
-}
-
-#comment-location-city {
-    margin: 0px;
-}
-
-#floatingTextarea2 {
-    min-height: 200px
 }
 
 .img-container {
@@ -38,7 +91,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 2rem;
 }
 
 .image-upload-button {
@@ -51,14 +103,6 @@
     border-radius: 10px;
 }
 
-.comment-commands {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    grid-column: 5;
-    margin-left: 2em;
-}
-
 .comment-commands button {
     border: none;
     background-color: #b08968;
@@ -69,22 +113,17 @@
     color: white;
 }
 
-#comment-cancel-button {
-    margin-top: 20px;
-}
-
 .comment-commands button:hover {
     opacity: 0.8;
 }
 
 #trashcan {
-    top: 45%;
+    top: 50%;
     left: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
     font-size: 25px;
     color: white;
-    opacity: 0;
 }
 
 #trashcan:hover {

@@ -56,11 +56,25 @@ function ListGroup(props) {
             petAge = "";
         }
 
+        var date = "";
+        if (data.get('date') != "") {
+            date = data.get('date').split('-');
+            var day = date[2];
+            var month = date[1];
+            if (day[0] == 0) {
+                day = day[1];
+            } 
+            if (month[0] == 0) {
+                month = month[1]
+            }
+            date = day + "-" + month + "-" + date[0] + "T00:00";
+        }
+
         const submission = {
             "Data": [{
                 "species": data.get('pet-species'),
                 "namePet": data.get('pet-name'),
-                "dateHourMis": data.get('date'),
+                "dateHourMis": date,
                 "location": data.get('location-city'),
                 "color": colorString,
                 "age": petAge,
@@ -96,7 +110,7 @@ function ListGroup(props) {
         </div>
         <div className="date-time-input">
           <label>
-            Datum nestanka:
+            Datum:
                       <input
                           type="date"
                           className="datetime-input"

@@ -47,7 +47,7 @@ export const EditAd = () => {
     ];
 
     const age = [
-        "< 1 god.",
+        "<1 god.",
         "1 god.",
         "2 god.",
         "3 god.",
