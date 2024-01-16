@@ -69,6 +69,8 @@ function NewComment(props) {
                 "lon": lng,
             }]
         }
+
+        console.log(submission);
        
         
         fetch(`main/post_comment`, {

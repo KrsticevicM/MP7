@@ -86,8 +86,10 @@ function Ad_detail() {
             }).then(() => fetch('main/comment_data?adID=' + params.id)).then(res => {
                 return res.json();
             }).then(data => {
+                console.log(data.Data);
                 if (data.Data.length != 0) {
-                    asyncSet(data.Data);
+                    setComments(data.Data);
+                    setPending(false);
                 } else {
                     setPending(false);
                 }
@@ -95,49 +97,6 @@ function Ad_detail() {
             })
     }, []);
 
-    async function asyncSet(data) {
-        const result = await fetchCords(data);
-        setComments([...result]);
-    }
-
-    async function fetchCords(data) {
-        let locationsComment = [];
-
-        const promises = data.map(async (comment) => {
-            try {
-                const url = `https://nominatim.openstreetmap.org/search?city='${comment.locCom}'&format=json&limit=1`;
-                const response = await fetch(url, {
-                    method: "GET",
-                    mode: "cors",
-                });
-                if (response.ok) {
-                    const data = await response.json();
-
-                    const locationsObject = {
-                        adID: comment.adID,
-                        email: comment.email,
-                        locCom: comment.locCom,
-                        phoneNum: comment.phoneNum,
-                        photoCom: comment.photoCom,
-                        textCom: comment.textCom,
-                        userName: comment.userName,
-                        latitude: data[0].lat,
-                        longitude: data[0].lon,
-                    };
-
-                    locationsComment.push(locationsObject);
-                } else {
-                    throw new Error("Network response was not ok");
-                }
-            } catch (error) {
-                console.error("Error fetching data:", error);
-                alert("Please check your input");
-            }
-        });
-        await Promise.all(promises);
-        setPending(false);
-        return locationsComment;
-    }
 
     function changeCommentState() {
         setAddButton(true);
@@ -237,9 +196,8 @@ function Ad_detail() {
                             photoCom={comment.photoCom}
                             phoneNum={comment.phoneNum}
                             email={comment.email}
-                            lat={comment.latitude}
-                            lon={comment.longitude}
-                            locName={comment.locCom}
+                            lat={comment.latCom}
+                            lon={comment.lonCom}
                             key={keyCounter + 1}
                         />
                     ))}

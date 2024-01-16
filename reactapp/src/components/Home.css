@@ -46,8 +46,7 @@
 
     .ads-container2 {
         display: flex;
-        flex-wrap: wrap;
-        align-items: center;
+        flex-wrap: wrap;    
         background-color: white;
         padding: 0px;
     }

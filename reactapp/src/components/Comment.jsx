@@ -11,7 +11,7 @@ function Comment(props) {
                     <img className="comment-image" src={"data:image/png;base64," + props.photoCom} />
                 </div>
                 <div className="comment-location-div">
-                    <Map latitude={props.lat} longitude={props.lon} display_name={props.locName} />
+                    <Map latitude={props.lat} longitude={props.lon} display_name="" />
                 </div>
                 <div className="comment-info-div">
                     <p className="user-info">Komentar:</p>
