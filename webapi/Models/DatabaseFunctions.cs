@@ -589,8 +589,8 @@ namespace MP7_progi.Models
 
             string photoCom = data.Data[0].photoCom;
             string textCom = data.Data[0].textCom;
-            string latCom = data.Data[0].latCom;
-            string lonCom = data.Data[0].lonCom;
+            string latCom = data.Data[0].lat;
+            string lonCom = data.Data[0].lon;
             int adID = data.Data[0].adID;
             int userID = data.Data[0].userID;
 
@@ -648,10 +648,10 @@ namespace MP7_progi.Models
                 namePet = "'" + namePet + "'";
 
             string dateHourMis = data.Data[0].dateHourMis;
-            if (dateHourMis != "") { 
-                dateHourMis = dateHourMis.Split('T')[0];
-                dateHourMis = "'" + dateHourMis + "'";
-            }
+            dateHourMis = dateHourMis.Replace('-', '.');
+            dateHourMis += '.';
+            if (dateHourMis != "") 
+                dateHourMis = "'" + dateHourMis + "'";           
 
             string location = data.Data[0].location;
             if(location != "")

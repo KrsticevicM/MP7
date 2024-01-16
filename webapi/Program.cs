@@ -8,11 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 //DatabaseFunctions.InitializeDB();
 
 //Database tester - perform basic tests on tables
-string adTestData = "{\"Data\":[{\"species\":\"Pas\",\"namePet\":\"Marli\",\"dateHourMis\":\"\",\"location\":\"\",\"color\":\"\",\"age\":\"\"}]}";
+string adTestData = "{\"Data\":[{\"species\":\"Pas\",\"namePet\":\"Marli\",\"dateHourMis\":\"01-01-2024\",\"location\":\"\",\"color\":\"\",\"age\":\"\"}]}";
 
 string CommentTestData = "{\"Data\":[{\"userID\":\"18\",\"adID\":\"24\",\"photoCom\":\"\",\"textCom\":\"resii\",\"locCom\":\"Zadar\"}]}";
 
-//Console.WriteLine(DatabaseFunctions.searchAd(adTestData));
+Console.WriteLine(DatabaseFunctions.searchAd(adTestData));
 
 //Console.WriteLine(DatabaseFunctions.postComment(CommentTestData));
 
