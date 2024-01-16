@@ -7,7 +7,8 @@
             textID,
             photoCom,
             textCom,
-            locCom,
+            latCom,
+            lonCom,
             adID,
             userID
         }
@@ -16,7 +17,8 @@
             {"textID", "int"},
             {"photoCom", "string"},
             {"textCom", "string"},
-            {"locCom", "string"},
+            {"latCom", "string"},
+            {"lonCom", "string"},
             {"adID", "int"},
             {"userID", "int"}
         };
@@ -24,7 +26,8 @@
         public int textID { get; set; }
         public string? photoCom{ get; set; }
         public string? textCom { get; set; }
-        public string? locCom { get; set; }
+        public string? latCom { get; set; }
+        public string? lonCom { get; set; }
         public int adID { get; set; }
         public int userID { get; set; }
         public Comment() { }

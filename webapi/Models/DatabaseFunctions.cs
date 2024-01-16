@@ -589,7 +589,8 @@ namespace MP7_progi.Models
 
             string photoCom = data.Data[0].photoCom;
             string textCom = data.Data[0].textCom;
-            string locCom = data.Data[0].locCom;
+            string latCom = data.Data[0].latCom;
+            string lonCom = data.Data[0].lonCom;
             int adID = data.Data[0].adID;
             int userID = data.Data[0].userID;
 
@@ -599,7 +600,8 @@ namespace MP7_progi.Models
             newRow.Add(newTextId);
             newRow.Add(photoCom);
             newRow.Add(textCom);
-            newRow.Add(locCom);
+            newRow.Add(latCom);
+            newRow.Add(lonCom);
             newRow.Add(adID);
             newRow.Add(userID);
 
@@ -618,7 +620,7 @@ namespace MP7_progi.Models
             
 
 
-            return "resi";
+            return "";
         }
         /*
 
