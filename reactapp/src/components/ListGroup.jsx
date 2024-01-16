@@ -12,7 +12,6 @@ function ListGroup(props) {
     "Ptica",
     "Glodavac",
     "Kunić",
-    "Gmaz",
     "Ostalo",
   ];
 
@@ -61,7 +60,7 @@ function ListGroup(props) {
             "Data": [{
                 "species": data.get('pet-species'),
                 "namePet": data.get('pet-name'),
-                "dateHourMis": data.get('date-time'),
+                "dateHourMis": data.get('date'),
                 "location": data.get('location-city'),
                 "color": colorString,
                 "age": petAge,
@@ -97,12 +96,13 @@ function ListGroup(props) {
         </div>
         <div className="date-time-input">
           <label>
-            Datum i vrijeme nestanka:
-            <input
-              className="datetime-input"
-              type="datetime-local"
-              name="date-time"
-            />
+            Datum nestanka:
+                      <input
+                          type="date"
+                          className="datetime-input"
+                          id="datum-nestanka"
+                          name='date'
+                      ></input>
           </label>
         </div>
         <div className="form-floating mb-3">

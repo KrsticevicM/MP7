@@ -1,5 +1,5 @@
 import "./MyAd_card.css";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 function MyAd_card(props) {
 
@@ -17,6 +17,11 @@ function MyAd_card(props) {
                 }
             }) 
     };
+
+    function handleEdit() {
+        console.log("HandleEdit");
+        navigate('updateAd', {state: props.data})
+    }
     
 
   return (
@@ -39,11 +44,11 @@ function MyAd_card(props) {
           {props.kategorija}
         </p>
       </div>
-      <div className="myad-commands">
-        <button>
+          <div className="myad-commands">
+              <button onClick={handleEdit }>
           <i className="bi bi-pencil-fill" title="Uredi oglas"></i>
         </button>
-              <button onClick={event => handleDelete(event, props.adID)}>
+        <button onClick={event => handleDelete(event, props.adID)}>
           <i className="bi bi-trash3-fill" title="Obriši oglas"></i>
         </button>
       </div>

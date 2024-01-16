@@ -12,6 +12,7 @@ import { AuthContext } from './components/AuthenticationContext'
 import { useState } from 'react'
 import MyAds from './components/MyAds'
 import { NewAd } from './components/CreateAd'
+import {EditAd } from './components/EditAd'
 import ShelterDetail, { DetailLoader } from './components/ShelterDetail'
 
 
@@ -32,7 +33,9 @@ const router=createBrowserRouter(
 
             <Route path="/moji-oglasi" element={<MyAds />}/>
 
-            <Route path="newAd" element={<NewAd/>} />
+            <Route path="newAd" element={<NewAd />} />
+
+            <Route path="/moji-oglasi/updateAd" element={<EditAd />} />
 
             <Route path='registration' element={<Registration/>}/>
 

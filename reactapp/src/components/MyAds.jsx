@@ -16,11 +16,41 @@ function MyAds() {
                 return res.json();
             })
             .then(data => {
+                const colors_arr = [];
+                var colors_ad = [];
+                var current_id = data.Data[0].adID;
                 const update_ads = [];
-                const ad_ids = []
+                const ad_ids = [];
+                const images_arr = [];
+                var images_ad = [];
                 data.Data.map((ad) => {
-                    if (!(ad_ids.includes(ad.adID)) && (user.userID == ad.userID) && ad.catAd=='u potrazi') { 
-                        update_ads.push(ad);
+                    if (current_id != ad.adID) {
+                        var obj = { key: "", value: "" };
+                        var obj2 = { key: "", value: "" };
+                        obj.key = current_id;
+                        obj.value = colors_ad;
+                        obj2.key = current_id;
+                        obj2.value = images_ad;
+                        colors_arr.push(obj);
+                        images_arr.push(obj2);
+                        colors_ad = [];
+                        images_ad = [];
+                        current_id = ad.adID;
+                    }
+                    if (!colors_ad.includes(ad.color)) {
+                        colors_ad.push(ad.color);
+                    }
+                    if (!images_ad.includes(ad.photo)) {
+                        images_ad.push(ad.photo);
+                    }
+                })
+                colors_arr.push(colors_ad);
+                data.Data.map((ad) => {
+                    if (!(ad_ids.includes(ad.adID)) && (user.userID == ad.userID) && (ad.catAd == 'u potrazi' || ad.catAd.substr(0, 8) == 'u skloni')) { 
+                        var newElem = ad;
+                        newElem['color_list'] = colors_arr.filter((item) => item.key == ad.adID)[0].value;
+                        newElem['photo_list'] = images_arr.filter((item) => item.key == ad.adID)[0].value;
+                        update_ads.push(newElem);
                         ad_ids.push(ad.adID);
                     }
                 })
@@ -30,6 +60,7 @@ function MyAds() {
                     setAds(update_ads);
                 }
                 setPending(false);
+                console.log(update_ads);
             })
     }, []);
 
@@ -46,7 +77,8 @@ function MyAds() {
               datehour={ad.dateHourMis}
               age={ad.age}
               kategorija={ad.catAd}
-              adID={ad.adID }
+              adID={ad.adID}
+              data={ad }
         />
       ))}
       <Link to="/newAd">
