@@ -10,6 +10,7 @@
     align-items: center;
     align-content: center;
     justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
 }
 .registration-details{
     display: grid;

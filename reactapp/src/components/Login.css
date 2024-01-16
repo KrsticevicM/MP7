@@ -22,6 +22,7 @@
 }
 
 .login-container{
+    font-family: Arial, Helvetica, sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,6 +32,7 @@
     text-align: center;
     margin-bottom: 10%;
     color: aliceblue;
+    
 }
 #btn{
     color: white;
