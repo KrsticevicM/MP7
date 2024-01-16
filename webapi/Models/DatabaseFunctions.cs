@@ -651,8 +651,9 @@ namespace MP7_progi.Models
 
             if (dateHourMis != "")
             {
+                dateHourMis = dateHourMis.Split('T')[0];
                 dateHourMis = dateHourMis.Replace('-', '.');
-                dateHourMis += '.';
+                dateHourMis += ".%";              
                 dateHourMis = "'" + dateHourMis + "'";
             }
                           
@@ -690,8 +691,8 @@ namespace MP7_progi.Models
             if (dateHourMis != "")
             {
                 where.addElement(null, Expression.OP.AND);
-                where.addElement("dateHourMis", Expression.OP.EQUAL);
-                where.addElement(dateHourMis, Expression.OP.None);
+                where.addElement("dateHourMis", Expression.OP.None);
+                where.addElement("LIKE " + dateHourMis, Expression.OP.None);
 
             }
 
