@@ -12,6 +12,7 @@ function ListGroup(props) {
     "Ptica",
     "Glodavac",
     "Kunić",
+    "Gmaz",
     "Ostalo",
   ];
 
@@ -110,7 +111,7 @@ function ListGroup(props) {
         </div>
         <div className="date-time-input">
           <label>
-            Datum:
+            Datum nestanka:
                       <input
                           type="date"
                           className="datetime-input"
