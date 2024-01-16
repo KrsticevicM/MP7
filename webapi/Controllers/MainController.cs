@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MP7_progi.Models;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 using System.Linq.Expressions;
 using Expression = MP7_progi.Models.Expression;
 
@@ -167,7 +168,150 @@ public class MainController : ControllerBase
 
     [HttpPost(Name = "PostAd")]
     [Route("postAd")]
-    public int PostAd([FromBody] string insertJSON)
+    public string postAd([FromBody] string insertJSON)
+    {
+        //Parsing json data
+        dynamic data = JObject.Parse(insertJSON);
+        Console.WriteLine(data);
+
+        string catAd = data.Data[0].catAd;
+        int userID = data.Data[0].userID;
+        string location = data.Data[0].location;
+        string dateString = data.Data[0].dateHourMis;
+        DateTime dateHourMis = DateTime.ParseExact(dateString, "dd.MM.yyyy. HH:mm", CultureInfo.InvariantCulture);
+
+        string lat = data.Data[0].lat;
+        string lon = data.Data[0].lon;
+
+
+        string namePet = data.Data[0].namePet;
+        string species = data.Data[0].species;
+        string age = data.Data[0].age;
+        string description = data.Data[0].description;
+
+
+        string colors = data.Data[0].color;
+        string[] colorList = colors.Split(',');
+
+
+        string images = data.Data[0].img;
+        string[] imagesList = images.Split(',');
+
+
+        //dodajemo oglas u bazu
+        List<Object> newAdRow = new List<Object>();
+        int newAdId = DatabaseFunctions.getNextAvailableID(new Ad());
+
+        newAdRow.Add(newAdId);
+        newAdRow.Add(catAd);
+        newAdRow.Add(userID);
+        newAdRow.Add(location);
+        newAdRow.Add(dateHourMis);
+        newAdRow.Add(lat);
+        newAdRow.Add(lon);
+
+        int code;
+        try
+        {
+            code = DatabaseFunctions.insert(new Ad(), newAdRow);
+
+        }
+        catch (Exception e)
+        {
+            // Handle the exception
+            Console.WriteLine("Error during insert operation: " + e.Message);
+
+        }
+
+        //dodajemo ljubimca u bazu
+
+        List<Object> newPetRow = new List<Object>();
+        int newPetId = DatabaseFunctions.getNextAvailableID(new Pet());
+
+        newPetRow.Add(newPetId);
+        newPetRow.Add(namePet);
+        newPetRow.Add(species);
+        newPetRow.Add(age);
+        newPetRow.Add(description);
+        newPetRow.Add(newAdId);
+
+        int code1;
+        try
+        {
+            code1 = DatabaseFunctions.insert(new Pet(), newPetRow);
+
+        }
+        catch (Exception e)
+        {
+            // Handle the exception
+            Console.WriteLine("Error during insert operation: " + e.Message);
+
+        }
+        
+        //dodavanje boje
+        foreach (string color in colorList)
+        {
+            Console.WriteLine(color);
+            List<Object> newhasRow = new List<Object>();
+
+            Dictionary<string, List<Object>> res = new Dictionary<string, List<Object>>();
+            Expression where = new Expression();
+            where.addElement("color", Expression.OP.EQUAL);
+            string c = "'" + color + "'";
+            where.addElement(c, Expression.OP.None);
+
+            res = DatabaseFunctions.read(new ColorPet(), null, null, where);
+            string resJSON = DatabaseFunctions.ConvertDictionaryToJson(res);
+
+            dynamic colorPetData = JObject.Parse(resJSON);
+            int colorID = colorPetData.Data[0].colorID;
+
+            newhasRow.Add(newPetId);
+            newhasRow.Add(colorID);
+
+            int code2;
+            try
+            {
+                code2 = DatabaseFunctions.insert(new hasColor(), newhasRow);
+
+            }
+            catch (Exception e)
+            {
+                // Handle the exception
+                Console.WriteLine("Error during insert operation: " + e.Message);
+
+            }
+        }
+
+        //dodavanje slika
+        foreach (string img in imagesList)
+        {
+            List<Object> newPhotoRow = new List<Object>();
+            int newPhotoId = DatabaseFunctions.getNextAvailableID(new photoAd());
+
+            newPhotoRow.Add(newPhotoId);
+            newPhotoRow.Add(img);
+            newPhotoRow.Add(newAdId);
+ 
+            int code3;
+            try
+            {
+                code3 = DatabaseFunctions.insert(new photoAd(), newPhotoRow);
+
+            }
+            catch (Exception e)
+            {
+                // Handle the exception
+                Console.WriteLine("Error during insert operation: " + e.Message);
+
+            }
+        }
+
+
+
+        return "";
+    }
+    public int PostAd1([FromBody] string insertJSON)
     {
         /* Convert the received JSON string to a specified format dictionary */
         Dictionary<string, List<Object>> insertDictionary;

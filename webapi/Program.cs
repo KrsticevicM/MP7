@@ -1,5 +1,6 @@
 using MP7_progi.Models;
 using System.Collections;
+using System.Drawing;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +13,7 @@ string adTestData = "{\"Data\":[{\"species\":\"Pas\",\"namePet\":\"Marli\",\"dat
 
 string CommentTestData = "{\"Data\":[{\"userID\":\"18\",\"adID\":\"24\",\"photoCom\":\"\",\"textCom\":\"resii\",\"locCom\":\"Zadar\"}]}";
 
-Console.WriteLine(DatabaseFunctions.searchAd(adTestData));
+//Console.WriteLine(DatabaseFunctions.searchAd(adTestData));
 
 //Console.WriteLine(DatabaseFunctions.postComment(CommentTestData));
 
