@@ -35,7 +35,7 @@ const router=createBrowserRouter(
 
             <Route path="newAd" element={<NewAd />} />
 
-            <Route path="/moji-oglasi/updateAd" element={<EditAd />} />
+            <Route path="/updateAd" element={<EditAd />} />
 
             <Route path='registration' element={<Registration/>}/>
 

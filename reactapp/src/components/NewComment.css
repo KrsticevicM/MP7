@@ -26,7 +26,7 @@
 }
 
 #floatingTextarea2 {
-    min-height: 133px
+    min-height: 200px
 }
 
 .img-container {
@@ -36,6 +36,7 @@
 .comment-image-upload {
     grid-column: 4;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     margin-left: 2rem;
 }
@@ -53,6 +54,7 @@
 .comment-commands {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     grid-column: 5;
     margin-left: 2em;
 }

@@ -2,6 +2,8 @@ import './NewComment.css'
 import { useState, useContext } from 'react'
 import { Form, useNavigate, useParams } from 'react-router-dom'
 import { AuthContext } from "./AuthenticationContext";
+import { MapContainer, useMapEvents } from 'react-leaflet';
+import AddMarkerToClick from './AddMarkerToClick.jsx';
 
 
 function NewComment(props) {
@@ -14,6 +16,8 @@ function NewComment(props) {
     const [preview, setPreview] = useState()
     const [file, setFile] = useState()
     const [error, setError] = useState("")
+    const [lat, setLat] = useState();
+    const [lng, setLng] = useState();
 
     function handleChange(e) {
         setFile(e.target.files[0]);
@@ -23,6 +27,11 @@ function NewComment(props) {
     function removeImage() {
         setPreview();
         setFile();
+    }
+
+    const getLatLng = (data) => {
+        setLat(data.lat)
+        setLng(data.lng)
     }
 
     const getBase64 = (file) => {
@@ -56,7 +65,8 @@ function NewComment(props) {
                 "adID": params.id,
                 "photoCom": images2,
                 "textCom": data.get('comment-text'),
-                "locCom": data.get('location-city')
+                "lat": lat,
+                "lon": lng,
             }]
         }
        
@@ -84,26 +94,12 @@ function NewComment(props) {
                     <label htmlFor="commment-text">Novi komentar</label>
                 </div>
                 <div className="comment-location">
-                <div className="form-floating mb-3" id="comment-location-city">
-                    <input
-                        type="name"
-                        className="form-control"
-                        id="location-city-comment"
-                        name="location-city"
-                        placeholder="Grad nestanka"
-                    />
-                    <label htmlFor="comment-location-city">Grad nestanka</label>
-                </div>
-                <div className="form-floating mb-3" id="comment-location-street">
-                    <input
-                        type="name"
-                        className="form-control"
-                        id="location-street-comment"
-                        name="location-street"
-                        placeholder="Ulica nestanka"
-                    />
-                    <label htmlFor="comment-location-street">Ulica nestanka</label>
-                    </div>
+                
+                        <div className="map-container">
+                            <MapContainer center={[44.515399, 16]} zoom={5.4} scrollWheelZoom={true} > {/* omit onClick */}
+                                <AddMarkerToClick onClick={getLatLng} />
+                            </MapContainer>
+                        </div>
                 </div>
                 <div className="comment-image-upload">
                     {!preview && <input type="file" name="myImage" className="image-upload-button" onChange={handleChange} />}

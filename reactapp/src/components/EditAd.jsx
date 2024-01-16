@@ -130,6 +130,8 @@ export const EditAd = () => {
         }
         document.getElementsByName("vrijeme")[0].value = timeString;
 
+        document.getElementsByName("opis")[0].value = state.description;
+
         const filesBlob = [];
         if (!files) {
             state.photo_list.map(photo => {
@@ -177,7 +179,7 @@ export const EditAd = () => {
 
 
 
-    const createAdSubmit = async (event) => {
+    const createAdUpdate = async (event) => {
         event.preventDefault()
         //getting form data and turning it into object
         const data = new FormData(event.target)
@@ -192,7 +194,7 @@ export const EditAd = () => {
             return
         }
 
-        if (!lat && !lng) {
+        if (lat == undefined) {
             setLat(state.lat);
             setLng(state.lon);
         }
@@ -231,6 +233,8 @@ export const EditAd = () => {
 
         const submission = {
             "Data": [{
+                "adID": state.adID,
+                "petID": state.petID,
                 "namePet": data.get('ime'),
                 "species": data.get('vrsta'),
                 "color": boje,
@@ -246,7 +250,7 @@ export const EditAd = () => {
             }]
         }
         console.log(submission)
-        fetch(`main/postAd`, {
+        fetch("main/modifyAd", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(JSON.stringify(submission))
@@ -264,7 +268,7 @@ export const EditAd = () => {
 
         <div className='createAd-container'>
             <h1 className='createAd-headline'>Uredi Oglas</h1>
-            <Form className='createAd-window' onSubmit={createAdSubmit}>
+            <Form className='createAd-window' onSubmit={createAdUpdate}>
                 <div className="form-group">
                     <label htmlFor="img">Slika</label>
                     <input
@@ -437,7 +441,7 @@ export const EditAd = () => {
                         required></textarea>
                 </div>
                 <div className="text-center">
-                    <button className='btn btn-primary'>Spremi</button>
+                    <button className='btn btn-primary' type="submit">Spremi</button>
                 </div>
 
                 {error.length != 0 && <div className='form-group'>

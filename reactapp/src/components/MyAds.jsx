@@ -23,6 +23,7 @@ function MyAds() {
                 const ad_ids = [];
                 const images_arr = [];
                 var images_ad = [];
+                console.log(data.Data);    
                 data.Data.map((ad) => {
                     if (current_id != ad.adID) {
                         var obj = { key: "", value: "" };
@@ -46,7 +47,8 @@ function MyAds() {
                 })
                 colors_arr.push(colors_ad);
                 data.Data.map((ad) => {
-                    if (!(ad_ids.includes(ad.adID)) && (user.userID == ad.userID) && (ad.catAd == 'u potrazi' || ad.catAd.substr(0, 8) == 'u skloni')) { 
+                    if (!(ad_ids.includes(ad.adID)) && (user.userID == ad.userID) && (ad.catAd == 'u potrazi' || ad.catAd.substr(0, 8) == 'u skloni'
+                    || ad.catAd.substr(0,6) == 'sretno' || ad.cat.Ad.substr(0,5) == "prona")) { 
                         var newElem = ad;
                         newElem['color_list'] = colors_arr.filter((item) => item.key == ad.adID)[0].value;
                         newElem['photo_list'] = images_arr.filter((item) => item.key == ad.adID)[0].value;

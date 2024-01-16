@@ -20,7 +20,7 @@ function MyAd_card(props) {
 
     function handleEdit() {
         console.log("HandleEdit");
-        navigate('updateAd', {state: props.data})
+        navigate('/updateAd', {state: props.data})
     }
     
 
