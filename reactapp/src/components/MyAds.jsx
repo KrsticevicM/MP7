@@ -24,7 +24,7 @@ function MyAds() {
                 const images_arr = [];
                 var images_ad = [];
                 data.Data.map((ad, index) => {
-                    if (current_id != ad.adID || index === data.Data.length - 1) {
+                    if (current_id != ad.adID) {
                         var obj = { key: "", value: "" };
                         var obj2 = { key: "", value: "" };
                         obj.key = current_id;
@@ -43,8 +43,17 @@ function MyAds() {
                     if (!images_ad.includes(ad.photo)) {
                         images_ad.push(ad.photo);
                     }
+                    if (index === data.Data.length - 1) {
+                        var objLast = { key: "", value: "" };
+                        var objLast2 = { key: "", value: "" };
+                        objLast.key = current_id;
+                        objLast.value = colors_ad;
+                        objLast2.key = current_id;
+                        objLast2.value = images_ad;
+                        colors_arr.push(objLast);
+                        images_arr.push(objLast2);
+                    }
                 })
-
                 data.Data.map((ad) => {
                     if (!(ad_ids.includes(ad.adID)) && (user.userID == ad.userID) && (ad.catAd != 'obrisano')) { 
                         var newElem = ad;
