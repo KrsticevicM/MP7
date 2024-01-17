@@ -52,6 +52,10 @@ public class MainController : ControllerBase
             Console.WriteLine(ex.ToString());
             return "";
         }
+        if (userID == "")
+        {
+            return "Wrong password or username entered";
+        }
 
         where.addElement((Object)"userID", Expression.OP.EQUAL);
         where.addElement((Object)userID, Expression.OP.None);
