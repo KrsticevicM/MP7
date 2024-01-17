@@ -22,11 +22,15 @@ function MyAd_card(props) {
         console.log("HandleEdit");
         navigate('/updateAd', {state: props.data})
     }
+
+    function handleClick() {
+        navigate('/'+props.adID);
+    }
     
 
   return (
-    <div className="myad-card-container">
-      <div className="myad-img">
+      <div className="myad-card-container">
+          <div className="myad-img" onClick={handleClick }>
               <img src={"data:image/png;base64,"+props.image} />
       </div>
       <div className="myad-info">

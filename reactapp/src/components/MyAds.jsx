@@ -69,7 +69,7 @@ function MyAds() {
           {isPending && <p className="loading">Loading...</p> }
           {(!ads && !isPending) && <h1>Nemate postavljenih oglasa</h1> }
       {ads && ads.map((ad) => (
-        <MyAd_card
+          <MyAd_card
               key={ad.adID}
               image={ad.photo}
               petname={ad.namePet}
