@@ -125,9 +125,10 @@ export const EditAd = () => {
         setMapData(mapDataSet);
 
         var timeString = state.dateHourMis.split(' ')[1]
-        if (timeString.length == 4 && timeString[0] != "0") {
+        if (timeString.length == 7 && timeString[0] != "0") {
             timeString = "0" + timeString;
         }
+        
         document.getElementsByName("vrijeme")[0].value = timeString;
 
         document.getElementsByName("opis")[0].value = state.description;
