@@ -3,7 +3,7 @@ import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaf
 
 function AddMarkerToClick(props) {
 
-  const [marker, setMarker] = useState({lat:33,lng:33});
+  const [marker, setMarker] = useState({lat:null,lng:null});
 
   const map = useMapEvents({
     click(e) {
@@ -19,9 +19,10 @@ function AddMarkerToClick(props) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
+        {marker.lat && marker.lng &&
         <Marker position={marker}>
-            <Popup>Marker is at</Popup>
-        </Marker>
+            <Popup>Mjesto nestanka</Popup>
+        </Marker>}
       
     </>
   )

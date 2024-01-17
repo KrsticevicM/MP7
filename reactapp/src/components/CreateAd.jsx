@@ -108,10 +108,14 @@ export const NewAd = () => {
       setError("Stavite barem jednu sliku")
       return
     }
-    if(files.length>3){
+    else if(files.length>3){
       setError("Maksimalno 3 slike su dopuštene")
       return
+    }else if(lat==null || lng==null){
+      setError("Unesite lokaciju na karti")
+      return
     }
+
     
 
     const base64=await getBase64(files[0]) // `file` your img file
@@ -144,6 +148,11 @@ export const NewAd = () => {
     const boje=boja.filter(boja=>{
       return boja!=null
     }).join(",")
+
+    if(boje==""){
+      setError("Odaberite barem jednu boju ljubimca")
+      return
+    }
 
 
     const submission={
