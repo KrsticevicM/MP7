@@ -74,11 +74,13 @@ public class MainController : ControllerBase
 
     [HttpGet(Name = "Auth")]
     [Route("auth")]
-    public string Authentication([FromQuery] int id)
+    public string Authentication([FromQuery] string userID)
     {
         Dictionary<string, List<Object>> result = new Dictionary<string, List<Object>>();
         Expression where = new Expression();
 
+        dynamic data = JObject.Parse(userID);
+        string id = data.userID;
         where.addElement((Object)"userID", Expression.OP.EQUAL);
         where.addElement((Object)id, Expression.OP.None);
         result = DatabaseFunctions.read(new User(), new List<Table> { new Regular() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural}, where);
