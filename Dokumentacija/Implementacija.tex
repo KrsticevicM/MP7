@@ -32,14 +32,139 @@
 			
 			\subsection{Ispitivanje sustava}
 			
-			 \textit{Potrebno je provesti i opisati ispitivanje sustava koristeći radni okvir Selenium\footnote{\url{https://www.seleniumhq.org/}}. Razraditi \textbf{minimalno 4 ispitna slučaja} u kojima će se ispitati redovni slučajevi, rubni uvjeti te poziv funkcionalnosti koja nije implementirana/izaziva pogrešku kako bi se vidjelo na koji način sustav reagira kada nešto nije u potpunosti ostvareno. Ispitni slučaj se treba sastojati od ulaza (npr. korisničko ime i lozinka), očekivanog izlaza ili rezultata, koraka ispitivanja i dobivenog izlaza ili rezultata.\\ }
+			 %\textit{Potrebno je provesti i opisati ispitivanje sustava koristeći radni okvir Selenium\footnote{\url{https://www.seleniumhq.org/}}. Razraditi \textbf{minimalno 4 ispitna slučaja} u kojima će se ispitati redovni slučajevi, rubni uvjeti te poziv funkcionalnosti koja nije implementirana/izaziva pogrešku kako bi se vidjelo na koji način sustav reagira kada nešto nije u potpunosti ostvareno. Ispitni slučaj se treba sastojati od ulaza (npr. korisničko ime i lozinka), očekivanog izlaza ili rezultata, koraka ispitivanja i dobivenog izlaza ili rezultata.\\ }
 			 
-			 \textit{Izradu ispitnih slučajeva pomoću radnog okvira Selenium moguće je provesti pomoću jednog od sljedeća dva alata:}
-			 \begin{itemize}
-			 	\item \textit{dodatak za preglednik \textbf{Selenium IDE} - snimanje korisnikovih akcija radi automatskog ponavljanja ispita	}
-			 	\item \textit{\textbf{Selenium WebDriver} - podrška za pisanje ispita u jezicima Java, C\#, PHP koristeći posebno programsko sučelje.}
-			 \end{itemize}
-		 	\textit{Detalji o korištenju alata Selenium bit će prikazani na posebnom predavanju tijekom semestra.}
+			 %\textit{Izradu ispitnih slučajeva pomoću radnog okvira Selenium moguće je provesti pomoću jednog od sljedeća dva alata:}
+			 %\begin{itemize}
+			 	%\item \textit{dodatak za preglednik \textbf{Selenium IDE} - snimanje korisnikovih akcija radi automatskog ponavljanja ispita	}
+			 	%\item \textit{\textbf{Selenium WebDriver} - podrška za pisanje ispita u jezicima Java, C\#, PHP koristeći posebno programsko sučelje.}
+			 %\end{itemize}
+		 	%\textit{Detalji o korištenju alata Selenium bit će prikazani na posebnom predavanju tijekom semestra.}
+			
+			Ispitivanje sustava je proces ispitivanja završene i potpuno integrirane inačice programa namijenjene distribuciji korisniku.\\
+			
+			\noindent \underbar{\textbf{Ispitni slučaj 1.: Login}}\\
+			\textbf{Ulaz: }	
+				\begin{packed_enum}
+					\item Korisnik unosi ispravno korisničko ime i lozinku
+					\item Korisnik unosi neispravno korisničko ime i lozinku
+					
+				\end{packed_enum}
+				
+			\noindent \textbf{Očekivani rezultat:}
+				
+				\begin{packed_enum}
+					\item Sustav obavještava korisnika da je uneseno korisničko ime neispravno ili lozinka neispravna
+					\item Prikazuje se početna stranica
+					
+				\end{packed_enum}
+				
+			\noindent \textbf{Rezultat:}\\
+				Testovi su zadovoljeni, aplikacija je prošla test.\\
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{uspjesni_login.JPEG}
+					\centering
+					\caption{Ispravni login}
+					\label{fig:uspjesnilogin}
+				\end{figure}
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{krivi_login.JPEG}
+					\centering
+					\caption{Neispravni login}
+					\label{fig:neuspjesnilogin}
+				\end{figure}
+			
+			\noindent \underbar{\textbf{Ispitni slučaj 2.: Registracija}}\\
+			\textbf{Ulaz: }	
+			\begin{packed_enum}
+				\item Korisnik unosi ispravno sve podatke
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Očekivani rezultat:}
+			
+			\begin{packed_enum}
+				\item Sustav prikazuje stranicu za login
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Rezultat:}\\
+			Testovi su zadovoljeni, aplikacija je prošla test.\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{uspjesna_registracija.JPEG}
+				\centering
+				\caption{Uspješna registracija}
+				\label{fig:uspjesnaregistracija}
+			\end{figure}
+			
+			\noindent \underbar{\textbf{Ispitni slučaj 3.: Filtriranje oglasa}}\\
+			\textbf{Ulaz: }	
+			\begin{packed_enum}
+				\item Korisnik odabire kategorije po kojima želi filtrirati oglase
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Očekivani rezultat:}
+			
+			\begin{packed_enum}
+				\item Sustav prikazuje filtrirane oglase
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Rezultat:}\\
+			Testovi su zadovoljeni, aplikacija je prošla test.\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{uspjesan_filter.JPEG}
+				\centering
+				\caption{Uspješno filtriranje oglasa}
+				\label{fig:uspjesanfilter}
+			\end{figure}
+			
+			\noindent \underbar{\textbf{Ispitni slučaj 4.: Objavljivanje oglasa}}\\
+			\textbf{Ulaz: }	
+			\begin{packed_enum}
+				\item Korisnik unosi ispravno sve tražene podatke
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Očekivani rezultat:}
+			
+			\begin{packed_enum}
+				\item Sustav prikazuje listu s oglasima korisnika
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Rezultat:}\\
+			Testovi su zadovoljeni, aplikacija je prošla test.\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{uspjesno_objavljivanje_oglasa.JPEG}
+				\centering
+				\caption{Uspješno objavljivanje oglasa}
+				\label{fig:uspjesnoobjavljivanjeoglasa}
+			\end{figure}
+			
+			\noindent \underbar{\textbf{Ispitni slučaj 5.: Komentiranje oglasa}}\\
+			\textbf{Ulaz: }	
+			\begin{packed_enum}
+				\item Neregistrirani/neprijavljeni korisnik klikne na gumb "Dodaj komentar"
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Očekivani rezultat:}
+			
+			\begin{packed_enum}
+				\item Sustav ne dopušta korisniku da ostavi komentar
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Rezultat:}\\
+			Testovi su zadovoljeni, aplikacija je prošla test.\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{komentar_bez_prijave.JPEG}
+				\centering
+				\caption{Komentiranje oglasa bez prijave}
+				\label{fig:komentiranjeoglasabezprijave}
+			\end{figure}
 			
 			\eject 
 		
