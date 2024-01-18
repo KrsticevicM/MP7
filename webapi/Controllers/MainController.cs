@@ -184,14 +184,6 @@ public class MainController : ControllerBase
         string dateString = data.Data[0].dateHourMis;
 
         DateTime dateHourMis = DateTime.ParseExact(dateString, "dd.MM.yyyy. HH:mm", CultureInfo.InvariantCulture);
-        DateTime dateTimeWithoutSeconds = new DateTime(
-            dateHourMis.Year,
-            dateHourMis.Month,
-            dateHourMis.Day,
-            dateHourMis.Hour,
-            dateHourMis.Minute,
-            0 // Set seconds to 0
-        );
 
         string lat = data.Data[0].lat;
         string lon = data.Data[0].lon;
