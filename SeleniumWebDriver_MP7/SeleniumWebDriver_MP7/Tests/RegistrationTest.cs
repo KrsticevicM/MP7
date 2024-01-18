@@ -27,12 +27,12 @@ namespace SeleniumWebDriver_MP7.Tests
                 }
             }
         }
-        public static void performRegistration(IWebDriver driver)
+        public static void performRegistration(IWebDriver driver, string email, string phoneNum, string firstName, string lastName)
         {
 
             try
             {
-                
+
                 driver.Navigate().GoToUrl("https://localhost:5173/registration");
 
                 IWebElement usernameInput = driver.FindElement(By.Id("floatingInput"));
@@ -50,14 +50,14 @@ namespace SeleniumWebDriver_MP7.Tests
 
                 usernameInput.SendKeys("valentino_b");
                 passwordInput.SendKeys("blojskaRapsodija123");
-                emailInput.SendKeys("valentino.bosk@gmail.com");
-                phoneNumInput.SendKeys("0992168933");
+                emailInput.SendKeys(email);
+                phoneNumInput.SendKeys(phoneNum);
 
                 //ako zelimo sklonište - "Sklonište"
                 select.SelectByText("Korisnik");
 
-                firstNameInput.SendKeys("Valentino");
-                LastNameInput.SendKeys("Boskovic");
+                firstNameInput.SendKeys(firstName);
+                LastNameInput.SendKeys(lastName);
 
                 Thread.Sleep(5000);
 
@@ -87,7 +87,11 @@ namespace SeleniumWebDriver_MP7.Tests
         public void RegistrationTests()
         {
             IWebDriver driver = new ChromeDriver();
-            performRegistration(driver);
+            string email = "valentino.boskovic@gmail.com";
+            string phoneNum = "0992168933";
+            string firstName = "Valentino";
+            string lastName = "Boskovic";
+            performRegistration(driver, email, phoneNum, firstName, lastName);
             driver.Quit();
         }
 

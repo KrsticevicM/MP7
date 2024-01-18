@@ -27,8 +27,8 @@ namespace SeleniumWebDriver_MP7.Tests
                 }
             }
         }
-       
-        public static void AdTest(IWebDriver driver)
+
+        public static void AdTest(IWebDriver driver, Boolean insertImg, Boolean clickOnMap)
         {
             try
             {
@@ -64,7 +64,11 @@ namespace SeleniumWebDriver_MP7.Tests
                 IWebElement btnSubmit = driver.FindElement(By.Id("btn-createAd"));
 
                 string imgPath = @"C:\Users\Korisnik\Desktop\selenium\SeleniumWebDriver_MP7\SeleniumWebDriver_MP7\Tests\cat.jpeg";
-                fileInput.SendKeys(imgPath);
+                if (insertImg)
+                {
+                    fileInput.SendKeys(imgPath);
+                }
+
 
                 imeInput.SendKeys("Jura");
                 selectSpecie.SelectByText("Mačka");
@@ -78,8 +82,10 @@ namespace SeleniumWebDriver_MP7.Tests
 
                 descInput.SendKeys("jura juri");
 
-                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", element);
-                
+                if (clickOnMap)
+                {
+                    ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", element);
+                }
 
                 Thread.Sleep(5000);
 
@@ -114,7 +120,7 @@ namespace SeleniumWebDriver_MP7.Tests
         {
             IWebDriver driver = new ChromeDriver();
             LoginTest.performLogin(driver, "dusko", "miamia");
-            AdTest(driver);
+            AdTest(driver, true, true);
             driver.Quit();
         }
 
