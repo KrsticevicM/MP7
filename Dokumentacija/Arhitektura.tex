@@ -325,9 +325,11 @@
 			\eject
 		\section{Dijagram komponenti}
 		
-			\textbf{\textit{dio 2. revizije}}\\
+			%\textbf{\textit{dio 2. revizije}}\\
 		
-			 \textit{Potrebno je priložiti dijagram komponenti s pripadajućim opisom. Dijagram komponenti treba prikazivati strukturu cijele aplikacije.}
+			 %\textit{Potrebno je priložiti dijagram komponenti s pripadajućim opisom. Dijagram komponenti treba prikazivati strukturu cijele aplikacije.}
+			 
+			 Pristup sustavu ostvaruje se putem dva različita sučelja. Sučelje za dohvat front-end datoteka služi za obradu datoteka koju pripadaju front-end dijelu aplikacije. Router je komponenta koja na upit s URL-a određuje koja datoteka će se poslužiti na cilju. Frontend dio sastoji se od niza HTML, CSS i JavaScript datoteka. Sve front-end datoteke ovise o React biblioteci, iz koje dohvaćaju gotove komponente kao što su gumbi, forme i slično. Cilj za dohvat JSON podataka pristupa REST API komponenti, koja poslužuje podatke pripadajuće back-end dijelu aplikacije. Podaci se dohvaćaju iz baze podataka pomoću SQL upita. Podaci iz baze šalju se dalje MVC arhitekturi u obliku modela. Reactview komponenta, putem dostupnih sučelja, komunicira sa sjedištem aplikacije i ovisno o korisničkim akcijama osvježava prikaz te dohvaća nove podatke ili datoteke.
 			 
 			 \begin{figure}[H]
 			 	\includegraphics[width=\textwidth]{dijagram_komponenti.JPEG}
