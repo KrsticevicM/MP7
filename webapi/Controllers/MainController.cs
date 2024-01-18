@@ -316,224 +316,6 @@ public class MainController : ControllerBase
 
         return "";
     }
-    public int PostAd1([FromBody] string insertJSON)
-    {
-        /* Convert the received JSON string to a specified format dictionary */
-        Dictionary<string, List<Object>> insertDictionary;
-
-        try
-        {
-
-            insertDictionary = DatabaseFunctions.ConvertJsonToDictionary(insertJSON);
-        }
-        catch
-        {
-            Console.WriteLine("Incorrect JSON format!");
-            return 400;
-        }
-
-        /* Split the received data dictionary into attribute names and values lists */
-        List<Object> names = insertDictionary["Names"];
-        List<Object> values = insertDictionary["Values"];
-        List<Object> row = new List<Object>();
-
-        /* Frontend sent 'img' but correct is 'photo' */
-        names[names.IndexOf("img")] = "photo";
-
-        /* Set order specific index dictionaries for interfacing the Insert method */
-        /* These indexes correspond to the indexes of attributes in the tables */
-        Dictionary<string, int> adIndex = new Dictionary<string, int>()
-        {
-            { "adID", 0 },
-            { "catAd", 1 },
-            { "userID", 2 },
-            { "location", 3 },
-            { "dateHourMis", 4 },
-            { "lat", 5 },
-            { "lon", 6 }
-        };
-
-        Dictionary<string, int> petIndex = new Dictionary<string, int>()
-        {
-            { "petID", 0 },
-            { "namePet", 1 },
-            { "species", 2 },
-            { "age", 3 },
-            { "description", 4 },
-            { "adID", 5 }
-        };
-
-        Dictionary<string, int> hasColorIndex = new Dictionary<string, int>()
-        {
-            { "petID", 0 },
-            { "colorID", 1 }
-        };
-
-        Dictionary<string, int> photoAdIndex = new Dictionary<string, int>()
-        {
-            { "photoID", 0 },
-            { "photo", 1 },
-            { "adID", 2 }
-        };
-
-        Dictionary<string, int> colorPet = new Dictionary<string, int>()
-        {
-            { "crna", 1 },
-            { "smeda", 2 },
-            { "siva", 3 },
-            { "zuta", 4 },
-            { "zelena", 5 },
-            { "crvena", 6 },
-            { "narancasta", 7 },
-            { "ljubicasta", 8 },
-            { "plava", 9 },
-            { "bijela", 10 },
-            { "šarena", 11 }
-        };
-
-        /* Set table objects for interfacing the Insert method */
-        /* Holds table names */
-        Ad ad = new Ad();
-        Pet pet = new Pet();
-        hasColor hc = new hasColor();
-        photoAd pa = new photoAd();
-
-        int adID;
-        int petID;
-        int photoID;
-        int userID;
-
-        /* Inserting only one row */
-        row = (List<Object>)values[0];
-
-        List<Object> insertRowAd = new List<Object>(new Object[7]);
-        List<Object> insertRowPet = new List<Object>(new Object[6]);
-        List<Object> insertRowHC = new List<Object>(new Object[2]);
-        List<Object> insertRowPA = new List<Object>(new Object[3]);
-
-        try
-        {
-            /* Insert into Ad */
-            foreach (string name in names)
-            {
-                if (ad.returnColumnTypes().ContainsKey(name))
-                {
-                    int index;
-                    if ((index = names.IndexOf(name)) != -1)
-
-                        insertRowAd[adIndex[name]] = row[index];
-
-                    else throw new Exception("Insert Ad: Index of " + name + " not found!");
-                }
-            }
-
-            adID = DatabaseFunctions.getNextAvailableID(ad);
-            userID = Int32.Parse(insertRowAd[2].ToString());
-            
-            insertRowAd[0] = adID;
-            try
-            {
-                insertRowAd[5] = insertRowAd[5].ToString().Replace(',', '.');
-                insertRowAd[6] = insertRowAd[6].ToString().Replace(',', '.');
-            } 
-            catch 
-            {
-                insertRowAd[5] = insertRowAd[5].ToString();
-                insertRowAd[6] = insertRowAd[6].ToString();
-            }
-
-            /* Force parse to Int32 from Int64 */
-            /* and to DateTime from string for compatibility with Insert method */
-            insertRowAd[2] = System.Int32.Parse(insertRowAd[2].ToString());
-            insertRowAd[4] = (DateTime)System.DateTime.Parse(insertRowAd[4].ToString());
-
-            /* Insert into Pet */
-            foreach (string name in names)
-            {
-                if (pet.returnColumnTypes().ContainsKey(name.ToString()))
-                {
-                    int index;
-                    if ((index = names.IndexOf(name)) != -1)
-
-                        insertRowPet[petIndex[name]] = row[index];
-
-                    else throw new Exception("Insert Pet: Index of " + name + " not found!");
-                }
-            }
-
-            petID = DatabaseFunctions.getNextAvailableID(pet);
-
-            insertRowPet[0] = petID;
-            insertRowPet[5] = adID;
-
-            /* Insert into hasColor */
-            foreach (string name in names)
-            {
-                if (hc.returnColumnTypes().ContainsKey(name.ToString()))
-                {
-                    int index;
-                    if ((index = names.IndexOf(name)) != -1)
-
-                        insertRowHC[hasColorIndex[name]] = row[index];
-
-                    else throw new Exception("Insert hasColor: Index of " + name + " not found!");
-                }
-            }
-            insertRowHC[0] = petID;
-            insertRowHC[1] = colorPet[row[names.IndexOf("color")].ToString()];
-
-            /* Insert into photoAd */
-            foreach (string name in names)
-            {
-                if (pa.returnColumnTypes().ContainsKey(name.ToString()))
-                {
-                    int index;
-                    if ((index = names.IndexOf(name)) != -1)
-
-                        insertRowPA[photoAdIndex[name]] = row[index];
-
-                    else throw new Exception("Insert photoAd: Index of " + name + " not found!");
-                }
-            }
-
-            photoID = DatabaseFunctions.getNextAvailableID(pa);
-
-            insertRowPA[0] = photoID;
-            insertRowPA[2] = adID;
-        }
-        catch (Exception ex)
-        {
-            /* Fail to organise collected data */
-            Console.WriteLine(ex.ToString());
-            return 400;
-        }
-
-
-        /* Log new entry insertion attempt */
-        Console.WriteLine("-------------------------------------------------------");
-        Console.WriteLine("For userID: " + userID.ToString() + " attempt POST AD: ");
-        Console.WriteLine("-------------------------------------------------------");
-        logNewInsertion(ad, insertRowAd);
-        logNewInsertion(pet,insertRowPet);
-        logNewInsertion(hc, insertRowHC);
-        logNewInsertion(pa, insertRowPA);
-        Console.WriteLine("-------------------------------------------------------");
-        Console.WriteLine("Result:");
-
-        try { DatabaseFunctions.insert(ad, insertRowAd); }
-        catch (Exception ex) { Console.WriteLine(ex.ToString()); return recovery(); }
-
-        try { DatabaseFunctions.insert(pet, insertRowPet); }
-        catch (Exception ex) { Console.WriteLine(ex.ToString()); return recovery(); }
-
-        try { DatabaseFunctions.insert(hc, insertRowHC); }
-        catch (Exception ex) { Console.WriteLine(ex.ToString()); return recovery(); }
-
-        try { DatabaseFunctions.insert(pa, insertRowPA); }
-        catch (Exception ex) { Console.WriteLine(ex.ToString()); return recovery(); }
-
-        return 200;
-    }
 
     /* Insertion failure mechanism - possible automation in the future */
     int recovery()
@@ -605,7 +387,6 @@ public class MainController : ControllerBase
 
         try
         {
-
             modifyDictionary = DatabaseFunctions.ConvertJsonToDictionary(modifyJSON);
         }
         catch
@@ -649,26 +430,41 @@ public class MainController : ControllerBase
 
                 foreach (string name in names)
                 {
-                    if (t.returnColumnTypes().ContainsKey(name))
+                    if (t.returnColumnTypes().ContainsKey(name) || (t.returnTable() == "has" && name == "color"))
                     {
                         Object value = row[names.IndexOf(name)];
                         if (name.Contains("ID"))
                         {
-                            where_list[i].addElement(name, Expression.OP.EQUAL);
-                            where_list[i].addElement(value.ToString(), Expression.OP.None);
+                            if((name == "adID" && t.returnTable() == "Ad") ||
+                               (name == "petID" && t.returnTable() == "Pet"))
+                            {
+                                where_list[i].addElement(name, Expression.OP.EQUAL);
+                                where_list[i].addElement(value.ToString(), Expression.OP.None);
+                            } 
+                            else if (t.returnTable() == "has" || t.returnTable() == "photoAd")
+                            {
+                                where_list[i].addElement(value.ToString(), Expression.OP.None);
+                            }
                         }
                         else
                         {
-                            if (set_list[i].returnExpression() != "") set_list[i].addElement(", ", Expression.OP.None);
-                            set_list[i].addElement(name, Expression.OP.EQUAL);
-
-                            if (value is string)
+                            if(t.returnTable() == "photoAd" || t.returnTable() == "has")
                             {
-                                set_list[i].addElement("'" + value.ToString() + "'", Expression.OP.None);
+                                set_list[i].addElement(value.ToString(), Expression.OP.None);
                             }
                             else
                             {
-                                set_list[i].addElement("'" + value.ToString() + "'", Expression.OP.None);
+                                if (set_list[i].returnExpression() != "") set_list[i].addElement(", ", Expression.OP.None);
+                                set_list[i].addElement(name, Expression.OP.EQUAL);
+
+                                if (value is string)
+                                {
+                                    set_list[i].addElement("'" + value.ToString() + "'", Expression.OP.None);
+                                }
+                                else
+                                {
+                                    set_list[i].addElement("'" + value.ToString() + "'", Expression.OP.None);
+                                }
                             }
                         }
                     }
@@ -678,7 +474,7 @@ public class MainController : ControllerBase
         }
         catch (Exception ex)
         {
-            Console.WriteLine("ERROR: Parsing list to UPDATE expression failed!");
+            Console.WriteLine("ERROR: Parsing list to UPDATE/INSERT expression failed!");
             Console.WriteLine(ex.Message);
             return 400;
         }
@@ -687,7 +483,19 @@ public class MainController : ControllerBase
         {
             for(i = 0; i < where_list.Count; i++)
             {
-                DatabaseFunctions.update(table[i], set_list[i], where_list[i]);
+
+                if (table[i].returnTable() == "photoAd") 
+                {
+                    modifyAdUpdatePhoto(set_list[i], where_list[i]);
+                } 
+                else if (table[i].returnTable() == "has")
+                {
+                    modifyAdUpdateColor(set_list[i], where_list[i]);
+                }
+                else
+                {
+                    DatabaseFunctions.update(table[i], set_list[i], where_list[i]);
+                }
             }
         }
         catch(Exception ex)
@@ -701,5 +509,81 @@ public class MainController : ControllerBase
 
         return 200;
     }
-}
 
+    void modifyAdUpdatePhoto(Expression set, Expression where)
+    {
+        List<string> photos = new List<string>();
+        List<Object> insert = new List<Object>();
+        Expression delEx = new Expression();
+
+        /* Delete existing photos */
+        delEx.addElement("adID", Expression.OP.EQUAL);
+        delEx.addElement(where.returnExpression(), Expression.OP.None);
+
+        DatabaseFunctions.delete(new photoAd(), delEx);
+
+        foreach(string photo in set.returnExpression().Split(','))
+        {
+            photos.Add(photo);
+        }
+
+        int photoID;
+
+        foreach(string photo in photos)
+        {
+            photoID = DatabaseFunctions.getNextAvailableID(new photoAd());
+
+            insert.Add(photoID);
+            insert.Add(photo.Trim());
+            insert.Add(Int32.Parse(where.returnExpression().Trim()));
+
+            DatabaseFunctions.insert(new photoAd(), insert);
+
+            insert.Clear();
+        }
+
+    }
+
+    void modifyAdUpdateColor(Expression set, Expression where)
+    {
+        List<string> colors = new List<string>();
+        List<Object> insert = new List<Object>();
+        Expression delEx = new Expression();
+
+        Dictionary<string, int> colorDic = new Dictionary<string, int>()
+        {
+            { "crna", 1 },
+            { "smeða", 2 },
+            { "siva", 3 },
+            { "žuta", 4 },
+            { "zelena", 5 },
+            { "crvena", 6 },
+            { "naranèasta", 7 },
+            { "ljubièasta", 8 },
+            { "plava", 9 },
+            { "bijela", 10 },
+            { "šarena", 11 }
+        };
+
+        /* Delete existing colors */
+        delEx.addElement("petID", Expression.OP.EQUAL);
+        delEx.addElement(where.returnExpression(), Expression.OP.None);
+
+        DatabaseFunctions.delete(new hasColor(), delEx);
+
+        foreach (string color in set.returnExpression().Split(','))
+        {
+            colors.Add(color.Trim());
+        }
+
+        foreach (string color in colors)
+        {
+            insert.Add(Int32.Parse(where.returnExpression().Trim()));
+            insert.Add(colorDic[color]);
+
+            DatabaseFunctions.insert(new hasColor(), insert);
+
+            insert.Clear();
+        }
+    }
+}
