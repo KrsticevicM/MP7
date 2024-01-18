@@ -198,7 +198,7 @@ namespace MP7_progi.Models
                         @ List<Object>          - Names (list of strings) - KEY: Names
                         @ List<List<Object>>    - Data table              - KEY: Values
                             @ List<Object>      - One row
-         */
+        */
         public static Dictionary<string, List<Object>> read(Table table, List<Table>? joins, List<joinType>? jt, Expression? where)
         {
             Dictionary<string, List<Object>> queryResultData = new();
@@ -351,15 +351,17 @@ namespace MP7_progi.Models
         }
 
         /*
-        insert(Table, List<ArrayList> method for inserting rows into database
+            insert(Table, List<ArrayList> method for inserting rows into database
 
-        Params in:
+            Params in:
 
-           @ [Table]            - Takes the table to perform the operation on, REQ
-           @ [List<Object>]     - Single row that is to be added into table, REQ
+               @ [Table]            -   Takes the table to perform the operation on, REQ
+               @ [List<Object>]     -   Single row that is to be added into table, REQ
 
+            Params out:
+
+                @ [int]             -   Success status
         */
-
         public static int insert(Table table, List<Object> row)
         {
             //check if provided data types inside list match those in table
@@ -445,19 +447,17 @@ namespace MP7_progi.Models
         }
 
         /*
+            checkLoginData(string username, string password) - method for checking whether user already has account
 
-        checkLoginData(string username, string password) - method for checking whether user already has account
+            Params in:
 
-        Params in:
+               @ [string]   -   user username, REQ
+               @ [string]   -   user password, REQ
 
-           @ [string]           - user username, REQ
-           @ [string]           - user password, REQ
+            Params out:
 
-        Params out:
-
-            @ [string]          - user ID
-          
-         */
+                @ [string]  -   user ID
+        */
         public static string checkLoginData(string username, string password)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
@@ -489,14 +489,12 @@ namespace MP7_progi.Models
         }
 
         /*
+            getShelterData() - method for returning userID, nameShelter, email and phoneNum in that order for all existing shelters in JSON format
 
-       getShelterData() - method for returning userID, nameShelter, email and phoneNum in that order for all existing shelters in JSON format
 
+            Params out:
 
-       Params out:
-
-           @ [string]          - JSON file format of specified data
-
+                @ [string]      -   JSON file format of specified data
         */
         public static string getShelterData()
         {
@@ -544,19 +542,16 @@ namespace MP7_progi.Models
             }
 
         /*
+            getCommentData(int adID) - method for returning userID, photoCom, textCom and locCom in that order for all comments in JSON format
 
-       getCommentData(int adID) - method for returning userID, photoCom, textCom and locCom in that order for all comments in JSON format
+            Params in:
 
-       Params in:
+                @ [int]     -   ad ID, REQ
 
-            @ [int]            - ad ID, REQ
+            Params out:
 
-       Params out:
-
-           @ [string]          - JSON file format of specified data
-
+                @ [string]  -   JSON file format of specified data
         */
-
         public static string getCommentData(int adID)
         {
             Dictionary<string, List<Object>> data = new Dictionary<string, List<Object>>();
@@ -622,20 +617,19 @@ namespace MP7_progi.Models
 
             return "";
         }
+
         /*
+            searchAd() - method for returning JSON of needed data for all ads that match every given parameter 
 
-      searchAd() - method for returning JSON of needed data for all ads that match every given parameter 
+            Params in:
 
-        Params in:
-
-          @ [string]          - JSON file format of inserted parameter data when searching ads
+              @ [string]    -   JSON file format of inserted parameter data when searching ads
 
        
-        Params out:
+            Params out:
 
-          @ [string]          - JSON file format of data needed
-
-       */
+              @ [string]    -   JSON file format of data needed
+        */
         public static string searchAd(string searchParameters)
         {
             //Parsing json Ad data
@@ -769,20 +763,17 @@ namespace MP7_progi.Models
             }
         }
 
-
         /*
+            getNextAvailableID(Table) - method to get an ID for new User/Ad/Pet/...
 
-        getNextAvailableID(Table) - method to get an ID for new User/Ad/Pet/...
+            Params in:
 
-        Params in:
+               @ [Table]         - table from which ID is being requested, REQ
 
-           @ [Table]         - table from which ID is being requested, REQ
+            Params out:
 
-        Params out:
-
-            @ [int]          - ID of new User/Ad/Pet/...
-
-         */
+                @ [int]          - ID of new User/Ad/Pet/...
+        */
         public static int getNextAvailableID(Table table)
         {
             Dictionary<string, List<Object>> ids = new Dictionary<string, List<Object>>();
@@ -821,18 +812,17 @@ namespace MP7_progi.Models
         }
 
         /*
-        delete(Table, Expression) - delete method for rows of a Table based on the where Expression
+            delete(Table, Expression) - delete method for rows of a Table based on the where Expression
 
-        Params in:
+            Params in:
             
-            @ [Table]        - table from which to delete entry/entries
-            @ [Expression]   - a where expression for the SQL DELETE query
+                @ [Table]        - table from which to delete entry/entries
+                @ [Expression]   - a where expression for the SQL DELETE query
 
-        Params out:
+            Params out:
 
-            @ [int]          - affected rows
-         */
-
+                @ [int]          - affected rows
+        */
         public static int delete(Table table, Expression where)
         {
             int affected = 0;
@@ -857,6 +847,20 @@ namespace MP7_progi.Models
             return affected;
         }
 
+        /*
+            update(Table, Expression, Expression) - delete method for rows of a Table based on the where 
+                                                    Expression
+
+            Params in:
+            
+                @ [Table]        - table from which to update entry/entries
+                @ [Expression]   - a set expression for the SQL UPDATE query
+                @ [Expression]   - a where expression for the SQL UPDATE query
+
+            Params out:
+
+                @ [int]          - affected rows
+        */
         public static int update(Table table, Expression set, Expression where)
         {
             int affected = 0;
@@ -880,22 +884,6 @@ namespace MP7_progi.Models
             }
 
             return affected;
-        }
-
-        public static void databaseTester()
-        {
-            Ad table = new Ad();
-            Expression where = new Expression();
-            Expression set = new Expression();
-
-
-            set.addElement("catAd", Expression.OP.EQUAL);
-            set.addElement("'obrisan'", Expression.OP.None);
-
-            where.addElement("adID", Expression.OP.EQUAL);
-            where.addElement(18, Expression.OP.None);
-
-            update(table, set, where);
         }
     }
 }

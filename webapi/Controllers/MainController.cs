@@ -172,9 +172,11 @@ public class MainController : ControllerBase
 
     [HttpPost(Name = "PostAd")]
     [Route("postAd")]
-    public string postAd([FromBody] string insertJSON)
+    public int postAd([FromBody] string insertJSON)
     {
-        //Parsing json data
+        Console.WriteLine("INFO: Attempting Ad posting...");
+
+        /* Parsing received JSON data */
         dynamic data = JObject.Parse(insertJSON);
         Console.WriteLine(data);
 
@@ -203,7 +205,7 @@ public class MainController : ControllerBase
         string[] imagesList = images.Split(',');
 
 
-        //dodajemo oglas u bazu
+        /* Ad insertion */ 
         List<Object> newAdRow = new List<Object>();
         int newAdId = DatabaseFunctions.getNextAvailableID(new Ad());
 
@@ -215,21 +217,19 @@ public class MainController : ControllerBase
         newAdRow.Add(lat);
         newAdRow.Add(lon);
 
-        int code;
         try
         {
-            code = DatabaseFunctions.insert(new Ad(), newAdRow);
-
+            DatabaseFunctions.insert(new Ad(), newAdRow);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            // Handle the exception
-            Console.WriteLine("Error during insert operation: " + e.Message);
-
+            Console.WriteLine("ERROR: Ad insertion failed!");
+            Console.WriteLine(ex.Message);
+            return 400;
         }
 
-        //dodajemo ljubimca u bazu
-
+        
+        /* Pet insertion */
         List<Object> newPetRow = new List<Object>();
         int newPetId = DatabaseFunctions.getNextAvailableID(new Pet());
 
@@ -240,20 +240,18 @@ public class MainController : ControllerBase
         newPetRow.Add(description);
         newPetRow.Add(newAdId);
 
-        int code1;
         try
         {
-            code1 = DatabaseFunctions.insert(new Pet(), newPetRow);
-
+            DatabaseFunctions.insert(new Pet(), newPetRow);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            // Handle the exception
-            Console.WriteLine("Error during insert operation: " + e.Message);
-
+            Console.WriteLine("ERROR: Pet insertion failed!");
+            Console.Write(ex.Message);
+            return 400;
         }
         
-        //dodavanje boje
+        /* Image insertion */
         foreach (string color in colorList)
         {
             Console.WriteLine(color);
@@ -274,21 +272,20 @@ public class MainController : ControllerBase
             newhasRow.Add(newPetId);
             newhasRow.Add(colorID);
 
-            int code2;
             try
             {
-                code2 = DatabaseFunctions.insert(new hasColor(), newhasRow);
-
+                DatabaseFunctions.insert(new hasColor(), newhasRow);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                // Handle the exception
-                Console.WriteLine("Error during insert operation: " + e.Message);
+                Console.WriteLine("ERROR: Color insertion failed!");
+                Console.WriteLine(ex.Message);
+                return 400;
 
             }
         }
 
-        //dodavanje slika
+        /* Image insertion */
         foreach (string img in imagesList)
         {
             List<Object> newPhotoRow = new List<Object>();
@@ -298,54 +295,20 @@ public class MainController : ControllerBase
             newPhotoRow.Add(img);
             newPhotoRow.Add(newAdId);
  
-            int code3;
             try
             {
-                code3 = DatabaseFunctions.insert(new photoAd(), newPhotoRow);
-
+                DatabaseFunctions.insert(new photoAd(), newPhotoRow);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                // Handle the exception
-                Console.WriteLine("Error during insert operation: " + e.Message);
-
+                Console.WriteLine("ERROR: Image insertion failed!");
+                Console.WriteLine(ex.Message);
+                return 400;
             }
         }
 
-
-
-        return "";
-    }
-
-    /* Insertion failure mechanism - possible automation in the future */
-    int recovery()
-    {
-        Console.WriteLine("WARNING: Error during database insertion, " +
-            "please check the logs above and manually delete garbage records!");
-        return 400;
-    }
-
-    /* Method for logging new insertion into the database */
-    void logNewInsertion(Table table, List<Object> list)
-    {
-        Console.WriteLine("Table: " + table.returnTable());
-
-        for (int i = 0; i < list.Count; i++)
-        {
-            if (list[i] != null)
-            {
-                if (!(table.returnTable() == "photoAd" && i == 1))
-                    Console.Write(list[i].ToString() + "\t");
-                else
-                    Console.Write(". . .\t");
-            }
-            else
-            {
-                Console.Write("NULL\t");
-            }
-        }
-
-        Console.WriteLine();
+        Console.WriteLine("INFO: Success!");
+        return 200;
     }
 
     [HttpPost(Name = "DeleteAd")]
@@ -374,7 +337,7 @@ public class MainController : ControllerBase
         }
         else
         {
-            Console.WriteLine("Success!");
+            Console.WriteLine("INFO: Success!");
             return 200;
         }
     }

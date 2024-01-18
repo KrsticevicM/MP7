@@ -5,22 +5,8 @@ using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Init database - only used in special cases
-//DatabaseFunctions.InitializeDB();
-
-//Database tester - perform basic tests on tables
-string adTestData = "{\"Data\":[{\"species\":\"Pas\",\"namePet\":\"\",\"dateHourMis\":\"11-03-2021T15:23\",\"location\":\"\",\"color\":\"\",\"age\":\"\"}]}";
-
-//string CommentTestData = "{\"Data\":[{\"userID\":\"18\",\"adID\":\"24\",\"photoCom\":\"\",\"textCom\":\"resii\",\"locCom\":\"Zadar\"}]}";
-
-//Console.WriteLine(DatabaseFunctions.searchAd(adTestData));
-
-
-//Console.WriteLine(DatabaseFunctions.postComment(CommentTestData));
-
 // Add services to the container.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
