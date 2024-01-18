@@ -1,4 +1,0 @@
-C:\Users\Korisnik\Documents\PROGI2023\reactapp\obj\Debug\reactapp.esproj.CoreCompileInputs.cache
-C:\Users\Korisnik\Desktop\mp7\reactapp\obj\Debug\reactapp.esproj.CoreCompileInputs.cache
-C:\Fakultet\Progi-projekt\PROGI2023\reactapp\obj\Debug\reactapp.esproj.SuggestedBindingRedirects.cache
-C:\Fakultet\Progi-projekt\PROGI2023\reactapp\obj\Debug\reactapp.esproj.CoreCompileInputs.cache
