@@ -176,7 +176,7 @@ function ListGroup(props) {
           </ul>
         </div>
         <div className="btnFilter-container">
-          <button type="submit" className="btn btn-light">
+          <button type="submit" className="btn btn-light" id="btn">
             Pretraži
           </button>
         </div>

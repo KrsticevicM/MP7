@@ -338,7 +338,7 @@ export const NewAd = () => {
             placeholder="Ime grada nestanka"/>
           </div>
           <div className="map-container">
-            <MapContainer center={[44.515399, 16]} zoom={5.4} scrollWheelZoom={true} > {/* omit onClick */}
+            <MapContainer id="map-container" center={[44.515399, 16]} zoom={5.4} scrollWheelZoom={true} > {/* omit onClick */}
               <AddMarkerToClick onClick={getLatLng}/>
             </MapContainer>
           </div>
@@ -353,7 +353,7 @@ export const NewAd = () => {
               required></textarea>
           </div>
           <div className="text-center">
-              <button className='btn btn-primary'>Stvori oglas</button>
+                  <button className='btn btn-primary' id="btn-createAd">Stvori oglas</button>
           </div>
           
           {error.length!=0 && <div className='form-group'>

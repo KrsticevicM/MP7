@@ -36,7 +36,7 @@ function Navbar() {
               <Link to='/sklonista'><div className="element-container">SKLONIŠTA</div></Link>
               {user.isAuth && < Link to='/neaktivni_oglasi'><div className="element-container">NEAKTIVNI OGLASI</div></Link>}
               {!user.isAuth && <Link to='/login'><div className="element-container">PRIJAVI SE</div></Link>}
-              {user.isAuth && <Link to='/moji-oglasi'><div className="element-container">{user.firstName} {user.lastName}</div></Link>}
+                    {user.isAuth && <Link to='/moji-oglasi'><div className="element-container" id="btn-moji-oglasi">{user.firstName} {user.lastName}</div></Link>}
               {user.isAuth && <button className="odjava-button" onClick={eventHandler}>ODJAVA</button>}
       </div>
             </div>
@@ -45,7 +45,7 @@ function Navbar() {
                 <Link to='/sklonista'><div className="element-container-menu" onClick={() => setMenuState(false)}>SKLONIŠTA</div></Link>
                 {user.isAuth && < Link to='/neaktivni_oglasi'><div className="element-container-menu" onClick={() => setMenuState(false)}>NEAKTIVNI OGLASI</div></Link>}
                 {!user.isAuth && <Link to='/login'><div className="element-container-menu" onClick={() => setMenuState(false)}>PRIJAVI SE</div></Link>}
-                {user.isAuth && <Link to='/moji-oglasi'><div className="element-container-menu" onClick={() => setMenuState(false)}>{user.firstName} {user.lastName}</div></Link>}
+                {user.isAuth && <Link to='/moji-oglasi'><div className="element-container-menu" id="btn-moji-oglasi" onClick={() => setMenuState(false)}>{user.firstName} {user.lastName}</div></Link>}
                 {user.isAuth && <button className="odjava-button-menu" onClick={eventHandler}>ODJAVA</button>}
             </div>}
         </>
