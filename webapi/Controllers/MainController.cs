@@ -64,7 +64,7 @@ public class MainController : ControllerBase
         if (result["Values"].Count != 0)
         {
 
-            Console.WriteLine(result.Values.Count);
+          //  Console.WriteLine(result.Values.Count);
             return DatabaseFunctions.ConvertDictionaryToJson(result);
         }
 
@@ -72,6 +72,34 @@ public class MainController : ControllerBase
         return DatabaseFunctions.ConvertDictionaryToJson(result);
     }
 
+    [HttpGet(Name = "Auth")]
+    [Route("auth")]
+    public string Authentication([FromQuery] int id)
+    {
+        Dictionary<string, List<Object>> result = new Dictionary<string, List<Object>>();
+        Expression where = new Expression();
+
+        where.addElement((Object)"userID", Expression.OP.EQUAL);
+        where.addElement((Object)id, Expression.OP.None);
+        result = DatabaseFunctions.read(new User(), new List<Table> { new Regular() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural}, where);
+
+        if (result["Values"].Count != 0)
+        {
+
+            //Console.WriteLine(result.Values.Count);
+            return DatabaseFunctions.ConvertDictionaryToJson(result);
+        }
+
+        result = DatabaseFunctions.read(new User(), new List<Table> { new Shelter() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural }, where);
+        if (result["Values"].Count != 0)
+        {
+
+            //Console.WriteLine(result.Values.Count);
+            return DatabaseFunctions.ConvertDictionaryToJson(result);
+        }
+
+        return "Error: provided ID hasn't been found in database";
+    }
 
     [HttpGet(Name = "ShelterData")]
     [Route("shelter_data")]
