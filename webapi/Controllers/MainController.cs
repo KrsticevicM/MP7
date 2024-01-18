@@ -420,8 +420,12 @@ public class MainController : ControllerBase
                                 if (set_list[i].returnExpression() != "") set_list[i].addElement(", ", Expression.OP.None);
                                 set_list[i].addElement(name, Expression.OP.EQUAL);
 
-                                if (value is string)
+                                if ((value is string) || name == "lat" || name == "lon")
                                 {
+                                    if(name == "lat" || name == "lon")
+                                    {
+                                        value = value.ToString().Replace(',', '.');
+                                    }
                                     set_list[i].addElement("'" + value.ToString() + "'", Expression.OP.None);
                                 }
                                 else
