@@ -34,7 +34,10 @@ function MyAd_card(props) {
               <img src={"data:image/png;base64,"+props.image} />
       </div>
       <div className="myad-info">
-        <h1>{props.petname}</h1>
+        <div className="name-link">
+          <h1 onClick={handleClick } >{props.petname}</h1>
+        </div>
+        
         <p>
           <span className="text_style">Izgubljen: </span>
           {props.datehour}
