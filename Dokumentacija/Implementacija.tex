@@ -256,16 +256,21 @@
 			\noindent \underbar{\textbf{Ispitni slučaj 4.: Objavljivanje oglasa}}\\
 			\textbf{Ulaz: }	
 			\begin{packed_enum}
-				\item Korisnik unosi ispravno sve tražene podatke
+				\item Korisnik unosi tekst, sliku i geolokaciju
+				\item Korisnik ne unosi sliku
+				\item Korisnik ne unosi geolokaciju
 				
 			\end{packed_enum}
 			
 			\noindent \textbf{Očekivani rezultat:}
 			
 			\begin{packed_enum}
-				\item Sustav prikazuje listu s oglasima korisnika
+				\item Stvara se oglas
+				\item Sustav traži da se unese barem jedna slika
+				\item Sustav traži da se unese geolokacija
 				
 			\end{packed_enum}
+			
 			
 			\noindent \textbf{Rezultat:}\\
 			Testovi su zadovoljeni, aplikacija je prošla test.\\
@@ -286,6 +291,12 @@
 				\centering
 				\caption{Test ispravnosti objavljivanja oglasa}
 				\label{fig:testpostad2}
+			\end{figure}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{2test_kreiranje_oglasa_bez_slike_lokacije.JPEG}
+				\centering
+				\caption{Test ispravnosti objavljivanja oglasa}
+				\label{fig:testbezslikelokacije}
 			\end{figure}
 			
 			\noindent \underbar{\textbf{Ispitni slučaj 5.: Komentiranje oglasa}}\\
