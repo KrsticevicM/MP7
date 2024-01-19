@@ -3,56 +3,382 @@
 		
 		\section{Korištene tehnologije i alati}
 		
-			\textbf{\textit{dio 2. revizije}}
+			%\textbf{\textit{dio 2. revizije}}
 			
-			 \textit{Detaljno navesti sve tehnologije i alate koji su primijenjeni pri izradi dokumentacije i aplikacije. Ukratko ih opisati, te navesti njihovo značenje i mjesto primjene. Za svaki navedeni alat i tehnologiju je potrebno \textbf{navesti internet poveznicu} gdje se mogu preuzeti ili više saznati o njima}.
+			 %\textit{Detaljno navesti sve tehnologije i alate koji su primijenjeni pri izradi dokumentacije i aplikacije. Ukratko ih opisati, te navesti njihovo značenje i mjesto primjene. Za svaki navedeni alat i tehnologiju je potrebno \textbf{navesti internet poveznicu} gdje se mogu preuzeti ili više saznati o njima}.
 			
+			Komunikacija među članovima tima odvijala se putem aplikacije \underline{WhatsApp}\footnote[1]{\href{https://web.whatsapp.com/}{https://web.whatsapp.com/}}. Za izradu UML dijagrama korišten je alat \underline{Astah Professional}\footnote[2]{\href{https://astah.net/products/astah-uml/}{https://astah.net/products/astah-uml/}}. Za upravljanje izvornim kodom korišten je \underline{Git}\footnote[3]{\href{https://git-scm.com/}{https://git-scm.com/}}, a kao udaljeni repozitorij projekta git platforma \underline{GitHub}\footnote[4]{\href{https://github.com/}{https://github.com/}}.\\
+			Kao razvojno okruženje korišten je \underline{Microsoft Visual Studio}\footnote[5]{\href{https://visualstudio.microsoft.com/}{https://visualstudio.microsoft.com/}}, koji pruža različite alate za razvoj računalnih programa kao što su web stranice, web usluge i mobilne aplikacije.\\
+			Za izradu backenda aplikacije korišten je radni okvir \underline{.NET Framework}\footnote[6]{\href{https://dotnet.microsoft.com/en-us/}{https://dotnet.microsoft.com/en-us/}} i jezik \underline{C\#}\footnote[7]{\href{https://learn.microsoft.com/en-us/dotnet/csharp/}{https://learn.microsoft.com/en-us/dotnet/csharp/}}, a za izradu frontenda \underline{React}\footnote[8]{\href{https://react.dev/}{https://react.dev/}} i jezik \underline{JavaScript}\footnote[9]{\href{https://www.javascript.com/}{https://www.javascript.com/}}. .NET Framework je razvojni okvir tvrtke Microsoft koji omogućava razvoj, implementaciju i pokretanje web aplikacija. Pri razvoju aplikacija nudi gotova rješenja i funkcionalnosti kako bi se ubrzao i pojednostavio proces razvoja aplikacije. React je knjižnica pisana u JavaScriptu, a koristi se za izgradnju korisničkih sučelja ili njegovih dijelova.
 			
 			\eject 
 		
 	
 		\section{Ispitivanje programskog rješenja}
 			
-			\textbf{\textit{dio 2. revizije}}\\
+			%\textbf{\textit{dio 2. revizije}}\\
 			
-			 \textit{U ovom poglavlju je potrebno opisati provedbu ispitivanja implementiranih funkcionalnosti na razini komponenti i na razini cijelog sustava s prikazom odabranih ispitnih slučajeva. Studenti trebaju ispitati temeljnu funkcionalnost i rubne uvjete.}
+			 %\textit{U ovom poglavlju je potrebno opisati provedbu ispitivanja implementiranih funkcionalnosti na razini komponenti i na razini cijelog sustava s prikazom odabranih ispitnih slučajeva. Studenti trebaju ispitati temeljnu funkcionalnost i rubne uvjete.}
+			 
+			 Ispitivanje je aktivnost s ciljem poboljšanja kvalitete proizvoda tako da se pronalaze i otklanjaju greške u implementaciji. Glavni pojam u ispitivanju je ispitni slučaj koji se definira kao uređeni par ulaznog podatka i očekivanog izlaznog podatka, koji je zabilježen prije provođenja ispitivanja.
 	
 			
 			\subsection{Ispitivanje komponenti}
-			\textit{Potrebno je provesti ispitivanje jedinica (engl. unit testing) nad razredima koji implementiraju temeljne funkcionalnosti. Razraditi \textbf{minimalno 6 ispitnih slučajeva} u kojima će se ispitati redovni slučajevi, rubni uvjeti te izazivanje pogreške (engl. exception throwing). Poželjno je stvoriti i ispitni slučaj koji koristi funkcionalnosti koje nisu implementirane. Potrebno je priložiti izvorni kôd svih ispitnih slučajeva te prikaz rezultata izvođenja ispita u razvojnom okruženju (prolaz/pad ispita). }
+			%\textit{Potrebno je provesti ispitivanje jedinica (engl. unit testing) nad razredima koji implementiraju temeljne funkcionalnosti. Razraditi \textbf{minimalno 6 ispitnih slučajeva} u kojima će se ispitati redovni slučajevi, rubni uvjeti te izazivanje pogreške (engl. exception throwing). Poželjno je stvoriti i ispitni slučaj koji koristi funkcionalnosti koje nisu implementirane. Potrebno je priložiti izvorni kôd svih ispitnih slučajeva te prikaz rezultata izvođenja ispita u razvojnom okruženju (prolaz/pad ispita). }
 			
+			Ispitivanje jedinica podrazumijeva ispitivanje funkcionalnosti najmanjih dijelova programa kao što su razredi, pripadajuće metode i atributi.
 			
+				\noindent \underbar{\textbf{Ispitni slučaj 1.: Unos imena}}\\
+			\textbf{Ulaz: }	
+			\begin{packed_enum}
+				\item Korisnik unosi ispravno ime
+				\item Korisnik unosi ispravno ime koje sadrži dijakritičke znakove
+				\item Korisnik unosi ime koje sadrži broj
+				\item Korisnik unosi ime koje sadrži nedopuštene simbole
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Očekivani rezultat:}
+			
+			\begin{packed_enum}
+				\item Provjera je uspješna i ime je valjano
+				\item Provjera je uspješna i ime je valjano
+				\item Sustav javlja da ime nije valjano
+				\item Sustav javlja da ime nije valjano
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Rezultat:}\\
+			Testovi su zadovoljeni, aplikacija je prošla test.\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{1test_1_ime.JPEG}
+				\centering
+				\caption{Test ispravnosti imena kod registracije}
+				\label{fig:testime}
+			\end{figure}
+			
+			\noindent \underbar{\textbf{Ispitni slučaj 2.: Unos prezimena}}\\
+			\textbf{Ulaz: }	
+			\begin{packed_enum}
+				\item Korisnik unosi ispravno prezime
+				\item Korisnik unosi ime koje sadrži broj
+				\item Korisnik unosi ime koje sadrži nedopuštene simbole
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Očekivani rezultat:}
+			
+			\begin{packed_enum}
+				\item Provjera je uspješna i prezime je valjano
+				\item Sustav javlja da prezime nije valjano
+				\item Sustav javlja da prezime nije valjano
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Rezultat:}\\
+			Testovi su zadovoljeni, aplikacija je prošla test.\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{1test_1_prezime.JPEG}
+				\centering
+				\caption{Test ispravnosti prezimena kod registracije}
+				\label{fig:testprezime}
+			\end{figure}
+			
+			\noindent \underbar{\textbf{Ispitni slučaj 3.: Unos broja telefona}}\\
+			\textbf{Ulaz: }	
+			\begin{packed_enum}
+				\item Korisnik unosi ispravan broj mobitela
+				\item Korisnik unosi slova i/ili simbole
+				\item Korisnik unosi broj s crticama
+				\item Korisnik unosi broj s razmacima
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Očekivani rezultat:}
+			
+			\begin{packed_enum}
+				\item Provjera je uspješna i broj mobitela je valjan
+				\item Sustav javlja da broj mobitela nije valjan
+				\item Sustav javlja da broj mobitela nije valjan
+				\item Sustav javlja da broj mobitela nije valjan
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Rezultat:}\\
+			Testovi su zadovoljeni, aplikacija je prošla test.\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{1test_1_broj.JPEG}
+				\centering
+				\caption{Test ispravnosti broja mobitela kod registracije}
+				\label{fig:testbroj}
+			\end{figure}
+			
+			\noindent \underbar{\textbf{Ispitni slučaj 4.: Unos e-mail adrese}}\\
+			\textbf{Ulaz: }	
+			\begin{packed_enum}
+				\item Korisnik unosi ispravnu e-mail adresu
+				\item Korisnik unosi e-mail adresu bez simbola @
+				\item Korisnik unosi samo domenu
+				\item Korisnik unosi e-mail adresu bez domene
+				\item Korisnik unosi e-mail adresu bez ekstenzije
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Očekivani rezultat:}
+			
+			\begin{packed_enum}
+				\item Provjera je uspješna i e-mail adresa je valjana
+				\item Sustav javlja da e-mail adresa nije valjana
+				\item Sustav javlja da e-mail adresa nije valjana
+				\item Sustav javlja da e-mail adresa nije valjana
+				\item Sustav javlja da e-mail adresa nije valjana
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Rezultat:}\\
+			Testovi su zadovoljeni, aplikacija je prošla test.\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{1test_1_mail.JPEG}
+				\centering
+				\caption{Test ispravnosti e-mail adrese kod registracije}
+				\label{fig:testmail}
+			\end{figure}
+
 			
 			\subsection{Ispitivanje sustava}
 			
-			 \textit{Potrebno je provesti i opisati ispitivanje sustava koristeći radni okvir Selenium\footnote{\url{https://www.seleniumhq.org/}}. Razraditi \textbf{minimalno 4 ispitna slučaja} u kojima će se ispitati redovni slučajevi, rubni uvjeti te poziv funkcionalnosti koja nije implementirana/izaziva pogrešku kako bi se vidjelo na koji način sustav reagira kada nešto nije u potpunosti ostvareno. Ispitni slučaj se treba sastojati od ulaza (npr. korisničko ime i lozinka), očekivanog izlaza ili rezultata, koraka ispitivanja i dobivenog izlaza ili rezultata.\\ }
+			 %\textit{Potrebno je provesti i opisati ispitivanje sustava koristeći radni okvir Selenium\footnote{\url{https://www.seleniumhq.org/}}. Razraditi \textbf{minimalno 4 ispitna slučaja} u kojima će se ispitati redovni slučajevi, rubni uvjeti te poziv funkcionalnosti koja nije implementirana/izaziva pogrešku kako bi se vidjelo na koji način sustav reagira kada nešto nije u potpunosti ostvareno. Ispitni slučaj se treba sastojati od ulaza (npr. korisničko ime i lozinka), očekivanog izlaza ili rezultata, koraka ispitivanja i dobivenog izlaza ili rezultata.\\ }
 			 
-			 \textit{Izradu ispitnih slučajeva pomoću radnog okvira Selenium moguće je provesti pomoću jednog od sljedeća dva alata:}
-			 \begin{itemize}
-			 	\item \textit{dodatak za preglednik \textbf{Selenium IDE} - snimanje korisnikovih akcija radi automatskog ponavljanja ispita	}
-			 	\item \textit{\textbf{Selenium WebDriver} - podrška za pisanje ispita u jezicima Java, C\#, PHP koristeći posebno programsko sučelje.}
-			 \end{itemize}
-		 	\textit{Detalji o korištenju alata Selenium bit će prikazani na posebnom predavanju tijekom semestra.}
+			 %\textit{Izradu ispitnih slučajeva pomoću radnog okvira Selenium moguće je provesti pomoću jednog od sljedeća dva alata:}
+			 %\begin{itemize}
+			 	%\item \textit{dodatak za preglednik \textbf{Selenium IDE} - snimanje korisnikovih akcija radi automatskog ponavljanja ispita	}
+			 	%\item \textit{\textbf{Selenium WebDriver} - podrška za pisanje ispita u jezicima Java, C\#, PHP koristeći posebno programsko sučelje.}
+			 %\end{itemize}
+		 	%\textit{Detalji o korištenju alata Selenium bit će prikazani na posebnom predavanju tijekom semestra.}
+			
+			Ispitivanje sustava je proces ispitivanja završene i potpuno integrirane inačice programa namijenjene distribuciji korisniku.\\
+			
+			\noindent \underbar{\textbf{Ispitni slučaj 1.: Login}}\\
+			\textbf{Ulaz: }	
+				\begin{packed_enum}
+					\item Korisnik unosi ispravno korisničko ime i lozinku
+					\item Korisnik unosi neispravno korisničko ime i lozinku
+					
+				\end{packed_enum}
+				
+			\noindent \textbf{Očekivani rezultat:}
+				
+				\begin{packed_enum}
+					\item Sustav obavještava korisnika da je uneseno korisničko ime neispravno ili lozinka neispravna
+					\item Prikazuje se početna stranica
+					
+				\end{packed_enum}
+				
+			\noindent \textbf{Rezultat:}\\
+				Testovi su zadovoljeni, aplikacija je prošla test.\\
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{uspjesni_login.JPEG}
+					\centering
+					\caption{Ispravni login}
+					\label{fig:uspjesnilogin}
+				\end{figure}
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{krivi_login.JPEG}
+					\centering
+					\caption{Neispravni login}
+					\label{fig:neuspjesnilogin}
+				\end{figure}
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{2test_login.JPEG}
+					\centering
+					\caption{Test ispravnosti prijave u sustav}
+					\label{fig:testlogin}
+				\end{figure}
+			
+			\noindent \underbar{\textbf{Ispitni slučaj 2.: Registracija}}\\
+			\textbf{Ulaz: }	
+			\begin{packed_enum}
+				\item Korisnik unosi ispravno sve podatke
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Očekivani rezultat:}
+			
+			\begin{packed_enum}
+				\item Sustav prikazuje stranicu za login
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Rezultat:}\\
+			Testovi su zadovoljeni, aplikacija je prošla test.\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{uspjesna_registracija.JPEG}
+				\centering
+				\caption{Uspješna registracija}
+				\label{fig:uspjesnaregistracija}
+			\end{figure}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{2test_registration_1.JPEG}
+				\centering
+				\caption{Test ispravnosti registracije u sustav}
+				\label{fig:testregistracija}
+			\end{figure}
+			
+			\noindent \underbar{\textbf{Ispitni slučaj 3.: Filtriranje oglasa}}\\
+			\textbf{Ulaz: }	
+			\begin{packed_enum}
+				\item Korisnik odabire kategorije po kojima želi filtrirati oglase
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Očekivani rezultat:}
+			
+			\begin{packed_enum}
+				\item Sustav prikazuje filtrirane oglase
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Rezultat:}\\
+			Testovi su zadovoljeni, aplikacija je prošla test.\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{uspjesan_filter.JPEG}
+				\centering
+				\caption{Uspješno filtriranje oglasa}
+				\label{fig:uspjesanfilter}
+			\end{figure}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{2test_filter.JPEG}
+				\centering
+				\caption{Test ispravnosti filtriranja oglasa}
+				\label{fig:testfilter}
+			\end{figure}
+			
+			\noindent \underbar{\textbf{Ispitni slučaj 4.: Objavljivanje oglasa}}\\
+			\textbf{Ulaz: }	
+			\begin{packed_enum}
+				\item Korisnik unosi tekst, sliku i geolokaciju
+				\item Korisnik ne unosi sliku
+				\item Korisnik ne unosi geolokaciju
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Očekivani rezultat:}
+			
+			\begin{packed_enum}
+				\item Stvara se oglas
+				\item Sustav traži da se unese barem jedna slika
+				\item Sustav traži da se unese geolokacija
+				
+			\end{packed_enum}
+			
+			
+			\noindent \textbf{Rezultat:}\\
+			Testovi su zadovoljeni, aplikacija je prošla test.\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{uspjesno_objavljivanje_oglasa.JPEG}
+				\centering
+				\caption{Uspješno objavljivanje oglasa}
+				\label{fig:uspjesnoobjavljivanjeoglasa}
+			\end{figure}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{2test_postad_1.JPEG}
+				\centering
+				\caption{Test ispravnosti objavljivanja oglasa}
+				\label{fig:testpostad1}
+			\end{figure}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{2test_postad_2.JPEG}
+				\centering
+				\caption{Test ispravnosti objavljivanja oglasa}
+				\label{fig:testpostad2}
+			\end{figure}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{2test_kreiranje_oglasa_bez_slike_lokacije.JPEG}
+				\centering
+				\caption{Test ispravnosti objavljivanja oglasa}
+				\label{fig:testbezslikelokacije}
+			\end{figure}
+			
+			\noindent \underbar{\textbf{Ispitni slučaj 5.: Komentiranje oglasa}}\\
+			\textbf{Ulaz: }	
+			\begin{packed_enum}
+				\item Neregistrirani/neprijavljeni korisnik klikne na gumb "Dodaj komentar"
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Očekivani rezultat:}
+			
+			\begin{packed_enum}
+				\item Sustav ne dopušta korisniku da ostavi komentar
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Rezultat:}\\
+			Testovi su zadovoljeni, aplikacija je prošla test.\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{komentar_bez_prijave.JPEG}
+				\centering
+				\caption{Komentiranje oglasa bez prijave}
+				\label{fig:komentiranjeoglasabezprijave}
+			\end{figure}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{2test_postcomment.JPEG}
+				\centering
+				\caption{Test ispravnosti komentiranja oglasa}
+				\label{fig:testkomentar}
+			\end{figure}
 			
 			\eject 
 		
 		
 		\section{Dijagram razmještaja}
 			
-			\textbf{\textit{dio 2. revizije}}
+			%\textbf{\textit{dio 2. revizije}}
 			
-			 \textit{Potrebno je umetnuti \textbf{specifikacijski} dijagram razmještaja i opisati ga. Moguće je umjesto specifikacijskog dijagrama razmještaja umetnuti dijagram razmještaja instanci, pod uvjetom da taj dijagram bolje opisuje neki važniji dio sustava.}
+			 %\textit{Potrebno je umetnuti \textbf{specifikacijski} dijagram razmještaja i opisati ga. Moguće je umjesto specifikacijskog dijagrama razmještaja umetnuti dijagram razmještaja instanci, pod uvjetom da taj dijagram bolje opisuje neki važniji dio sustava.}
+			
+			Na poslužiteljskom računalu smješteni su web poslužitelj i poslužitelj baze podataka. Klijenti pristupaju web aplikaciji putem web preglednika. Sustav je temeljen na arhitekturi "klijent-poslužitelj", a komunikacija između računala korisnika i poslužitelja odvija se putem HTTP veze.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{dijagram_razmjestaja.JPEG}
+				\centering
+				\caption{Dijagram razmještaja}
+				\label{fig:dijagramrazmjestaja}
+			\end{figure}
 			
 			\eject 
 		
 		\section{Upute za puštanje u pogon}
+			\subsection{Konfiguracija baze podataka}
+				Pošto smo koristili SQLite bazu podataka, nema posebnog dizanja servera baze. SQLite je baza realizirana pomoću file sistema. Bazu smo već napunjenu s podacima kopirali pomoću Dockerfile-a.
+			\subsection{Izgradnja aplikacije}
+				U webapi folderu smo pokrenuli naredbu „dotnet publish -c Release -o out“, time smo izgradili backend i kreirali out folder. Zatim smo se pozicionirali u reactapp folder i tamo izveli naredbu „npm run build“. Time smo dobili izgrađeni frontend aplikacije. Nakon toga smo iz foldera dist koji se napravio naredbom „npm run build“ kopirali file-ove u folder wwwroot unutar out foldera koji se nalazi unutar webapi foldera.\\
+				Pomoću dockera smo napisali naredbe koje ce se izvršiti kod puštanja aplikacije u pogon na stranici render.com.
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{pp1.PNG}
+					\centering
+					\caption{DockerFile}
+					\label{fig:dockerfile}
+				\end{figure}
+				Unutar Dockerfile-a smo kreirali radni folder. Naredbom „COPY out/ ./“ smo rekli da se kopira cijeli out folder u trenutačni App folder, zatim smo naredbom „COPY MP7.db ./“ kopirali već napunjenu bazu podataka u App folder.\\
+				Pokretanjem aplikacije pokrenut će se App folder i sve što se u njemu nalazi, a tamo smo sve kopirali.\\
+				Puno bolji način pokretanje aplikacije u pogon je da se sve odvija unutar Dockerfile-a, to uključuje izvršavanje naredbe „dotnet publish -c Release -o out“ i naredbe „npm run build“, ali imali smo nekih poteškoća oko toga pa smo lokalno izgradili aplikaciju i takvu ju samo kopirali.
+				
+			\subsection{Deploy}
+				Deploy se radio preko stranice render.com. Na toj stranici smo povezali Github repozitorij preko kojeg se stranica pušta u pogon. Odabrali smo opciju New Web Service i ispunili potrebne podatke. Odabrali smo repozitorij s kojeg će se pustit aplikacija u pogon, izabrali granu koja će se pustiti u pogon i napisali ime stranice. Također smo izabrali opciju Dokerfile za Runtime web servisa i postavili root directory. Render.com ne podržava .NET zato smo morali koristiti Dockerfile. Nakon toga smo pustili aplikaciju u pogon.
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{pp2.PNG}
+					\centering
+					%\caption{DockerFile}
+					\label{fig:pp2}
+				\end{figure}
+			
+			%\textbf{\textit{dio 2. revizije}}\\
 		
-			\textbf{\textit{dio 2. revizije}}\\
-		
-			 \textit{U ovom poglavlju potrebno je dati upute za puštanje u pogon (engl. deployment) ostvarene aplikacije. Na primjer, za web aplikacije, opisati postupak kojim se od izvornog kôda dolazi do potpuno postavljene baze podataka i poslužitelja koji odgovara na upite korisnika. Za mobilnu aplikaciju, postupak kojim se aplikacija izgradi, te postavi na neku od trgovina. Za stolnu (engl. desktop) aplikaciju, postupak kojim se aplikacija instalira na računalo. Ukoliko mobilne i stolne aplikacije komuniciraju s poslužiteljem i/ili bazom podataka, opisati i postupak njihovog postavljanja. Pri izradi uputa preporučuje se \textbf{naglasiti korake instalacije uporabom natuknica} te koristiti što je više moguće \textbf{slike ekrana} (engl. screenshots) kako bi upute bile jasne i jednostavne za slijediti.}
+			 %\textit{U ovom poglavlju potrebno je dati upute za puštanje u pogon (engl. deployment) ostvarene aplikacije. Na primjer, za web aplikacije, opisati postupak kojim se od izvornog kôda dolazi do potpuno postavljene baze podataka i poslužitelja koji odgovara na upite korisnika. Za mobilnu aplikaciju, postupak kojim se aplikacija izgradi, te postavi na neku od trgovina. Za stolnu (engl. desktop) aplikaciju, postupak kojim se aplikacija instalira na računalo. Ukoliko mobilne i stolne aplikacije komuniciraju s poslužiteljem i/ili bazom podataka, opisati i postupak njihovog postavljanja. Pri izradi uputa preporučuje se \textbf{naglasiti korake instalacije uporabom natuknica} te koristiti što je više moguće \textbf{slike ekrana} (engl. screenshots) kako bi upute bile jasne i jednostavne za slijediti.}
 			
 			
-			 \textit{Dovršenu aplikaciju potrebno je pokrenuti na javno dostupnom poslužitelju. Studentima se preporuča korištenje neke od sljedećih besplatnih usluga: \href{https://aws.amazon.com/}{Amazon AWS}, \href{https://azure.microsoft.com/en-us/}{Microsoft Azure} ili \href{https://www.heroku.com/}{Heroku}. Mobilne aplikacije trebaju biti objavljene na F-Droid, Google Play ili Amazon App trgovini.}
+			 %\textit{Dovršenu aplikaciju potrebno je pokrenuti na javno dostupnom poslužitelju. Studentima se preporuča korištenje neke od sljedećih besplatnih usluga: \href{https://aws.amazon.com/}{Amazon AWS}, \href{https://azure.microsoft.com/en-us/}{Microsoft Azure} ili \href{https://www.heroku.com/}{Heroku}. Mobilne aplikacije trebaju biti objavljene na F-Droid, Google Play ili Amazon App trgovini.}
 			
 			
 			\eject 
