@@ -349,13 +349,36 @@
 			\eject 
 		
 		\section{Upute za puštanje u pogon}
+			\subsection{Konfiguracija baze podataka}
+				Pošto smo koristili SQLite bazu podataka, nema posebnog dizanja servera baze. SQLite je baza realizirana pomoću file sistema. Bazu smo već napunjenu s podacima kopirali pomoću Dockerfile-a.
+			\subsection{Izgradnja aplikacije}
+				U webapi folderu smo pokrenuli naredbu „dotnet publish -c Release -o out“, time smo izgradili backend i kreirali out folder. Zatim smo se pozicionirali u reactapp folder i tamo izveli naredbu „npm run build“. Time smo dobili izgrađeni frontend aplikacije. Nakon toga smo iz foldera dist koji se napravio naredbom „npm run build“ kopirali file-ove u folder wwwroot unutar out foldera koji se nalazi unutar webapi foldera.\\
+				Pomoću dockera smo napisali naredbe koje ce se izvršiti kod puštanja aplikacije u pogon na stranici render.com.
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{pp1.PNG}
+					\centering
+					\caption{DockerFile}
+					\label{fig:dockerfile}
+				\end{figure}
+				Unutar Dockerfile-a smo kreirali radni folder. Naredbom „COPY out/ ./“ smo rekli da se kopira cijeli out folder u trenutačni App folder, zatim smo naredbom „COPY MP7.db ./“ kopirali već napunjenu bazu podataka u App folder.\\
+				Pokretanjem aplikacije pokrenut će se App folder i sve što se u njemu nalazi, a tamo smo sve kopirali.\\
+				Puno bolji način pokretanje aplikacije u pogon je da se sve odvija unutar Dockerfile-a, to uključuje izvršavanje naredbe „dotnet publish -c Release -o out“ i naredbe „npm run build“, ali imali smo nekih poteškoća oko toga pa smo lokalno izgradili aplikaciju i takvu ju samo kopirali.
+				
+			\subsection{Deploy}
+				Deploy se radio preko stranice render.com. Na toj stranici smo povezali Github repozitorij preko kojeg se stranica pušta u pogon. Odabrali smo opciju New Web Service i ispunili potrebne podatke. Odabrali smo repozitorij s kojeg će se pustit aplikacija u pogon, izabrali granu koja će se pustiti u pogon i napisali ime stranice. Također smo izabrali opciju Dokerfile za Runtime web servisa i postavili root directory. Render.com ne podržava .NET zato smo morali koristiti Dockerfile. Nakon toga smo pustili aplikaciju u pogon.
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{pp2.PNG}
+					\centering
+					%\caption{DockerFile}
+					\label{fig:pp2}
+				\end{figure}
+			
+			%\textbf{\textit{dio 2. revizije}}\\
 		
-			\textbf{\textit{dio 2. revizije}}\\
-		
-			 \textit{U ovom poglavlju potrebno je dati upute za puštanje u pogon (engl. deployment) ostvarene aplikacije. Na primjer, za web aplikacije, opisati postupak kojim se od izvornog kôda dolazi do potpuno postavljene baze podataka i poslužitelja koji odgovara na upite korisnika. Za mobilnu aplikaciju, postupak kojim se aplikacija izgradi, te postavi na neku od trgovina. Za stolnu (engl. desktop) aplikaciju, postupak kojim se aplikacija instalira na računalo. Ukoliko mobilne i stolne aplikacije komuniciraju s poslužiteljem i/ili bazom podataka, opisati i postupak njihovog postavljanja. Pri izradi uputa preporučuje se \textbf{naglasiti korake instalacije uporabom natuknica} te koristiti što je više moguće \textbf{slike ekrana} (engl. screenshots) kako bi upute bile jasne i jednostavne za slijediti.}
+			 %\textit{U ovom poglavlju potrebno je dati upute za puštanje u pogon (engl. deployment) ostvarene aplikacije. Na primjer, za web aplikacije, opisati postupak kojim se od izvornog kôda dolazi do potpuno postavljene baze podataka i poslužitelja koji odgovara na upite korisnika. Za mobilnu aplikaciju, postupak kojim se aplikacija izgradi, te postavi na neku od trgovina. Za stolnu (engl. desktop) aplikaciju, postupak kojim se aplikacija instalira na računalo. Ukoliko mobilne i stolne aplikacije komuniciraju s poslužiteljem i/ili bazom podataka, opisati i postupak njihovog postavljanja. Pri izradi uputa preporučuje se \textbf{naglasiti korake instalacije uporabom natuknica} te koristiti što je više moguće \textbf{slike ekrana} (engl. screenshots) kako bi upute bile jasne i jednostavne za slijediti.}
 			
 			
-			 \textit{Dovršenu aplikaciju potrebno je pokrenuti na javno dostupnom poslužitelju. Studentima se preporuča korištenje neke od sljedećih besplatnih usluga: \href{https://aws.amazon.com/}{Amazon AWS}, \href{https://azure.microsoft.com/en-us/}{Microsoft Azure} ili \href{https://www.heroku.com/}{Heroku}. Mobilne aplikacije trebaju biti objavljene na F-Droid, Google Play ili Amazon App trgovini.}
+			 %\textit{Dovršenu aplikaciju potrebno je pokrenuti na javno dostupnom poslužitelju. Studentima se preporuča korištenje neke od sljedećih besplatnih usluga: \href{https://aws.amazon.com/}{Amazon AWS}, \href{https://azure.microsoft.com/en-us/}{Microsoft Azure} ili \href{https://www.heroku.com/}{Heroku}. Mobilne aplikacije trebaju biti objavljene na F-Droid, Google Play ili Amazon App trgovini.}
 			
 			
 			\eject 
