@@ -41,6 +41,8 @@ label{
     
     
 }
+
+
 .error-message{
     text-align: center;
     margin-top: 2%;
@@ -60,16 +62,37 @@ label{
     text-align: left;
 }
 
-@media (min-width:450px){
+.map-container{
+    display: flex;
+    justify-content: center;
+}
+
+
+@media (min-width:600px){
     .createAd-window{
         outline: solid;
         border-radius: 5%;
 
     }
     .createAd-img{
-        max-width: 10%;
-        max-height: 10vw;
+        max-width: 30%;
+        max-height: 30vw;
         
     }
+    .createAd-window{
+        height: auto;
+        width: 50vw;
+
+    }
+    
+    .color-block{
+        display: grid;
+        grid-template-rows: 13vh 13vh;
+        height: fit-content;
+        width: fit-content;
+        
+    }
+    
+
 
 }

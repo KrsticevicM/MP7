@@ -11,8 +11,8 @@
         private Dictionary<string, string> types = new Dictionary<string, string>()
         {
             {"photoID", "int"},
-            {"adID", "int"},
-            {"photo", "string"}
+            {"photo", "string"},
+            {"adID", "int"}
         };
         private readonly string _id = "photoAd";
         public int photoID { get; set; }

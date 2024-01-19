@@ -41,23 +41,23 @@ function Registration(){
             
             setError("Password mora imati barem 6 znaka")
             return
-        }else if(!(submission.email.includes("@"))){
+        }else if(!(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(submission.email))){
             
             setError("Nevaljan email")
             return
-        }else if(!(isNaN(submission.phoneNumber) === false) || submission.phoneNumber.length<7){
+        }else if(!(isNaN(submission.phoneNumber) === false) || submission.phoneNumber.length!=10){
             
             setError("Nevaljan broj telefona")
              return
-        }else if(!(/^[a-zA-Z]+$/.test(submission.firstName))){
+        }else if(!(/^[a-zA-ZšŠđĐčČćĆžŽ\s]+$/.test(submission.firstName))){
             
             setError("Nevaljano ime")
             return
-        }else if(!(/^[a-zA-Z]+$/.test(submission.lastName))){
+        }else if(!(/^[a-zA-ZšŠđĐčČćĆžŽ\s]+$/.test(submission.lastName))){
             
             setError("Nevaljano prezime")
             return
-        }else if(!(/^[a-zA-Z]+$/.test(submission.shelterName))){
+        }else if(!(/^[a-zA-ZšŠđĐčČćĆžŽ\s]+$/.test(submission.shelterName))){
             
             setError("Nevaljani naziv skloništa")
             return

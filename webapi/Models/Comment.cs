@@ -7,24 +7,27 @@
             textID,
             photoCom,
             textCom,
-            locCom,
+            latCom,
+            lonCom,
             adID,
             userID
         }
         private Dictionary<string, string> types = new Dictionary<string, string>()
         {
-            {"textID", "string"},
+            {"textID", "int"},
             {"photoCom", "string"},
             {"textCom", "string"},
-            {"locCon", "string"},
+            {"latCom", "string"},
+            {"lonCom", "string"},
             {"adID", "int"},
             {"userID", "int"}
         };
-        private readonly string _id = "Comment";
+        private readonly string _id = "Communication";
         public int textID { get; set; }
         public string? photoCom{ get; set; }
         public string? textCom { get; set; }
-        public string? locCom { get; set; }
+        public string? latCom { get; set; }
+        public string? lonCom { get; set; }
         public int adID { get; set; }
         public int userID { get; set; }
         public Comment() { }

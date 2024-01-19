@@ -1,0 +1,43 @@
+
+@media only screen and (max-width: 1024px) {
+    .comment-image {
+        border-top-right-radius: 10px;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    .comment-image {
+        border-bottom-left-radius: 10px;
+    }
+
+    .comment-info-div {
+        margin-left: 3rem;
+    }
+}
+
+.comment-username {
+    font-style: normal;
+    font-weight: bold;
+    color: #7F5539;
+    margin-left:1rem;
+    margin-bottom: 1.5rem;
+}
+
+.comment-container {
+    margin-left:2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.comment-image {
+    width: 15rem;
+    height: 12.5rem;
+    border-top-left-radius: 10px;
+}
+
+.user-info {
+    font-style: normal;
+    font-weight: bold;
+    color: #7F5539;
+}

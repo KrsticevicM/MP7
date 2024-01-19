@@ -46,11 +46,18 @@ function Login(){
             console.log(text)
             if (!text.firstName){
                 text.firstName = text.nameShelter
+                updateUser({isShelter: true})
             }
             if (!text.lastName){
                 text.lastName = ""
             }
-            updateUser({userID: text.userID,isAuth:true, firstName: text.firstName.toUpperCase(), lastName: text.lastName.toUpperCase()})
+            updateUser({
+                userID: text.userID,
+                isAuth:true, 
+                firstName: text.firstName.toUpperCase(), 
+                lastName: text.lastName.toUpperCase()
+            })
+            localStorage.setItem("loginValue",text.userID)
         }).catch(ex => {
             console.log(ex)
             setError("Nevaljani username ili password")

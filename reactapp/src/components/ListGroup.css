@@ -4,7 +4,7 @@
 }
 
 .pet-species-container {
-    font-size: 1.25rem;
+    font-size: 1rem;
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 5px;
@@ -54,4 +54,9 @@
     justify-content: center;
     margin-top: 15px;
     padding-right: 15px;
+}
+
+#date-time-label {
+    margin-left: 10px;
+    font-size: 1rem;
 }

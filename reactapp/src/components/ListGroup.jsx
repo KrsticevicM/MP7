@@ -1,6 +1,11 @@
 import "./Listgroup.css";
+import { useState } from 'react'
+import { Form, useParams } from 'react-router-dom'
 
-function ListGroup() {
+function ListGroup(props) {
+
+    const params = useParams();
+
   const species = [
     "Pas",
     "Mačka",
@@ -30,11 +35,60 @@ function ListGroup() {
     "4-5 god.",
     "6-10 god.",
     "> 10 god.",
-  ];
+    ];
+
+    const onTrigger = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.target)
+
+        let colorString = '';
+
+        for (let i = 0; i < colors.length; i++) {
+            if (data.get(colors[i]) != null) {
+                colorString = colorString + data.get(colors[i]) + ',';
+            }
+        }
+        colorString = colorString.substr(0, colorString.length - 1);
+        console.log(colorString);
+
+        let petAge = data.get('pet-age')
+
+        if (petAge == null) {
+            petAge = "";
+        }
+
+        var date = "";
+        if (data.get('date') != "") {
+            date = data.get('date').split('-');
+            var day = date[2];
+            var month = date[1];
+            if (day[0] == 0) {
+                day = day[1];
+            } 
+            if (month[0] == 0) {
+                month = month[1]
+            }
+            date = day + "-" + month + "-" + date[0] + "T00:00";
+        }
+
+        const submission = {
+            "Data": [{
+                "species": data.get('pet-species'),
+                "namePet": data.get('pet-name'),
+                "dateHourMis": date,
+                "location": data.get('location-city'),
+                "color": colorString,
+                "age": petAge,
+            }]
+        }
+        props.parentCallback(
+            submission  
+        );
+    };
 
   return (
     <>
-      <form>
+          <Form onSubmit={onTrigger}>
         <div className="pet-species-container">
           <label htmlFor="pet-species">Vrsta:</label>
           <select className="pet-species" name="pet-species" id="pet-species">
@@ -57,12 +111,13 @@ function ListGroup() {
         </div>
         <div className="date-time-input">
           <label>
-            Datum i vrijeme nestanka:
-            <input
-              className="datetime-input"
-              type="datetime-local"
-              name="date-time"
-            />
+            Datum nestanka:
+                      <input
+                          type="date"
+                          className="datetime-input"
+                          id="datum-nestanka"
+                          name='date'
+                      ></input>
           </label>
         </div>
         <div className="form-floating mb-3">
@@ -75,16 +130,7 @@ function ListGroup() {
           />
           <label htmlFor="location-city">Grad nestanka</label>
         </div>
-        <div className="form-floating mb-3">
-          <input
-            type="name"
-            className="form-control"
-            id="location-street"
-            name="location-street"
-            placeholder="Ulica nestanka"
-          />
-          <label htmlFor="location-street">Ulica nestanka</label>
-        </div>
+
         <div className="pet-color">
           <h1 className="pet-color-header">Boja ljubimca</h1>
           <ul className="list-group">
@@ -94,7 +140,7 @@ function ListGroup() {
                   className="form-check-input me-1"
                   type="checkbox"
                   value={color}
-                  name="pet-color"
+                  name={color }
                   id={color}
                 />
                 <label
@@ -130,11 +176,11 @@ function ListGroup() {
           </ul>
         </div>
         <div className="btnFilter-container">
-          <button type="submit" className="btn btn-light">
+          <button type="submit" className="btn btn-light" id="btn">
             Pretraži
           </button>
         </div>
-      </form>
+      </Form>
     </>
   );
 }
