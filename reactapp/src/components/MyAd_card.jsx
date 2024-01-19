@@ -13,7 +13,7 @@ function MyAd_card(props) {
         })
             .then((res) => {
                 if (res.ok) {
-                    navigate("/moji-oglasi");
+                    window.location.reload(false)
                 }
             }) 
     };

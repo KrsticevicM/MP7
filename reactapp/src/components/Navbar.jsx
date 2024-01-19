@@ -19,6 +19,7 @@ function Navbar() {
       firstName: '',
       lastName: '',
     })
+    localStorage.removeItem("loginValue")
       navigate("/")
   }
 

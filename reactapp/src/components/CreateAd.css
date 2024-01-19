@@ -87,7 +87,7 @@ label{
     
     .color-block{
         display: grid;
-        grid-template-rows: 12vh 12vh;
+        grid-template-rows: 13vh 13vh;
         height: fit-content;
         width: fit-content;
         

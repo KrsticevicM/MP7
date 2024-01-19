@@ -74,13 +74,12 @@ public class MainController : ControllerBase
 
     [HttpGet(Name = "Auth")]
     [Route("auth")]
-    public string Authentication([FromQuery] string userID)
+    public string Authentication([FromQuery] int id)
     {
         Dictionary<string, List<Object>> result = new Dictionary<string, List<Object>>();
         Expression where = new Expression();
 
-        dynamic data = JObject.Parse(userID);
-        string id = data.userID;
+        
         where.addElement((Object)"userID", Expression.OP.EQUAL);
         where.addElement((Object)id, Expression.OP.None);
         result = DatabaseFunctions.read(new User(), new List<Table> { new Regular() }, new List<DatabaseFunctions.joinType> { DatabaseFunctions.joinType.Natural}, where);
@@ -550,16 +549,16 @@ public class MainController : ControllerBase
         Dictionary<string, int> colorDic = new Dictionary<string, int>()
         {
             { "crna", 1 },
-            { "smeða", 2 },
+            { "smeï¿½a", 2 },
             { "siva", 3 },
-            { "žuta", 4 },
+            { "ï¿½uta", 4 },
             { "zelena", 5 },
             { "crvena", 6 },
-            { "naranèasta", 7 },
-            { "ljubièasta", 8 },
+            { "naranï¿½asta", 7 },
+            { "ljubiï¿½asta", 8 },
             { "plava", 9 },
             { "bijela", 10 },
-            { "šarena", 11 }
+            { "ï¿½arena", 11 }
         };
 
         /* Delete existing colors */

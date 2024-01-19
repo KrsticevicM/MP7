@@ -57,6 +57,7 @@ function Login(){
                 firstName: text.firstName.toUpperCase(), 
                 lastName: text.lastName.toUpperCase()
             })
+            localStorage.setItem("loginValue",text.userID)
         }).catch(ex => {
             console.log(ex)
             setError("Nevaljani username ili password")

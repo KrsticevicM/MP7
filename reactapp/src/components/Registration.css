@@ -58,7 +58,7 @@ label{
     
 }
 
-@media (min-width:450px){
+@media (min-width:600px){
     .registration-window{
         outline: solid;
         border-radius: 5%;
