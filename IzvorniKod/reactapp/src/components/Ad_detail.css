@@ -5,11 +5,11 @@
     }
 
     .ads-detail-container {
-        grid-column: 1 / span 4;
+        grid-column: 1 / span 7;
     }
 
     .pet-image-container {
-        grid-column: 1 / span 6;
+        grid-column: 1 / span 7;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
     }
@@ -30,11 +30,8 @@
 }    
 
 @media only screen and (min-width: 1025px) {
-    .left-detail-categories {
-        grid-column: 1;
-    }
     .ads-detail-container {
-        grid-column: 2 / span 3;
+        grid-column: 2 / span 5;
     }
     .pet-image-container {
         grid-column: 1 / span 2;
@@ -46,7 +43,7 @@
         grid-column: 3 / span 4;
         border-top-right-radius: 15px;
         border-bottom-right-radius: 15px;
-        height: 52.5vh;
+        height: 61.5vh;
     }
 
     .pet-info-container-left {
@@ -64,7 +61,7 @@
     margin: 0px;
     z-index: 2;
     display: grid;
-    grid-template-columns: 2fr 2fr 2fr 2fr;
+    grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
     background-color: white;
     width: 100vw;
     font-family: "Josefin Sans", sans-serif;
@@ -99,7 +96,7 @@
 }
 
 .pet-image-container {
-    height: 52.5vh;
+    height: 61.5vh;
     overflow: hidden;
     background-color: #E6CCB2;
     display: flex;
@@ -119,7 +116,6 @@
 
 .comment-section-container {
     grid-column: 1 / span 6;
-    height: 50vh;
     background-color: #EDE0D4;
     border-radius: 15px;
     text-align: left;
@@ -162,4 +158,10 @@
     font-style: normal;
     font-weight: bold;
     color: #7F5539;
+}
+
+.leaflet-container {
+    width: 15rem;
+    height: 12.5rem;
+    margin-bottom: 1rem;
 }

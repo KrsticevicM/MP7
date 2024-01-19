@@ -1,15 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import "./Ad_detail.css";
 import ListGroup from "./ListGroup";
 import { useParams } from "react-router-dom";
+import Map from './Map.jsx';
+import { AuthContext } from "./AuthenticationContext";
+import { useNavigate } from 'react-router-dom'
+import NewComment from './NewComment.jsx'
+import Comment from './Comment.jsx'
+  
 
 function Ad_detail() {
-    const params = useParams();
-    console.log(params);
 
+    let keyCounter = 0;
+
+    const params = useParams();
+
+    const navigate = useNavigate()
+
+    const { user, updateUser } = useContext(AuthContext)
+
+    const [isPending, setPending] = useState(true);
+    const [addButton, setAddButton] = useState(true);
+    const [addComment, setAddComment] = useState(false);
     const [colors, setColors] = useState('');
     const [images, setImages] = useState([]);
     const [firstImage, setFirstImage] = useState('');
+
+    const [comments, setComments] = useState(false);
 
     const [the_ad, setTheAd] = useState([
         {
@@ -21,12 +38,16 @@ function Ad_detail() {
             dateHourMis: "",
             description: "",
             location: "",
+            lat: "",
+            lon: "",
             namePet: "",
             petID: "",
             photo: "",
             photoID: "",
             species: "",
             userID: "",
+            email: "",
+            phoneNum: ""
         },
     ]);
 
@@ -41,7 +62,11 @@ function Ad_detail() {
                 var color_string = '';
                 var flag1 = 0;
                 const findAd = data.Data.filter((ad) => ad.adID == params.id);
+                if(findAd[0]===undefined){
+                    return navigate("/")
+                }
                 setTheAd(findAd[0]);
+                console.log(findAd[0])
                 findAd.map((element) => {
                     if (!colors_arr.includes(element.color)) {
                         colors_arr.push(element.color);
@@ -61,26 +86,48 @@ function Ad_detail() {
                 setColors(color_string);
                 setImages(images_arr);
                 window.scrollTo(0, 0);
+                return findAd[0];
+            }).then(() => fetch('main/comment_data?adID=' + params.id)).then(res => {
+                return res.json();
+            }).then(data => {
+                
+                if (data.Data.length != 0) {
+                    setComments(data.Data);
+                    setPending(false);
+                } else {
+                    setPending(false);
+                }
+                
+            }).catch(()=>{
+                console.log("error")
             })
+            
+            
+              
     }, []);
+
+
+    function changeCommentState() {
+        setAddButton(true);
+        setAddComment(false);
+    }
+    function checkUserAuth() {
+        if (!user.isAuth) {
+            navigate("/login")
+        }
+    }
 
     return (
         <div className="home-detail-container">
-            <div className="left-detail-categories">
-                <h1 className="search-heading">Pretraživanje</h1>
-                <div className="categories-detail-container">
-                    <ListGroup />
-                </div>
-            </div>
             <div className="ads-detail-container">
                 <div className="pet-image-container">
                     <div id="carouselExample" className="carousel slide">
                         <div className="carousel-inner">
-                            <div className="carousel-item active" key="image">
+                            <div className="carousel-item active" key={keyCounter}>
                                 <img src={"data:image/png;base64," + firstImage} className="d-block w-100" alt="..." />
                             </div>
-                            {images && images.map((image) => (
-                                <div className="carousel-item" key="image">
+                            {images && images.map((image, keyCounter) => (
+                                <div className="carousel-item" key={keyCounter+1}>
                                     <img src={"data:image/png;base64,"+image} className="d-block w-100" alt="..." />
                                 </div>
                             ))}
@@ -128,29 +175,41 @@ function Ad_detail() {
                         <p>
                             <i className="category-style">Lokacija nestanka:</i>
                         </p>
-                        <iframe
-                            width="250"
-                            height="200"
-                            src="https://www.openstreetmap.org/export/embed.html?bbox=15.191345214843752%2C45.45627757127799%2C16.476745605468754%2C46.12560451043768&amp;layer=mapnik"
-                            style={{ border: "0" }}
-                        ></iframe>
+                        <Map latitude={the_ad.lat} longitude={the_ad.lon} display_name={the_ad.location} />
                         <p>
                             <i className="category-style">Kontakt</i>
                         </p>
                         <p>
                             <i className="category-style">email: </i>
-                            filip.smolic.zadar@gmail.com
+                            {the_ad.email}
                         </p>
                         <p>
-                            <i className="category-style">mob: </i>
-                            0989175125
+                            <i className="category-style">Broj mobitela: </i>
+                            {the_ad.phoneNum}
                         </p>
                     </div>
                 </div>
                 <div className="comment-section-container">
                     <h1>Komentari</h1>
                     <hr />
-                    <p>Nema komentara</p>
+                    {isPending && <p>Učitavanje komentara...</p> }
+                    {(!comments && !isPending) && <p>Nema komentara</p>}
+                    {addButton && <button className="btn btn-light" id="add-button" onClick={() => { setAddComment(true); setAddButton(false); checkUserAuth(); }}>
+                        Dodaj komentar <i className="bi bi-plus-lg"></i>
+                    </button>}
+                    {(addComment && user.isAuth) && < NewComment username={user.firstName + ' ' + user.lastName} change={changeCommentState} />}
+                    {comments && comments.map((comment,keyCounter) => (
+                        <Comment
+                            userName={comment.userName}
+                            textCom={comment.textCom}
+                            photoCom={comment.photoCom}
+                            phoneNum={comment.phoneNum}
+                            email={comment.email}
+                            lat={comment.latCom}
+                            lon={comment.lonCom}
+                            key={keyCounter + 1}
+                        />
+                    ))}
                 </div>
             </div>
         </div>
