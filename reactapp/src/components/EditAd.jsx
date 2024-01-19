@@ -112,7 +112,7 @@ export const EditAd = () => {
 
         var dateString = state.dateHourMis.split(' ')[0];
         dateString = dateString.split('.');
-        const dt = new Date(dateString[2], dateString[1], dateString[0]);
+        const dt = new Date(dateString[2], dateString[0], dateString[1]);
         const day = ("0" + dt.getDate()).slice(-2);
         const month = ("0" + (dt.getMonth())).slice(-2);
         const date = dt.getFullYear() + "-" + month + "-" + day;
