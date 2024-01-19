@@ -23,6 +23,11 @@ export const EditAd = () => {
 
     const [mapData, setMapData] = useState(false);
 
+
+    if (!user.isAuth) {
+        navigate("/")
+    }
+
     const species = [
         "Pas",
         "Mačka",
@@ -87,11 +92,18 @@ export const EditAd = () => {
         const blob = new Blob(byteArrays, { type: contentType });
         return blob;
     }
-
+    useEffect(()=>{
+        if (!user.isAuth) {
+            navigate("/")
+        }
+    },[])
 
     useEffect(() => {
 
         console.log(state);
+        if(state==null){
+            return
+        }
 
         var speciesSelect = document.getElementById("vrsta");
         speciesSelect.options[species.indexOf(state.species)].selected = true;
@@ -264,6 +276,8 @@ export const EditAd = () => {
         })
 
     }
+    
+    
 
     return (
 
@@ -292,6 +306,7 @@ export const EditAd = () => {
 
                 <div className="form-group">
                     <label htmlFor="ime">Ime</label>
+                    {state &&
                     <input type="text"
                         className="form-control"
                         id="ime"
@@ -299,7 +314,7 @@ export const EditAd = () => {
                         required
                         placeholder="Ime na koje se odziva"
                         defaultValue={state.namePet }
-                    />
+                    />}
                 </div>
 
                 <div className="form-group">
@@ -412,14 +427,14 @@ export const EditAd = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="grad-nestanka">Grad nestanka</label>
-                    <input type="text"
+                    {state && <input type="text"
                         className="form-control"
                         id="grad-nestanka"
                         name="grad-nestanka"
                         required
                         placeholder="Ime grada nestanka"
                         defaultValue={state.location }
-                    />
+                    />}
                 </div>
                 <div className="map-container">
                     <MapContainer center={[44.515399, 16]} zoom={5.4} scrollWheelZoom={true} > {/* omit onClick */}

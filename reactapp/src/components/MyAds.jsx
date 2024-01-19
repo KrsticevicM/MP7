@@ -1,6 +1,6 @@
 import MyAd_card from "./MyAd_card";
 import "./MyAds.css";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "./AuthenticationContext";
 
@@ -9,8 +9,14 @@ function MyAds() {
     const { user, updateUser } = useContext(AuthContext)
     const [ads, setAds] = useState()
     const [isPending, setPending] = useState(true)
+    const navigate = useNavigate()
+
+    
 
     useEffect(() => {
+        if (!user.isAuth) {
+            navigate("/")
+        }
         fetch('main/frontpagedata')
             .then(res => {
                 return res.json();

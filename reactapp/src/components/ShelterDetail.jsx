@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import "./ShelterDetail.css"
-import { Link, useLoaderData, useParams } from 'react-router-dom'
+import { Link, redirect, useLoaderData, useNavigate, useParams } from 'react-router-dom'
 import Ad_card from './Ad_card'
 
 function ShelterDetail() {
 
   const data = useLoaderData()
   const {id} = useParams()
+  const navigate = useNavigate()
+
+  
 
   const shelterData=data.ShelterDetail.filter(shelter=>{ 
     return shelter.userID==id
   })[0]
-  
   const update_ads = [];
   const ad_ids = []
   data.Ads.Data.map((ad) => {
@@ -24,15 +26,26 @@ function ShelterDetail() {
   const shelterAds=update_ads.filter(ad=>{
     return ad.userID==id
   })
+  useEffect(()=>{
+    if(shelterData===undefined){
+      return navigate("/")
+    }
+  },[])
     
+  
+  
   
 
   return (
 
     <div className='shelter-container'>
+      {shelterData && 
+      <>
         <h1>{shelterData.nameShelter}</h1>
         <div>Email: {shelterData.email}</div>
         <div>Broj telefona: {shelterData.phoneNum}</div>
+        </>
+        }
         
         <div className="ads-container">
           <div className="ads-container2">

@@ -18,8 +18,6 @@ export const NewAd = () => {
   const [lng,setLng]=useState()
   const [color,setColor]=useState("")
 
-  
-
   const species = [
     "Pas",
     "Mačka",
@@ -61,7 +59,9 @@ export const NewAd = () => {
 
   useEffect(()=>{
 
-    
+    if (!user.isAuth) {
+      navigate("/")
+    }
     if(!files) return;
 
     let tmp=[]

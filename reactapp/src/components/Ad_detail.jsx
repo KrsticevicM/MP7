@@ -62,7 +62,11 @@ function Ad_detail() {
                 var color_string = '';
                 var flag1 = 0;
                 const findAd = data.Data.filter((ad) => ad.adID == params.id);
+                if(findAd[0]===undefined){
+                    return navigate("/")
+                }
                 setTheAd(findAd[0]);
+                console.log(findAd[0])
                 findAd.map((element) => {
                     if (!colors_arr.includes(element.color)) {
                         colors_arr.push(element.color);
@@ -86,7 +90,7 @@ function Ad_detail() {
             }).then(() => fetch('main/comment_data?adID=' + params.id)).then(res => {
                 return res.json();
             }).then(data => {
-                console.log(data.Data);
+                
                 if (data.Data.length != 0) {
                     setComments(data.Data);
                     setPending(false);
@@ -94,7 +98,12 @@ function Ad_detail() {
                     setPending(false);
                 }
                 
+            }).catch(()=>{
+                console.log("error")
             })
+            
+            
+              
     }, []);
 
 

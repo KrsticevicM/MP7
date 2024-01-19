@@ -68,7 +68,7 @@ function App() {
     }
 
     useEffect(()=>{
-        if(localStorage.getItem("loginValue")){
+        if(localStorage.getItem("loginValue") && user.isAuth==false){
         
             fetch(`main/auth?id=${localStorage.getItem("loginValue")}`
             ).then((res)=>{
