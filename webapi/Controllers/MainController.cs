@@ -549,16 +549,16 @@ public class MainController : ControllerBase
         Dictionary<string, int> colorDic = new Dictionary<string, int>()
         {
             { "crna", 1 },
-            { "sme�a", 2 },
+            { "smeđa", 2 },
             { "siva", 3 },
-            { "�uta", 4 },
+            { "žuta", 4 },
             { "zelena", 5 },
             { "crvena", 6 },
-            { "naran�asta", 7 },
-            { "ljubi�asta", 8 },
+            { "narančasta", 7 },
+            { "ljubičasta", 8 },
             { "plava", 9 },
             { "bijela", 10 },
-            { "�arena", 11 }
+            { "šarena", 11 }
         };
 
         /* Delete existing colors */
