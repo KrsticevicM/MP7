@@ -28,7 +28,122 @@
 			
 			Ispitivanje jedinica podrazumijeva ispitivanje funkcionalnosti najmanjih dijelova programa kao što su razredi, pripadajuće metode i atributi.
 			
+				\noindent \underbar{\textbf{Ispitni slučaj 1.: Unos imena}}\\
+			\textbf{Ulaz: }	
+			\begin{packed_enum}
+				\item Korisnik unosi ispravno ime
+				\item Korisnik unosi ispravno ime koje sadrži dijakritičke znakove
+				\item Korisnik unosi ime koje sadrži broj
+				\item Korisnik unosi ime koje sadrži nedopuštene simbole
+				
+			\end{packed_enum}
 			
+			\noindent \textbf{Očekivani rezultat:}
+			
+			\begin{packed_enum}
+				\item Provjera je uspješna i ime je valjano
+				\item Provjera je uspješna i ime je valjano
+				\item Sustav javlja da ime nije valjano
+				\item Sustav javlja da ime nije valjano
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Rezultat:}\\
+			Testovi su zadovoljeni, aplikacija je prošla test.\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{1test_1_ime.JPEG}
+				\centering
+				\caption{Test ispravnosti imena kod registracije}
+				\label{fig:testime}
+			\end{figure}
+			
+			\noindent \underbar{\textbf{Ispitni slučaj 2.: Unos prezimena}}\\
+			\textbf{Ulaz: }	
+			\begin{packed_enum}
+				\item Korisnik unosi ispravno prezime
+				\item Korisnik unosi ime koje sadrži broj
+				\item Korisnik unosi ime koje sadrži nedopuštene simbole
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Očekivani rezultat:}
+			
+			\begin{packed_enum}
+				\item Provjera je uspješna i prezime je valjano
+				\item Sustav javlja da prezime nije valjano
+				\item Sustav javlja da prezime nije valjano
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Rezultat:}\\
+			Testovi su zadovoljeni, aplikacija je prošla test.\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{1test_1_prezime.JPEG}
+				\centering
+				\caption{Test ispravnosti prezimena kod registracije}
+				\label{fig:testprezime}
+			\end{figure}
+			
+			\noindent \underbar{\textbf{Ispitni slučaj 3.: Unos broja telefona}}\\
+			\textbf{Ulaz: }	
+			\begin{packed_enum}
+				\item Korisnik unosi ispravan broj mobitela
+				\item Korisnik unosi slova i/ili simbole
+				\item Korisnik unosi broj s crticama
+				\item Korisnik unosi broj s razmacima
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Očekivani rezultat:}
+			
+			\begin{packed_enum}
+				\item Provjera je uspješna i broj mobitela je valjan
+				\item Sustav javlja da broj mobitela nije valjan
+				\item Sustav javlja da broj mobitela nije valjan
+				\item Sustav javlja da broj mobitela nije valjan
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Rezultat:}\\
+			Testovi su zadovoljeni, aplikacija je prošla test.\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{1test_1_broj.JPEG}
+				\centering
+				\caption{Test ispravnosti broja mobitela kod registracije}
+				\label{fig:testbroj}
+			\end{figure}
+			
+			\noindent \underbar{\textbf{Ispitni slučaj 4.: Unos e-mail adrese}}\\
+			\textbf{Ulaz: }	
+			\begin{packed_enum}
+				\item Korisnik unosi ispravnu e-mail adresu
+				\item Korisnik unosi e-mail adresu bez simbola @
+				\item Korisnik unosi samo domenu
+				\item Korisnik unosi e-mail adresu bez domene
+				\item Korisnik unosi e-mail adresu bez ekstenzije
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Očekivani rezultat:}
+			
+			\begin{packed_enum}
+				\item Provjera je uspješna i e-mail adresa je valjana
+				\item Sustav javlja da e-mail adresa nije valjana
+				\item Sustav javlja da e-mail adresa nije valjana
+				\item Sustav javlja da e-mail adresa nije valjana
+				\item Sustav javlja da e-mail adresa nije valjana
+				
+			\end{packed_enum}
+			
+			\noindent \textbf{Rezultat:}\\
+			Testovi su zadovoljeni, aplikacija je prošla test.\\
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{1test_1_mail.JPEG}
+				\centering
+				\caption{Test ispravnosti e-mail adrese kod registracije}
+				\label{fig:testmail}
+			\end{figure}
+
 			
 			\subsection{Ispitivanje sustava}
 			
@@ -73,6 +188,12 @@
 					\caption{Neispravni login}
 					\label{fig:neuspjesnilogin}
 				\end{figure}
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{2test_login.JPEG}
+					\centering
+					\caption{Test ispravnosti prijave u sustav}
+					\label{fig:testlogin}
+				\end{figure}
 			
 			\noindent \underbar{\textbf{Ispitni slučaj 2.: Registracija}}\\
 			\textbf{Ulaz: }	
@@ -95,6 +216,12 @@
 				\centering
 				\caption{Uspješna registracija}
 				\label{fig:uspjesnaregistracija}
+			\end{figure}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{2test_registration_1.JPEG}
+				\centering
+				\caption{Test ispravnosti registracije u sustav}
+				\label{fig:testregistracija}
 			\end{figure}
 			
 			\noindent \underbar{\textbf{Ispitni slučaj 3.: Filtriranje oglasa}}\\
@@ -119,6 +246,12 @@
 				\caption{Uspješno filtriranje oglasa}
 				\label{fig:uspjesanfilter}
 			\end{figure}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{2test_filter.JPEG}
+				\centering
+				\caption{Test ispravnosti filtriranja oglasa}
+				\label{fig:testfilter}
+			\end{figure}
 			
 			\noindent \underbar{\textbf{Ispitni slučaj 4.: Objavljivanje oglasa}}\\
 			\textbf{Ulaz: }	
@@ -142,6 +275,18 @@
 				\caption{Uspješno objavljivanje oglasa}
 				\label{fig:uspjesnoobjavljivanjeoglasa}
 			\end{figure}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{2test_postad_1.JPEG}
+				\centering
+				\caption{Test ispravnosti objavljivanja oglasa}
+				\label{fig:testpostad1}
+			\end{figure}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{2test_postad_2.JPEG}
+				\centering
+				\caption{Test ispravnosti objavljivanja oglasa}
+				\label{fig:testpostad2}
+			\end{figure}
 			
 			\noindent \underbar{\textbf{Ispitni slučaj 5.: Komentiranje oglasa}}\\
 			\textbf{Ulaz: }	
@@ -164,6 +309,12 @@
 				\centering
 				\caption{Komentiranje oglasa bez prijave}
 				\label{fig:komentiranjeoglasabezprijave}
+			\end{figure}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{2test_postcomment.JPEG}
+				\centering
+				\caption{Test ispravnosti komentiranja oglasa}
+				\label{fig:testkomentar}
 			\end{figure}
 			
 			\eject 
