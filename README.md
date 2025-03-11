@@ -1,5 +1,5 @@
 # PROGI2023
-Project - Missing Pets
+A web application that allows to publish ads about lost pets. Made as a university project.
 
 ## Description
 This project was developed as part of a university course called **Software Engineering**. It is a **group project** consisting of **7 members**, and the goal was to create a **web application** for publishing ads about lost animals. The platform allows users to post, search, and manage ads for lost or found pets, helping reunite them with their owners.
